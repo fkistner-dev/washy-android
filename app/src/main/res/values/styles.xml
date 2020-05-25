@@ -31,6 +31,13 @@
         <item name="fontFamily">@font/roboto_black</item>
     </style>
 
+    <style name="WashyText.Header.Price">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_sub_header</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="fontFamily">@font/roboto_black</item>
+    </style>
+
     <style name="WashyText.SubHeader">
         <item name="android:textStyle">bold|italic</item>
         <item name="android:textSize">@dimen/text_sub_header</item>

@@ -9,6 +9,10 @@
     <string name="mockup_data_subtitle_total_wash">Usage de rouleaux compresseurs !</string>
     <string name="mockup_data_lorem_ipsum">Lorem Elsass ipsum ac s\'guelt Spätzle et wurscht Racing</string>
 
+    <string name="mockup_data_fictive_price">119.99 €</string>
+    <string name="mockup_data_fictive_km">42,1 km</string>
+    <string name="mockup_data_fictive_address">10 rue Léon Ungemach, 67300 Schiltigheim</string>
+
     <!-- Feed -->
     <string name="mockup_data_feed_total_wash">Promotion exceptionnelle pour le déconfinement!</string>
     <string name="mockup_data_feed_image_description">image d\'enseigne</string>
