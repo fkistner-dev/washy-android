@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Washy</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="title_activity_maps">Map</string>
+
+    <!-- UI -->
+    <string name="navigation_drawer_open">Open nav drawer</string>
+    <string name="navigation_drawer_close">Close nav drawer</string>
+
+    <!-- Fragment -->
+    <string name="rgpd_title">RGPD</string>
+    <string name="row_dealer_text_start_price">à partir de</string>
+    <string name="designed_by_text">Designed by KiloMobi</string>
+</resources>

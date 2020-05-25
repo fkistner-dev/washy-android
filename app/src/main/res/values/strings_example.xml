@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Mockup Data -->
+    <string name="mockup_data_title_jl_lavage">JL Lavage</string>
+    <string name="mockup_data_title_presti_lav_auto">Presti Lavage Auto</string>
+    <string name="mockup_data_title_total_wash">Total Wash</string>
+    <string name="mockup_data_subtitle_jl_lavage">"100\% fais main</string>
+    <string name="mockup_data_subtitle_presti_lav_auto">Entre l\'industriel et l\'artisanal</string>
+    <string name="mockup_data_subtitle_total_wash">Usage de rouleaux compresseurs !</string>
+    <string name="mockup_data_lorem_ipsum">Lorem Elsass ipsum ac s\'guelt Spätzle et wurscht Racing</string>
+
+    <!-- Feed -->
+    <string name="mockup_data_feed_total_wash">Promotion exceptionnelle pour le déconfinement!</string>
+    <string name="mockup_data_feed_image_description">image d\'enseigne</string>
+</resources>

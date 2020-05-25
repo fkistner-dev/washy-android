@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrey50">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:contentDescription="@string/mockup_data_feed_image_description" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="@dimen/text_header"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:padding="30dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:indeterminateTint="@color/black"/>
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="200dp"
+        android:padding="15dp"
+        android:text="@string/designed_by_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_small"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+</LinearLayout>

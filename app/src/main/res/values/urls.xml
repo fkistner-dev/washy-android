@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tos_url">https://washy.flycricket.io/terms.html</string>
+    <string name="privacy_url">https://washy.flycricket.io/privacy.html</string>
+</resources>

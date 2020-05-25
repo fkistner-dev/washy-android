@@ -1,0 +1,115 @@
+package com.kilomobi.washy.dealer
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.kilomobi.washy.R
+import com.kilomobi.washy.recycler.RecyclerItem
+import com.kilomobi.washy.adapter.AdapterClick
+import com.kilomobi.washy.adapter.AdapterListener
+import com.kilomobi.washy.db.dealer.Dealer
+import kotlinx.android.synthetic.main.fragment_list_dealer.*
+
+class DealerListFragment : Fragment(),
+    AdapterListener {
+
+    private val listAdapter by lazy {
+        DealerAdapter(
+            this
+        )
+    }
+
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_list_dealer, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialize()
+    }
+
+    private fun initialize() {
+        recycler.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = listAdapter
+        }
+
+        listAdapter.submitList(ExampleDealerData.createList())
+    }
+
+    override fun listen(click: AdapterClick?) {
+        listAdapter.selectedItemPosition = (click as Dealer).id?.toInt()!!
+        listAdapter.notifyDataSetChanged()
+    }
+
+    fun updateListPosition(id: Int) {
+        listAdapter.selectedItemPosition = id
+        listAdapter.notifyDataSetChanged()
+        recycler.smoothScrollToPosition(id)
+    }
+}
+
+object ExampleDealerData {
+
+    fun createList(): List<RecyclerItem> {
+        val list = ArrayList<RecyclerItem>()
+
+        list.add(
+            Dealer(
+                id = "0",
+                name = "Total Wash",
+                latitude = 48.6f,
+                longitude = 49.7f,
+                presentation = "Vous ne connaissez pas encore TOTAL Wash ? C'est l'offre de lavage auto et moto de Total présente dans près de 1000 stations-service du réseau Total.",
+                priceRange = "4,50 €",
+                rating = 2.6f
+            )
+        )
+
+        list.add(
+            Dealer(
+                id = "1",
+                name = "JL Lavage",
+                latitude = 48.2f,
+                longitude = 49.7f,
+                presentation = "JL Lavage est un établissement situé à La Wack, spécialisé dans le lavage de véhicules de luxe depuis 5 ans. Sur place, une équipe de professionnels mettant leur expérience et leur savoir-faire au service de chaque conducteur, pour rendre à chaque véhicule la splendeur de ses premiers kilomètres.",
+                priceRange = "45 €",
+                rating = 4.6f
+            )
+        )
+
+        list.add(
+            Dealer(
+                id = "2",
+                name = "LK Renov Auto",
+                latitude = 48.4f,
+                longitude = 49.7f,
+                presentation = "Profiter d’une rénovation d’optiques des phares dans un centre qualifié et spécialisé dans l’entretien et le nettoyage automobile",
+                priceRange = "12 €",
+                rating = 1f
+            )
+        )
+
+        list.add(
+            Dealer(
+                id = "3",
+                name = "MacWash",
+                latitude = 48.5f,
+                longitude = 49.7f,
+                presentation = "Texte de presentation rapide",
+                priceRange = "99 €",
+                rating = 5f
+            )
+        )
+
+        return list
+    }
+
+}

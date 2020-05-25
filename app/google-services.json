@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "980630942499",
+    "firebase_url": "https://washy-36526.firebaseio.com",
+    "project_id": "washy-36526",
+    "storage_bucket": "washy-36526.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980630942499:android:2c333ad6ad5027655e1296",
+        "android_client_info": {
+          "package_name": "com.kilomobi.washy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980630942499-0mckmn3ci1nb43200houo126h2kje761.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9VEDKcw2pMbqiEnkoWPtybWKWg19H6eg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980630942499-0mckmn3ci1nb43200houo126h2kje761.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
