@@ -1,27 +1,27 @@
-package com.kilomobi.washy.dealer
+package com.kilomobi.washy.merchant
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kilomobi.washy.R
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.adapter.AdapterListener
-import com.kilomobi.washy.db.dealer.Dealer
+import com.kilomobi.washy.db.merchant.Merchant
 import com.kilomobi.washy.recycler.Cell
 
-object DealerCell : Cell<RecyclerItem>() {
+object MerchantCell : Cell<RecyclerItem>() {
 
     override fun belongsTo(item: RecyclerItem?): Boolean {
-        return item is Dealer
+        return item is Merchant
     }
 
     override fun type(): Int {
-        return R.layout.row_dealer_item
+        return R.layout.row_merchant_item
     }
 
     override fun holder(
         parent: ViewGroup
     ): RecyclerView.ViewHolder {
-        return DealerViewHolder(
+        return MerchantViewHolder(
             parent.viewOf(
                 type()
             )
@@ -34,7 +34,7 @@ object DealerCell : Cell<RecyclerItem>() {
         selectedPosition: Int,
         listener: AdapterListener?
     ) {
-        if (holder is DealerViewHolder && item is Dealer) {
+        if (holder is MerchantViewHolder && item is Merchant) {
             holder.bind(item, selectedPosition)
             holder.itemView.setOnClickListener {
                 listener?.listen(item)

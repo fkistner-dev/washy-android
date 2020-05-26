@@ -1,4 +1,4 @@
-package com.kilomobi.washy.dealer
+package com.kilomobi.washy.merchant
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,14 +11,14 @@ import com.kilomobi.washy.Service
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
-import com.kilomobi.washy.db.dealer.Dealer
-import kotlinx.android.synthetic.main.fragment_list_dealer.*
+import com.kilomobi.washy.db.merchant.Merchant
+import kotlinx.android.synthetic.main.fragment_list_merchant.*
 
-class DealerListFragment : Fragment(),
+class MerchantListFragment : Fragment(),
     AdapterListener {
 
     private val listAdapter by lazy {
-        DealerAdapter(
+        MerchantAdapter(
             this
         )
     }
@@ -28,7 +28,7 @@ class DealerListFragment : Fragment(),
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_dealer, container, false)
+        return inflater.inflate(R.layout.fragment_list_merchant, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,11 +42,11 @@ class DealerListFragment : Fragment(),
             adapter = listAdapter
         }
 
-        listAdapter.submitList(ExampleDealerData.createList())
+        listAdapter.submitList(ExampleMerchantData.createList())
     }
 
     override fun listen(click: AdapterClick?) {
-        listAdapter.selectedItemPosition = (click as Dealer).id?.toInt()!!
+        listAdapter.selectedItemPosition = (click as Merchant).id?.toInt()!!
         listAdapter.notifyDataSetChanged()
     }
 
@@ -57,13 +57,13 @@ class DealerListFragment : Fragment(),
     }
 }
 
-object ExampleDealerData {
+object ExampleMerchantData {
 
     fun createList(): List<RecyclerItem> {
         val list = ArrayList<RecyclerItem>()
 
         list.add(
-            Dealer(
+            Merchant(
                 id = "0",
                 name = "Total Wash",
                 address = "Avenue Pierre Mendès-France, 67300 Schiltigheim",
@@ -77,7 +77,7 @@ object ExampleDealerData {
         )
 
         list.add(
-            Dealer(
+            Merchant(
                 id = "1",
                 name = "JL Lavage",
                 address = "34 Rue Principale, 67350 La Walck",
@@ -91,7 +91,7 @@ object ExampleDealerData {
         )
 
         list.add(
-            Dealer(
+            Merchant(
                 id = "2",
                 name = "LK Renov Auto",
                 address = "4 Rue du Village, 67170 Donnenheim",
@@ -105,7 +105,7 @@ object ExampleDealerData {
         )
 
         list.add(
-            Dealer(
+            Merchant(
                 id = "3",
                 name = "MacWash",
                 address = "10 Rue des Églantines, 68040 Ingersheim",

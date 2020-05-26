@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/text_right_spacing"
-                    android:text="@string/row_dealer_text_start_price"/>
+                    android:text="@string/row_merchant_text_start_price"/>
 
                 <TextView
                     android:id="@+id/price"
@@ -109,7 +109,7 @@
                 android:id="@+id/holder_services_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="end"
                 android:layout_alignParentBottom="true"
                 android:layout_toEndOf="@id/holder_price_text"
                 android:orientation="horizontal" />

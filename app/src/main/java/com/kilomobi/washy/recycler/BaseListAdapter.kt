@@ -2,7 +2,7 @@ package com.kilomobi.washy.recycler
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kilomobi.washy.dealer.DealerAdapter
+import com.kilomobi.washy.merchant.MerchantAdapter
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.BASE_DIFF_CALLBACK
 
@@ -27,6 +27,6 @@ abstract class BaseListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        cellTypes.of(item).bind(holder, item, if (this is DealerAdapter) this.selectedItemPosition else -1, listener)
+        cellTypes.of(item).bind(holder, item, if (this is MerchantAdapter) this.selectedItemPosition else -1, listener)
     }
 }

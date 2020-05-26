@@ -7,7 +7,7 @@ import com.kilomobi.washy.R
 
 class FeedViewHolder(private val feedView: View) : RecyclerView.ViewHolder(feedView) {
 
-    val name: Int = R.id.dealerText
+    val name: Int = R.id.merchantText
     val message: Int = R.id.feedText
 
     fun bind(feed: Feed) {

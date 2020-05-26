@@ -1,6 +1,6 @@
 package com.kilomobi.washy
 
-import com.kilomobi.washy.db.dealer.Dealer
+import com.kilomobi.washy.db.merchant.Merchant
 
 // Enum would imply performance issue
 class Service {
@@ -41,7 +41,7 @@ class Service {
         }
 
         fun servicesToList(services: String): List<String> {
-            return services.split(Dealer.SERVICES_DELIMITER)
+            return services.split(Merchant.SERVICES_DELIMITER)
         }
 
         fun retrieveImage(service: String): Int {

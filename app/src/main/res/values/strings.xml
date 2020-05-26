@@ -16,7 +16,7 @@
 
     <!-- Fragment -->
     <string name="rgpd_title">RGPD</string>
-    <string name="row_dealer_text_start_price">à partir de</string>
+    <string name="row_merchant_text_start_price">à partir de</string>
     <string name="designed_by_text">Designed by KiloMobi</string>
     <string name="emoji_water_droplet_text">&#128166;</string>
 </resources>

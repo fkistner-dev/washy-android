@@ -10,7 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.room.Room
 import com.kilomobi.washy.db.AppDatabase
-import com.kilomobi.washy.dealer.DealerListFragment
+import com.kilomobi.washy.merchant.MerchantListFragment
+import com.kilomobi.washy.fragment.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -62,7 +63,11 @@ class MainActivity : AppCompatActivity(), MainActivityDelegate, MapListener {
     }
 
     override fun notifyViewPagerChange(id: Int) {
-        val dealerFragment = supportFragmentManager.findFragmentByTag("dealer") as DealerListFragment
-        dealerFragment.updateListPosition(id)
+        val merchantFragment = supportFragmentManager.findFragmentByTag("merchant") as MerchantListFragment
+        merchantFragment.updateListPosition(id)
+    }
+
+    override fun notifyMapViewChange() {
+        val mapFragment = supportFragmentManager.findFragmentByTag("map") as MapFragment
     }
 }

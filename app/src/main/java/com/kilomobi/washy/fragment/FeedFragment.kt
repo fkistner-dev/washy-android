@@ -13,7 +13,7 @@ import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.feed.Feed
 import com.kilomobi.washy.feed.FeedAdapter
 import com.kilomobi.washy.recycler.RecyclerItem
-import kotlinx.android.synthetic.main.fragment_list_dealer.*
+import kotlinx.android.synthetic.main.fragment_list_merchant.*
 
 class FeedFragment : Fragment(), AdapterListener, MainActivityDelegate {
 

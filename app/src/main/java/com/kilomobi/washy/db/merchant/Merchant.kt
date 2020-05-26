@@ -1,4 +1,4 @@
-package com.kilomobi.washy.db.dealer
+package com.kilomobi.washy.db.merchant
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.recycler.RecyclerItem
 
-@Entity(tableName = Dealer.TABLE_NAME)
-data class Dealer(
+@Entity(tableName = Merchant.TABLE_NAME)
+data class Merchant(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = UID)
     val uid: Long = 0,
@@ -47,7 +47,7 @@ data class Dealer(
 //    var serviceWifi: Boolean = false
 ) : RecyclerItem, AdapterClick {
     companion object {
-        const val TABLE_NAME = "dealer"
+        const val TABLE_NAME = "merchant"
         const val UID = "uid"
         const val ID = "id"
         const val NAME = "name"

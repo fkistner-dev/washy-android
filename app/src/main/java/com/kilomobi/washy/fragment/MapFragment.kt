@@ -1,6 +1,5 @@
 package com.kilomobi.washy.fragment
 
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -21,15 +20,11 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.maps.android.ui.IconGenerator
-import com.kilomobi.washy.MainActivityDelegate
 import com.kilomobi.washy.MapListener
 import com.kilomobi.washy.R
-import kotlinx.android.synthetic.main.marker_info_layout.view.*
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -132,19 +127,16 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private fun mockPlaces() {
         val myPlace1 = LatLng(48.605, 7.73945)
         map.addMarker(MarkerOptions()
-            .icon(vectorToBitmap(R.drawable.ic_local_car_wash, Color.parseColor("#1A84BB")))
             .position(myPlace1)
             .snippet("1"))
 
         val myPlace2 = LatLng(48.596748, 7.727842)
         map.addMarker(MarkerOptions()
-            .icon(vectorToBitmap(R.drawable.ic_local_car_wash, Color.parseColor("#1A84BB")))
             .position(myPlace2)
             .snippet("2"))
 
         val myPlace3 = LatLng(48.593612, 7.749664)
         map.addMarker(MarkerOptions()
-            .icon(vectorToBitmap(R.drawable.ic_local_car_wash, Color.parseColor("#1A84BB")))
             .position(myPlace3)
             .snippet("3"))
     }
@@ -152,22 +144,5 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     override fun onMarkerClick(p0: Marker?): Boolean {
         mapListener.notifyViewPagerChange(p0!!.snippet.toInt())
         return true
-    }
-
-    /**
-     * Demonstrates converting a [Drawable] to a [BitmapDescriptor],
-     * for use as a marker icon.
-     */
-    private fun vectorToBitmap(@DrawableRes id: Int, @ColorInt color: Int): BitmapDescriptor? {
-        val vectorDrawable = ResourcesCompat.getDrawable(resources, id, null)
-        val bitmap = Bitmap.createBitmap(
-            vectorDrawable!!.intrinsicWidth,
-            vectorDrawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
-        DrawableCompat.setTint(vectorDrawable, color)
-        vectorDrawable.draw(canvas)
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 }

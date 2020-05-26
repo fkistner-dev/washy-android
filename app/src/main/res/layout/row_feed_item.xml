@@ -6,7 +6,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/dealerText"
+        android:id="@+id/merchantText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,7 +18,7 @@
         android:id="@+id/feedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dealerText"
+        android:layout_below="@+id/merchantText"
         android:layout_marginTop="5dp"
         android:text="@string/mockup_data_feed_total_wash"
         android:textColor="@android:color/black" />
