@@ -2,7 +2,7 @@ package com.kilomobi.washy.recycler
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kilomobi.washy.merchant.MerchantAdapter
+import com.kilomobi.washy.adapter.MerchantAdapter
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.BASE_DIFF_CALLBACK
 

@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.kilomobi.washy.merchant.MerchantListFragment
-import com.kilomobi.washy.feed.FeedViewPagerFragment
-import com.kilomobi.washy.MainActivityDelegate
+import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.R
 import com.kilomobi.washy.util.initToolbar
 import kotlinx.android.synthetic.main.layout_top_bar.*
@@ -42,9 +40,11 @@ class HomeFragment : Fragment() {
         val fragmentTransaction: FragmentTransaction? =
             activity?.supportFragmentManager?.beginTransaction()
 
-        fragmentTransaction?.add(R.id.listFeed, FeedViewPagerFragment(), "feed")
+        fragmentTransaction?.add(R.id.listFeed,
+            FeedViewPagerFragment(), "feed")
         fragmentTransaction?.add(R.id.listMap, MapFragment(),"map")
-        fragmentTransaction?.add(R.id.listMerchant, MerchantListFragment(), "merchant")
+        fragmentTransaction?.add(R.id.listMerchant,
+            MerchantListFragment(), "merchant")
 
         fragmentTransaction?.commit()
     }

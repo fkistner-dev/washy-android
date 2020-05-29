@@ -1,4 +1,4 @@
-package com.kilomobi.washy
+package com.kilomobi.washy.activity
 
 import androidx.appcompat.widget.Toolbar
 

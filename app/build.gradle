@@ -59,8 +59,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     // Add the Facebook SDK.
     implementation 'com.facebook.android:facebook-android-sdk:4.23.0'
-    // Secure Shared Preferences
-    implementation 'androidx.security:security-crypto:1.0.0-rc01'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
     implementation 'com.github.AppIntro:AppIntro:6.0.0'
     implementation 'com.bigkoo:svprogresshud:1.0.6'
@@ -73,6 +71,8 @@ dependencies {
     // Java language implementation
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    implementation "com.google.firebase:firebase-firestore-ktx:21.4.3"
 
     // Room Database with Rx
     implementation "androidx.room:room-runtime:2.2.5"

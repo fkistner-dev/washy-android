@@ -8,14 +8,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kilomobi.washy.*
+import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
-import com.kilomobi.washy.feed.Feed
-import com.kilomobi.washy.feed.FeedAdapter
+import com.kilomobi.washy.model.Feed
+import com.kilomobi.washy.model.FeedAdapter
 import com.kilomobi.washy.recycler.RecyclerItem
 import kotlinx.android.synthetic.main.fragment_list_merchant.*
 
-class FeedFragment : Fragment(), AdapterListener, MainActivityDelegate {
+class FeedFragment : Fragment(), AdapterListener,
+    MainActivityDelegate {
 
     private val listAdapter by lazy { FeedAdapter(this) }
 
@@ -38,7 +40,7 @@ class FeedFragment : Fragment(), AdapterListener, MainActivityDelegate {
             adapter = listAdapter
         }
 
-        listAdapter.submitList(ExampleFeedData.createList())
+//        listAdapter.submitList(ExampleFeedData.createList())
     }
 
     override fun listen(click: AdapterClick?) {
@@ -53,37 +55,34 @@ class FeedFragment : Fragment(), AdapterListener, MainActivityDelegate {
         TODO("Not yet implemented")
     }
 }
-
-object ExampleFeedData {
-
-    fun createList(): List<RecyclerItem> {
-        val list = ArrayList<RecyclerItem>()
-
-        list.add(
-            Feed(
-                id = "1",
-                name = "Total Wash",
-                message = "Promotion exceptionnelle"
-            )
-        )
-
-        list.add(
-            Feed(
-                id = "2",
-                name = "Total Wash",
-                message = "Tout pour le déconfinement !"
-            )
-        )
-
-        list.add(
-            Feed(
-                id = "3",
-                name = "Total Wash",
-                message = "Washement Propwe !"
-            )
-        )
-
-        return list
-    }
-
-}
+//
+//object ExampleFeedData {
+//
+//    fun createList(): List<RecyclerItem> {
+//        val list = ArrayList<RecyclerItem>()
+//
+//        list.add(
+//            Feed(
+//                name = "Total Wash",
+//                message = "Promotion exceptionnelle"
+//            )
+//        )
+//
+//        list.add(
+//            Feed(
+//                name = "Total Wash",
+//                message = "Tout pour le déconfinement !"
+//            )
+//        )
+//
+//        list.add(
+//            Feed(
+//                name = "Total Wash",
+//                message = "Washement Propwe !"
+//            )
+//        )
+//
+//        return list
+//    }
+//
+//}

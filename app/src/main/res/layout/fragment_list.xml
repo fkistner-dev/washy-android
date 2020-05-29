@@ -4,4 +4,4 @@
     android:id="@+id/listMerchant"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".merchant.MerchantListFragment" />
+    tools:context=".fragment.MerchantListFragment" />

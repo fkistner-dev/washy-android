@@ -1,44 +1,28 @@
-package com.kilomobi.washy.feed
+package com.kilomobi.washy.model
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.google.firebase.Timestamp
 import com.kilomobi.washy.R
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.recycler.BaseListAdapter
 import com.kilomobi.washy.recycler.Cell
+import com.kilomobi.washy.viewholder.FeedViewHolder
 import java.util.*
 
-@Entity(tableName = Feed.TABLE_NAME)
 data class Feed(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = UID)
-    val uid: Long = 0,
-    @ColumnInfo(name = ID)
-    override val id: String? = "0",
-    @ColumnInfo(name = NAME)
-    var name: String,
-    @ColumnInfo(name = MESSAGE)
-    var message: String? = null,
-    @ColumnInfo(name = IMAGE_URL)
-    var imageUrl: String? = null,
-    @ColumnInfo(name = TIMESTAMP)
-    var timestamp: Long? = Calendar.getInstance().timeInMillis
-) : RecyclerItem, AdapterClick {
-    companion object {
-        const val TABLE_NAME = "feed"
-        const val UID = "uid"
-        const val ID = "id"
-        const val NAME = "name"
-        const val MESSAGE = "message"
-        const val IMAGE_URL = "imageUrl"
-        const val TIMESTAMP = "timestamp"
-    }
-}
+    var merchantId: String = "",
+    var merchantName: String = "",
+    var text: String = "",
+    var price: Long = 0,
+    var isPromotional: Boolean = false,
+    var discount: Int = 0,
+    var photos: List<String> = listOf(),
+    var createdAt: Timestamp = Timestamp.now(),
+    var expireAt: Timestamp = Timestamp.now()
+) : RecyclerItem(), AdapterClick
 
 object FeedCell : Cell<RecyclerItem>() {
 

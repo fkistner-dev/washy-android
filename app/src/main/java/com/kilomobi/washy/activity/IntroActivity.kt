@@ -2,14 +2,10 @@ package com.kilomobi.washy.activity
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.ViewParent
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
-import com.kilomobi.washy.MainActivity
 import com.kilomobi.washy.R
 
 class IntroActivity : AppIntro() {

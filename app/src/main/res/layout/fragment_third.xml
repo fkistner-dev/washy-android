@@ -8,4 +8,4 @@
     android:layout_height="match_parent"
     app:layout_constraintTop_toBottomOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:context=".MainActivity" />
+    tools:context=".activity.MainActivity" />

@@ -1,11 +1,11 @@
-package com.kilomobi.washy.merchant
+package com.kilomobi.washy.viewholder
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kilomobi.washy.R
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.adapter.AdapterListener
-import com.kilomobi.washy.db.merchant.Merchant
+import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.Cell
 
 object MerchantCell : Cell<RecyclerItem>() {

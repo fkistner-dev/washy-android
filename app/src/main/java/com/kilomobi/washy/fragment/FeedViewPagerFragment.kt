@@ -1,4 +1,4 @@
-package com.kilomobi.washy.feed
+package com.kilomobi.washy.fragment
 
 import android.content.Context
 import android.graphics.Rect
@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kilomobi.washy.MainActivityDelegate
+import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
+import com.kilomobi.washy.adapter.FeedPagerAdapter
+import com.kilomobi.washy.model.Feed
 
 class FeedViewPagerFragment : Fragment(),
     AdapterListener, MainActivityDelegate {
@@ -37,7 +39,7 @@ class FeedViewPagerFragment : Fragment(),
 
         val feedPagerAdapter = FeedPagerAdapter(
             requireContext(),
-            ExampleFeedPagerData.createList()
+            ArrayList()
         )
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
