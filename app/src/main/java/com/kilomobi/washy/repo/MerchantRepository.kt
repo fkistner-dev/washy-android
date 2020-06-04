@@ -38,7 +38,7 @@ class MerchantRepository {
 
         db.collection(COLLECTION)
             .document(id)
-            .collection(SUB_COLLECTION_PRODUCTS)
+            .collection(SUB_COLLECTION_RATINGS)
             .orderBy(FIELD_TIMESTAMP, Query.Direction.DESCENDING)
             .limit(50)
             .get()

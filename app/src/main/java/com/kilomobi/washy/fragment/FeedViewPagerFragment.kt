@@ -3,12 +3,15 @@ package com.kilomobi.washy.fragment
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DimenRes
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
@@ -19,11 +22,13 @@ import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.FeedPagerAdapter
 import com.kilomobi.washy.model.Feed
+import com.kilomobi.washy.viewmodel.FeedListViewModel
 
 class FeedViewPagerFragment : Fragment(),
     AdapterListener, MainActivityDelegate {
 
     private lateinit var viewPager: ViewPager2
+    private val feeds = ArrayList<Feed>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,24 +44,17 @@ class FeedViewPagerFragment : Fragment(),
 
         val feedPagerAdapter = FeedPagerAdapter(
             requireContext(),
-            ArrayList()
+            feeds
         )
 
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrollStateChanged(state: Int) {
-                super.onPageScrollStateChanged(state)
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-            }
-
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            FeedListViewModel::class.java)
+        viewModel.getAllFeeds().observe(viewLifecycleOwner, Observer<List<Feed>> {
+            if (it != null && it.isNotEmpty()) {
+                feeds.addAll(it)
+                feedPagerAdapter.notifyDataSetChanged()
+            } else {
+                Log.d("TAG", "awaiting for info")
             }
         })
 
@@ -92,6 +90,10 @@ class FeedViewPagerFragment : Fragment(),
     }
 
     override fun setupNavDrawer(toolbar: Toolbar) {
+        TODO("Not yet implemented")
+    }
+
+    override fun closeDrawer() {
         TODO("Not yet implemented")
     }
 

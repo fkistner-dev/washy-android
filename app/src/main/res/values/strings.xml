@@ -19,4 +19,30 @@
     <string name="row_merchant_text_start_price">à partir de</string>
     <string name="designed_by_text">Designed by KiloMobi</string>
     <string name="emoji_water_droplet_text">&#128166;</string>
+
+    <string name="offer_title">OFFRES</string>
+    <string name="feed_title">AVIS</string>
+    <string name="contact_title">CONTACT</string>
+
+    <string name="merchant_pro">PRO</string>
+    <string name="merchant_part">PARTICULIER</string>
+
+    <string name="call_to_action_phone">APPELER</string>
+    <string name="call_to_action_map">Y ALLER</string>
+
+    <string name="phone_text_placeholder">Numéro de téléphone :\n%1$s</string>
+    <string name="address_text_placeholder">Adresse :\n%1$s</string>
+
+    <!-- Menu -->
+    <string name="action_home">Accueil</string>
+    <string name="action_map">Carte</string>
+    <string name="action_search">Rechercher</string>
+    <string name="action_favorite">Favoris</string>
+    <string name="action_add_favorite">Ajouter aux favoris</string>
+    <string name="action_delete_favorite">Retirer des favoris</string>
+    <string name="action_feed">Avis</string>
+    <string name="action_product">Produits</string>
+    <string name="action_become_washer">Devenir Washer</string>
+    <string name="action_disconnect">Se déconnecter</string>
+    <string name="action_geolocalisation">Centrer</string>
 </resources>

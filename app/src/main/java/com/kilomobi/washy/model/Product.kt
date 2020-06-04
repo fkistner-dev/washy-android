@@ -1,6 +1,7 @@
 package com.kilomobi.washy.model
 
 import com.google.firebase.Timestamp
+import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.recycler.RecyclerItem
 
 data class Product(
@@ -11,4 +12,4 @@ data class Product(
     var isActive: Boolean = true,
     var createdAt: Timestamp = Timestamp.now(),
     var imageUrl: String = ""
-) : RecyclerItem()
+) : RecyclerItem(), AdapterClick

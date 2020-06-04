@@ -13,7 +13,16 @@ class FeedListViewModel : ViewModel() {
         return feeds
     }
 
+    fun getMerchantFeed(id: String): MutableLiveData<ArrayList<Feed>> {
+        repository.retrieveMerchantFeeds(id)
+        return merchantFeeds
+    }
+
     private var feeds: MutableLiveData<ArrayList<Feed>>
         get() { return repository.feedList }
         set(value) { repository.feedList = value }
+
+    private var merchantFeeds: MutableLiveData<ArrayList<Feed>>
+        get() { return repository.merchantFeedList }
+        set(value) { repository.merchantFeedList = value }
 }

@@ -7,9 +7,9 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view"
+        android:id="@+id/cardview"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="2dp"
@@ -28,91 +28,43 @@
                 style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"/>
 
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/type"
+                style="@style/WashyText.SubHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/text_right_spacing"
-                style="@style/WashyText.Header"
-                tools:text="@string/mockup_data_title_presti_lav_auto" />
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/ratingBar"
+                tools:text="@string/merchant_pro"/>
 
-            <LinearLayout
-                android:id="@+id/holder_address_text"
+            <TextView
+                android:id="@+id/title"
+                style="@style/WashyText.Header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/type"
+                android:layout_toStartOf="@id/ratingBar"
+                tools:text="@string/mockup_data_title_jl_lavage"/>
+
+            <TextView
+                android:id="@+id/text"
+                style="@style/WashyText.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/icon_right_spacing"
-                    android:src="@drawable/ic_pin_drop"
-                    android:contentDescription="@string/mockup_data_feed_image_description" />
-
-                <TextView
-                    android:id="@+id/address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/text_right_spacing"
-                    android:singleLine="true"
-                    android:ellipsize="marquee"
-                    tools:text="@string/mockup_data_fictive_address" />
-
-                <TextView
-                    android:id="@+id/km"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/text_right_spacing"
-                    tools:text="@string/mockup_data_fictive_km" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/holder_price_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/holder_address_text"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/priceText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/text_right_spacing"
-                    android:text="@string/row_merchant_text_start_price"/>
-
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/text_right_spacing"
-                    style="@style/WashyText.Header.Price"
-                    tools:text="@string/mockup_data_fictive_price"/>
-
-            </LinearLayout>
+                android:layout_below="@id/title"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                tools:text="@string/mockup_data_subtitle_jl_lavage"/>
 
             <ImageView
-                android:id="@+id/chevron_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_chevron_right"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/mockup_data_feed_image_description" />
-
-            <LinearLayout
-                android:id="@+id/holder_services_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@id/holder_price_text"
-                android:orientation="horizontal" />
+                android:src="@drawable/ic_chevron_right"
+                android:contentDescription="@string/app_intro_image_content_description"/>
 
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -5,6 +5,11 @@
     android:orientation="vertical"
     android:weightSum="100">
 
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@drawable/washy_shape" />-->
+
     <include layout="@layout/layout_top_bar" />
 
     <include
@@ -13,14 +18,9 @@
         android:layout_height="0dp"
         android:layout_weight="33" />
     <include
-        layout="@layout/fragment_map"
+        layout="@layout/fragment_list_merchant"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="33" />
-    <include
-        layout="@layout/fragment_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="33" />
+        android:layout_weight="66" />
 
 </LinearLayout>

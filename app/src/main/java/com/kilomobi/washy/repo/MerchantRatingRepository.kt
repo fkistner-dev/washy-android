@@ -65,7 +65,7 @@ class MerchantRatingRepository @Inject constructor(@param:Named(COLLECTION_NAME)
 
             // Compute new average rating
             val oldRatingTotal: Float = merchant.avgRating * merchant.numRating
-            val newAvgRating: Double =
+            val newAvgRating: Float =
                 (oldRatingTotal + rating!!.rating) / newNumRatings
 
             // Set new merchant info

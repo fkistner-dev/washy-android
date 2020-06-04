@@ -12,6 +12,7 @@ import com.kilomobi.washy.util.initToolbar
 import kotlinx.android.synthetic.main.layout_top_bar.*
 
 class HomeFragment : Fragment() {
+
     private lateinit var mainActivityDelegate: MainActivityDelegate
 
     override fun onCreateView(
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
 
         fragmentTransaction?.add(R.id.listFeed,
             FeedViewPagerFragment(), "feed")
-        fragmentTransaction?.add(R.id.listMap, MapFragment(),"map")
+//        fragmentTransaction?.add(R.id.listMap, MapFragment(),"map")
         fragmentTransaction?.add(R.id.listMerchant,
             MerchantListFragment(), "merchant")
 

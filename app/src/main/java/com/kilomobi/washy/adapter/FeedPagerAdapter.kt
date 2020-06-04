@@ -20,8 +20,7 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
     RecyclerView.Adapter<FeedPagerAdapter.FeedViewHolder>() {
 
     class FeedViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvName: TextView = itemView.findViewById(R.id.text)
-        var tvDate: TextView = itemView.findViewById(R.id.date)
+        var title: TextView = itemView.findViewById(R.id.text)
         var image: ImageView = itemView.findViewById(R.id.image)
     }
 
@@ -39,8 +38,7 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.tvName.text = items[position].text
-        holder.tvDate.text = items[position].createdAt.toString()
+        holder.title.text = items[position].merchantName
 
         Glide.with(context)
             .load(items[position].photos[0])

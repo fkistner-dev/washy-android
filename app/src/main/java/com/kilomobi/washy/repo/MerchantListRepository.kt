@@ -21,10 +21,13 @@ class MerchantListRepository {
         val tmpListMerchant: ArrayList<Merchant> = ArrayList()
 
         db.collection(COLLECTION)
+            .whereEqualTo("isActive", true)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    tmpListMerchant.add(document.toObject(Merchant::class.java))
+                    val merchant = document.toObject(Merchant::class.java)
+                    merchant.reference = document.reference
+                     tmpListMerchant.add(merchant)
                 }
                 merchantList.value = tmpListMerchant
             }

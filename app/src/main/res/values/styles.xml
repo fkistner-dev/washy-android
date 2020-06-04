@@ -13,6 +13,11 @@
         <item name="tabIndicatorColor">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:colorForeground">@color/colorAccent</item>
+    </style>
+
     <style name="AppTheme.SplashTheme">
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
@@ -21,14 +26,14 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
     <style name="WashyText">
-        <item name="android:paddingLeft">@dimen/text_padding</item>
-        <item name="android:paddingRight">@dimen/text_padding</item>
+        <item name="android:layout_marginEnd">@dimen/text_padding</item>
+        <item name="android:layout_marginStart">@dimen/text_padding</item>
     </style>
 
     <style name="WashyText.Header">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_header</item>
-        <item name="fontFamily">@font/roboto_black</item>
+        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="WashyText.Header.Price">
@@ -39,14 +44,15 @@
     </style>
 
     <style name="WashyText.SubHeader">
-        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_sub_header</item>
-        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="WashyText.Default">
-        <item name="android:padding">@dimen/text_padding</item>
         <item name="android:textSize">@dimen/text_default</item>
+        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="WashyText.Promotional">

@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kilomobi.washy.viewmodel.MerchantListViewModel
 import com.kilomobi.washy.R
@@ -17,12 +19,12 @@ import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.MerchantAdapter
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.RecyclerItem
-import kotlinx.android.synthetic.main.fragment_list_merchant.*
+import kotlinx.android.synthetic.main.layout_recycler_list.*
 
 class MerchantListFragment : Fragment(),
     AdapterListener {
 
-    private var viewModel: MerchantListViewModel? = null
+    private lateinit var viewModel: MerchantListViewModel
     private val listAdapter by lazy {
         MerchantAdapter(
             this
@@ -34,7 +36,7 @@ class MerchantListFragment : Fragment(),
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_merchant, container, false)
+        return inflater.inflate(R.layout.layout_recycler_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,9 +50,8 @@ class MerchantListFragment : Fragment(),
             adapter = listAdapter
         }
 
-        // View model
         viewModel = ViewModelProvider(this, NewInstanceFactory()).get(MerchantListViewModel::class.java)
-        viewModel!!.getAllMerchants().observe(viewLifecycleOwner, Observer<List<Merchant>> {
+        viewModel.getAllMerchants().observe(viewLifecycleOwner, Observer<List<Merchant>> {
             if (it != null && it.isNotEmpty()) {
                 listAdapter.submitList(it)
             } else {
@@ -61,6 +62,8 @@ class MerchantListFragment : Fragment(),
 
     override fun listen(click: AdapterClick?) {
 //        listAdapter.selectedItemPosition = (click as Merchant)
+        val bundle = bundleOf("merchant" to click)
+        findNavController().navigate(R.id.action_merchantListFragment_to_merchantDetailFragment, bundle)
         listAdapter.notifyDataSetChanged()
     }
 

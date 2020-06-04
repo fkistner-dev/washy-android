@@ -13,6 +13,7 @@ class FeedListRepository {
 
     private val db = FirebaseFirestore.getInstance()
     var feedList: MutableLiveData<ArrayList<Feed>> = MutableLiveData<ArrayList<Feed>>()
+    var merchantFeedList: MutableLiveData<ArrayList<Feed>> = MutableLiveData<ArrayList<Feed>>()
 
     init {
         listenFeedList()
@@ -30,6 +31,22 @@ class FeedListRepository {
                     tmpListFeed.add(document.toObject(Feed::class.java))
                 }
                 feedList.value = tmpListFeed
+            }
+    }
+
+    fun retrieveMerchantFeeds(id: String) {
+        val tmpListFeed: ArrayList<Feed> = ArrayList()
+
+        db.collection(COLLECTION)
+            .whereEqualTo("merchantId", id)
+            .limit(FEED_LIMIT.toLong())
+            .orderBy("createdAt")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    tmpListFeed.add(document.toObject(Feed::class.java))
+                }
+                merchantFeedList.value = tmpListFeed
             }
     }
 }

@@ -9,15 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kilomobi.washy.R
-import com.kilomobi.washy.fragment.MerchantListFragment
 import com.kilomobi.washy.fragment.MapFragment
+import com.kilomobi.washy.util.currentNavigationFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-
 class MainActivity : AppCompatActivity(),
-    MainActivityDelegate,
-    MapListener {
+    MainActivityDelegate {
 
     companion object {
         var hostFragment: Fragment? = null
@@ -54,18 +52,31 @@ class MainActivity : AppCompatActivity(),
         toggle.syncState()
 
         drawerLayout.navView.setupWithNavController(navHostFragment.findNavController())
+        drawerLayout.navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.action_map -> {
+                    if (supportFragmentManager.currentNavigationFragment !is MapFragment) {
+                        navHostFragment.findNavController().navigate(R.id.action_homeFragment_to_mapFragment)
+                    } else {
+                        closeDrawer()
+                    }
+                    true
+                }
+//                R.id.action_favorite -> navHostFragment.findNavController().navigate(R.id.action_homeFragment_to_favoriteFragment)
+//                R.id.action_feed -> navHostFragment.findNavController().navigate(R.id.action_homeFragment_to_feedFragment)
+//                R.id.action_product -> navHostFragment.findNavController().navigate(R.id.action_homeFragment_to_productFragment)
+//                R.id.action_become_washer -> navHostFragment.findNavController().navigate(R.id.action_homeFragment_to_becomeWasherFragment)
+//                R.id.action_disconnect -> navHostFragment.findNavController().navigate(R.id.action_homeFragment_to_disconnectFragment)
+                else -> true
+            }
+        }
+    }
+
+    override fun closeDrawer() {
+        drawerLayout.closeDrawer(GravityCompat.START)
     }
 
     override fun enableNavDrawer(enable: Boolean) {
         drawerLayout.isEnabled = enable
-    }
-
-    override fun notifyViewPagerChange(id: Int) {
-        val merchantFragment = supportFragmentManager.findFragmentByTag("merchant") as MerchantListFragment
-        merchantFragment.updateListPosition(id)
-    }
-
-    override fun notifyMapViewChange() {
-        val mapFragment = supportFragmentManager.findFragmentByTag("map") as MapFragment
     }
 }

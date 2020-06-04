@@ -9,6 +9,9 @@ import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.recycler.BaseListAdapter
 import com.kilomobi.washy.recycler.Cell
+import com.kilomobi.washy.viewholder.FeedPhotoViewHolder
+import com.kilomobi.washy.viewholder.FeedPromotionalViewHolder
+import com.kilomobi.washy.viewholder.FeedStandardViewHolder
 import com.kilomobi.washy.viewholder.FeedViewHolder
 import java.util.*
 
@@ -26,18 +29,39 @@ data class Feed(
 
 object FeedCell : Cell<RecyclerItem>() {
 
+    var itemState = -1
+
+    private const val IS_STANDARD = 1
+    private const val IS_PROMOTIONAL = 2
+    private const val IS_PHOTO = 3
+
     override fun belongsTo(item: RecyclerItem?): Boolean {
-        return item is Feed
+        if (item !is Feed) return false
+
+        itemState = when {
+            item.isPromotional -> IS_PROMOTIONAL
+            item.photos.isNotEmpty() -> IS_PHOTO
+            else -> IS_STANDARD
+        }
+        return true
     }
 
     override fun type(): Int {
-        return R.layout.row_feed_item
+        return when (itemState) {
+            IS_PROMOTIONAL -> R.layout.row_feed_item
+            IS_PHOTO -> R.layout.row_feed_photo_item
+            else -> R.layout.row_feed_item
+        }
     }
 
     override fun holder(
         parent: ViewGroup
     ): RecyclerView.ViewHolder {
-        return FeedViewHolder(parent.viewOf(type()))
+        return when (itemState) {
+            IS_PROMOTIONAL -> FeedPromotionalViewHolder(parent.viewOf(type()))
+            IS_PHOTO -> FeedPhotoViewHolder(parent.viewOf(type()))
+            else -> FeedStandardViewHolder(parent.viewOf(type()))
+        }
     }
 
     override fun bind(

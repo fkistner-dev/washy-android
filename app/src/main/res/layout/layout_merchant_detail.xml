@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include layout="@layout/layout_top_bar"
+        android:id="@+id/topBar"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/washy_shape" />
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topBar"
+        android:layout_margin="@dimen/text_marging">
+
+        <ImageView
+            android:id="@+id/gmaps"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_google_maps_icon"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/app_intro_image_content_description"/>
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_marging"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/gmaps" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/ratingBar"
+            tools:text="@string/mockup_data_fictive_pro"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/type"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/ratingBar"
+            tools:text="@string/mockup_data_title_jl_lavage"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:maxLines="3"
+            android:ellipsize="end"
+            tools:text="@string/mockup_data_fictive_product_description"/>
+
+        <HorizontalScrollView
+            android:id="@+id/serviceHorizontalScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description"
+            android:layout_marginTop="@dimen/text_marging"
+            android:layout_marginBottom="@dimen/text_marging"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/serviceHorizontalScroll"
+            android:background="@color/white" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/layout_merchant_tabbed"
+        android:layout_below="@id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/text_marging"/>
+
+</RelativeLayout>

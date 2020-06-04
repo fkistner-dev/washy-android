@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/testerFragment">
+    app:startDestination="@id/homeFragment">
 
 <!--    <fragment-->
 <!--        android:id="@+id/splashFragment"-->
@@ -51,8 +51,57 @@
         tools:layout="@layout/layout_home">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/termOfServiceFragment" />
+            android:id="@+id/action_homeFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_feedFragment"
+            app:destination="@id/feedListFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+
+        <action
+            android:id="@+id/action_merchantListFragment_to_merchantDetailFragment"
+            app:destination="@id/merchantDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <argument
+            android:name="merchant"
+            app:argType="com.kilomobi.washy.model.Merchant"
+            android:defaultValue="@null"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.kilomobi.washy.fragment.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map">
+    </fragment>
+
+<!--    <fragment-->
+<!--        android:id="@+id/favoriteFragment"-->
+<!--        android:name="com.kilomobi.washy.fragment.FavoriteFragment"-->
+<!--        android:label="FavoriteFragment"-->
+<!--        tools:layout="@layout/fragment_favorite">-->
+<!--    </fragment>-->
+
+    <fragment
+        android:id="@+id/feedListFragment"
+        android:name="com.kilomobi.washy.fragment.FeedFragment"
+        android:label="FeedFragment"
+        tools:layout="@layout/fragment_feed">
+    </fragment>
+
+    <fragment
+        android:id="@+id/merchantDetailFragment"
+        android:name="com.kilomobi.washy.fragment.MerchantDetailFragment"
+        android:label="IdentificationFragment"
+        tools:layout="@layout/layout_merchant_detail">
     </fragment>
 
     <fragment

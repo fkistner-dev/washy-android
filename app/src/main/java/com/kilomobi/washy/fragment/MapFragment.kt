@@ -3,9 +3,7 @@ package com.kilomobi.washy.fragment
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -14,16 +12,23 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
-import com.kilomobi.washy.activity.MapListener
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.R
+import com.kilomobi.washy.activity.MainActivityDelegate
+import com.kilomobi.washy.model.Merchant
+import com.kilomobi.washy.util.initToolbar
+import kotlinx.android.synthetic.main.layout_top_bar.*
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
-    private lateinit var mapListener: MapListener
+    private var animateFromArgs = false
+    private lateinit var mainActivityDelegate: MainActivityDelegate
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -32,8 +37,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_map, container, false)
 
+        setHasOptionsMenu(true)
+        tag
         try {
-            mapListener = context as MapListener
+            mainActivityDelegate = context as MainActivityDelegate
         } catch (e: ClassCastException) {
             throw ClassCastException()
         }
@@ -43,6 +50,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initToolbar(toolbar, false)
+        mainActivityDelegate.setupNavDrawer(toolbar)
+        mainActivityDelegate.enableNavDrawer(true)
+        mainActivityDelegate.closeDrawer()
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         // Try to obtain the map from the SupportMapFragment.
@@ -89,52 +101,46 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
-                mockPlaces()
-//                setInfoBubble()
+                if (!animateFromArgs) map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
+        }
+
+        setMerchantOnMap()
+    }
+
+    private fun setMerchantOnMap() {
+        if (arguments != null && requireArguments()["merchant"] != null && requireArguments()["merchant"] is Merchant) {
+            animateFromArgs = true
+
+            val merchant = requireArguments()["merchant"] as Merchant
+            val merchantPosition = LatLng(merchant.position!!.latitude, merchant.position!!.longitude)
+
+            map.addMarker(MarkerOptions()
+                .position(merchantPosition)
+                .snippet((merchant.reference as DocumentReference).id))
+
+
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(merchantPosition, 16f))
         }
     }
 
-//    private fun setInfoBubble() {
-//        map.setInfoWindowAdapter(object : InfoWindowAdapter {
-//            override fun getInfoWindow(marker: Marker): View? {
-//                return null
-//            }
-//
-//            override fun getInfoContents(marker: Marker): View {
-//                val ctx: Context = requireActivity()
-//
-//                val inflater = LayoutInflater.from(ctx)
-//                val view = inflater.inflate(R.layout.marker_info_layout, null, false)
-//                view.header.text = marker.title
-//                view.subheader.text = marker.snippet
-//                view.text.text = getString(R.string.mockup_data_lorem_ipsum)
-//
-//                return view
-//            }
-//        })
-//    }
-
-    private fun mockPlaces() {
-        val myPlace1 = LatLng(48.605, 7.73945)
-        map.addMarker(MarkerOptions()
-            .position(myPlace1)
-            .snippet("1"))
-
-        val myPlace2 = LatLng(48.596748, 7.727842)
-        map.addMarker(MarkerOptions()
-            .position(myPlace2)
-            .snippet("2"))
-
-        val myPlace3 = LatLng(48.593612, 7.749664)
-        map.addMarker(MarkerOptions()
-            .position(myPlace3)
-            .snippet("3"))
+    override fun onMarkerClick(p0: Marker?): Boolean {
+        return true
     }
 
-    override fun onMarkerClick(p0: Marker?): Boolean {
-        mapListener.notifyViewPagerChange(p0!!.snippet.toInt())
-        return true
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_map, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_geolocalisation -> {
+                val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

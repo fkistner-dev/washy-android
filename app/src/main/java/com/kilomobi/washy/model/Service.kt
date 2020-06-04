@@ -23,7 +23,7 @@ class Service {
         val HEADLIGHT: Pair<String, Int> = Pair("headlight",
             R.drawable.ic_car_light_dimmed
         )
-        val TRANSPORT: Pair<String, Int> = Pair("transportation",
+        val TRANSPORT: Pair<String, Int> = Pair("transport",
             R.drawable.ic_train_car
         )
         val ECO_FRIENDLY: Pair<String, Int> = Pair("eco_friendly",
@@ -33,7 +33,7 @@ class Service {
             R.drawable.ic_car_convertible
         )
 
-        val serviceList = listOf(
+        private val serviceList = listOf(
             COFFEE,
             WIFI,
             ELECTRIC_PLUG,
@@ -56,10 +56,6 @@ class Service {
                 }
             }
             return sb.toString()
-        }
-
-        fun servicesToList(services: String): List<String> {
-            return services.split(Merchant.SERVICES_DELIMITER)
         }
 
         fun retrieveImage(service: String): Int {
