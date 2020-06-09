@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.repo.MerchantListRepository
 
-class MerchantListViewModel : ViewModel() {
-
-    private val repository = MerchantListRepository()
+class MerchantListViewModel(private val repository: MerchantListRepository = MerchantListRepository()) : BaseViewModel(repository) {
 
     fun getAllMerchants(): MutableLiveData<ArrayList<Merchant>> {
         return merchants

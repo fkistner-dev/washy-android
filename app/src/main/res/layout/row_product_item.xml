@@ -26,7 +26,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/text_right_spacing"
                 android:visibility="gone"
-                android:contentDescription="@string/app_intro_image_content_description"
+                android:contentDescription="@string/common_image_content_description"
                 tools:visibility="visible"/>
 
             <TextView

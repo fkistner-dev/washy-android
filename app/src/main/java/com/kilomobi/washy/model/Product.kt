@@ -9,7 +9,7 @@ data class Product(
     var description: String = "",
     var duration: String = "",
     var price: Double = 0.0,
-    var isActive: Boolean = true,
+    var active: Boolean = true,
     var createdAt: Timestamp = Timestamp.now(),
     var imageUrl: String = ""
 ) : RecyclerItem(), AdapterClick

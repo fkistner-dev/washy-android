@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+<!--        <include layout="@layout/layout_top_bar" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fragment_marging"
+            android:orientation="vertical">
+
+        <TextView
+            style="@style/WashyText.Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:text="@string/become_washer_title" />
+
+        <TextView
+            style="@style/WashyText.Default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:text="@string/become_washer_text" />
+
+        <TextView
+            style="@style/WashyText.SubHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:text="@string/become_washer_emoji" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/become_washer_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/input_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/become_washer_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/input_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/become_washer_phone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/input_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/become_washer_address">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="textPostalAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/input_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/become_washer_city">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textPostalAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/WashyText.Default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/become_washer_services" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/input_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_headlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_car_light_dimmed"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_headlight"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_interior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_car_seat"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_interior"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_windshield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_car_windshield_outline"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_windshield"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_eco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_leaf"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_eco"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_credit_card"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_cb"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_coffee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_coffee"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_coffee"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_signal_wifi"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_wifi"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_electric"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_ev_station"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_electric_plug"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_transport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_train_car"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_transport"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_motorbike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/white"
+                app:chipIconTint="@color/colorGrey500"
+                app:chipIcon="@drawable/ic_motorcycle"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp"
+                android:text="@string/chip_motorbike"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/WashyText.Default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/become_washer_work_at_home" />
+
+                <RadioGroup
+                    android:id="@+id/group_work_at_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/common_yes"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/common_no"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+<!--            <View-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:background="@color/colorGrey300"/>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/WashyText.Default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/become_washer_siren" />
+
+                <RadioGroup
+                    android:id="@+id/group_is_pro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radio_pro_yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/common_yes"/>
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radio_pro_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/common_no"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/input_siren"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:hint="@string/become_washer_siren"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/validate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/common_validate"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

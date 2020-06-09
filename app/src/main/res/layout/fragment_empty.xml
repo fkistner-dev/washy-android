@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/empty_view_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone">
+
+    <TextView
+        style="@style/WashyText.Header"
+        android:id="@+id/emoji"
+        android:layout_marginBottom="@dimen/text_marging"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_data_emoji" />
+
+    <TextView
+        style="@style/WashyText.Header"
+        android:id="@+id/empty_view_text"
+        android:layout_below="@id/emoji"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

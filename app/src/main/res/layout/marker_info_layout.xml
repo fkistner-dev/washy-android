@@ -8,8 +8,8 @@
         android:id="@+id/image"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_gravity="center_vertical"
-        android:src="@android:drawable/ic_menu_myplaces"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_car_convertible"
         tools:srcCompat="@tools:sample/avatars"
         android:contentDescription="@string/mockup_data_feed_image_description" />
 

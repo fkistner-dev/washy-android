@@ -3,6 +3,11 @@
     <string name="action_settings">Settings</string>
     <string name="price_with_currency">%s €</string>
 
+    <!-- Fragment's title -->
+    <string name="fragment_title_become_washer">Rejoins nous</string>
+    <string name="no_data_emoji">&#128579;</string>
+    <string name="no_data_text">Pas de données actuellement</string>
+    <string name="no_feed_text">Pas d\'avis actuellement</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
@@ -33,6 +38,16 @@
     <string name="phone_text_placeholder">Numéro de téléphone :\n%1$s</string>
     <string name="address_text_placeholder">Adresse :\n%1$s</string>
 
+    <!-- OnBoarding -->
+    <string name="onboarding_title_1">Trouver le lavage idéal</string>
+    <string name="onboarding_description_1">Lavage à la main ou bien lance haute pression ? Un lavage propre sans eaux, et plus encore.</string>
+    <string name="onboarding_title_2">Partager vos éclats</string>
+    <string name="onboarding_description_2">Les plus belles réalisations sont mises en avant chaque jour !</string>
+    <string name="onboarding_title_3">Rejoignez la communauté</string>
+    <string name="onboarding_description_3">Proposez ou cherchez un service ? C\'est vous qui voyez !</string>
+    <string name="onboarding_button_continue">Suivant</string>
+    <string name="onboarding_button_finish">C\'est parti !</string>
+
     <!-- Menu -->
     <string name="action_home">Accueil</string>
     <string name="action_map">Carte</string>
@@ -41,8 +56,85 @@
     <string name="action_add_favorite">Ajouter aux favoris</string>
     <string name="action_delete_favorite">Retirer des favoris</string>
     <string name="action_feed">Avis</string>
+    <string name="action_photolab">PhotoLab</string>
     <string name="action_product">Produits</string>
     <string name="action_become_washer">Devenir Washer</string>
+    <string name="action_connect">Se connecter</string>
     <string name="action_disconnect">Se déconnecter</string>
+    <string name="action_tos">A propos</string>
+    <string name="action_debug">Debug</string>
     <string name="action_geolocalisation">Centrer</string>
+
+    <!-- Become Washer -->
+    <string name="become_washer_title">Félicitation !\nTu es à 5 minutes de devenir un Washer</string>
+    <string name="become_washer_text">Il suffit de répondre à quelques questions</string>
+    <string name="become_washer_emoji">&#128513;</string>
+
+    <!-- TextInput -->
+    <string name="become_washer_name">Nom affiché</string>
+    <string name="become_washer_description">Description</string>
+    <string name="become_washer_phone">Numéro de téléphone</string>
+    <string name="become_washer_address">Adresse</string>
+    <string name="become_washer_city">Ville</string>
+    <string name="become_washer_services">Services proposés :</string>
+    <string name="become_washer_work_at_home">Travaille à domicile ?</string>
+    <string name="become_washer_siren">Numéro SIREN (pro) ?</string>
+
+    <!-- Common -->
+    <string name="common_validate">Valider</string>
+    <string name="common_yes">Oui</string>
+    <string name="common_no">Non</string>
+    <string name="common_image_content_description">Image</string>
+    <string name="common_disconnect_success">Vous êtes maintenant déconnecté</string>
+
+    <!-- Chip DB -->
+    <string name="chip_db_headlight" translatable="false">headlight</string>
+    <string name="chip_db_interior" translatable="false">interior</string>
+    <string name="chip_db_exterior" translatable="false">exterior</string>
+    <string name="chip_db_windshield" translatable="false">windshield</string>
+    <string name="chip_db_electric_plug" translatable="false">ev_plug</string>
+    <string name="chip_db_transport" translatable="false">transport</string>
+    <string name="chip_db_cb" translatable="false">credit_card</string>
+    <string name="chip_db_eco" translatable="false">leaf</string>
+    <string name="chip_db_wifi" translatable="false">wifi</string>
+    <string name="chip_db_coffee" translatable="false">coffee</string>
+    <string name="chip_db_ceramic" translatable="false">ceramic</string>
+    <string name="chip_db_hand_wash" translatable="false">hand_wash</string>
+    <string name="chip_db_motorbike" translatable="false">bike</string>
+    
+    <!-- Chip -->
+    <string name="chip_headlight">Optiques</string>
+    <string name="chip_interior">Intérieur</string>
+    <string name="chip_exterior">Extérieur</string>
+    <string name="chip_windshield">Pare-brise</string>
+    <string name="chip_electric_plug">Recharge</string>
+    <string name="chip_transport">Transport</string>
+    <string name="chip_cb">CB</string>
+    <string name="chip_eco">Écologique</string>
+    <string name="chip_wifi">WiFi</string>
+    <string name="chip_coffee">Café</string>
+    <string name="chip_ceramic">Céramique</string>
+    <string name="chip_hand_wash">Fait main</string>
+    <string name="chip_motorbike">Moto</string>
+
+    <!-- Input -->
+    <string name="input_error_name">Veuillez insérer un nom pour l\'affichage</string>
+    <string name="input_error_description">Veuillez insérer une description</string>
+    <string name="input_error_phone">Veuillez insérer votre téléphone</string>
+    <string name="input_error_address">Veuillez insérer votre adresse</string>
+    <string name="input_error_city">Veuillez insérer une ville</string>
+    <string name="input_error_services">Veuillez insérer au moins un service</string>
+    <string name="input_error_work_at_home">Veuillez sélectionner si vous travailler à domicile</string>
+    <string name="input_error_is_pro">Veuillez sélectionner si vous êtes un professionnel ou non</string>
+    <string name="input_error_siren">Veuillez insérer votre numéro SIREN</string>
+    <string name="input_error_no_service">Veuillez sélectionner un service que vous proposez</string>
+    <string name="input_error_no_radio">Veuillez sélectionner une des options : [oui] ou [non]</string>
+    <string name="input_merchant_create_success">Félicitation, vous êtes maintenant un Washer</string>
+    <string name="input_merchant_update_success">Mis à jour avec succès</string>
+    <string name="input_merchant_delete_success">Suppression avec succès</string>
+
+    <!-- Dialog -->
+    <string name="dialog_disconnect_title">Déconnexion</string>
+    <string name="dialog_disconnect_text">Êtes-vous sûr(e) de vouloir partir ?</string>
+
 </resources>

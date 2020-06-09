@@ -6,7 +6,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:tag="map">
 
-    <include layout="@layout/layout_top_bar" />
+<!--    <include layout="@layout/layout_top_bar" />-->
 </RelativeLayout>
 
 <!--

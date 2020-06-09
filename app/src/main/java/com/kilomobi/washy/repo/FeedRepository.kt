@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kilomobi.washy.model.Feed
 
-class FeedRepository {
+class FeedRepository : BaseRepository() {
 
     companion object {
         const val COLLECTION = "feeds"
@@ -29,6 +29,7 @@ class FeedRepository {
                     tmpListFeed.add(document.toObject(Feed::class.java))
                 }
                 feedList.value = tmpListFeed
+                onDataReceived()
             }
             .addOnFailureListener {
                 Log.d("bouhouhou", it.toString())

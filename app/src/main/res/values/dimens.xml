@@ -2,14 +2,19 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Text -->
+    <dimen name="text_onboarding_header">30sp</dimen>
+    <dimen name="text_onboarding_subtext">20sp</dimen>
     <dimen name="text_header">20sp</dimen>
     <dimen name="text_sub_header">16sp</dimen>
     <dimen name="text_default">14sp</dimen>
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_padding">5dp</dimen>
     <dimen name="text_marging">10dp</dimen>
+    <dimen name="text_marging_profil_header">22dp</dimen>
     <dimen name="text_right_spacing">12dp</dimen>
     <dimen name="icon_right_spacing">6dp</dimen>
+    <dimen name="fragment_marging">10dp</dimen>
+    <dimen name="onboarding_top_marging">42dp</dimen>
 
     <!-- ViewPager -->
     <dimen name="viewpager_next_item_visible">20dp</dimen>

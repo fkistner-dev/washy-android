@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:showIn="navigation_view">
+
+    <!--    <item-->
+    <!--        android:id="@+id/action_search"-->
+    <!--        android:orderInCategory="100"-->
+    <!--        android:icon="@drawable/ic_magnify"-->
+    <!--        android:title="@string/action_search"-->
+    <!--        app:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_map"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_map"
+        android:title="@string/action_map"
+        android:tint="@color/colorGrey900"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_feed"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_comment_quote_outline"
+        android:title="@string/action_feed"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_photolab"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_camera_outline"
+        android:title="@string/action_photolab"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_product"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_cart_outline"
+        android:title="@string/action_product"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_become_washer"
+        android:orderInCategory="100"
+        android:title="@string/action_become_washer"
+        android:icon="@drawable/ic_local_car_wash"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_connect"
+        android:orderInCategory="100"
+        android:title="@string/action_connect"
+        android:icon="@drawable/ic_login"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_tos"
+        android:orderInCategory="100"
+        android:title="@string/action_tos"
+        android:icon="@drawable/ic_file_document_outline"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_debug"
+        android:orderInCategory="100"
+        android:title="@string/action_debug"
+        android:icon="@drawable/ic_motorcycle"
+        app:showAsAction="never" />
+
+</menu>

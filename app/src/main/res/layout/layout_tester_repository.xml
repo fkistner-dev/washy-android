@@ -50,6 +50,27 @@
         android:id="@+id/tester07"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Tester07" />
 
+    <Button
+        android:id="@+id/tester08"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tester08" />
+
+    <Button
+        android:id="@+id/tester09"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tester09" />
+
+    <Button
+        android:id="@+id/tester10"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tester10" />
 </LinearLayout>

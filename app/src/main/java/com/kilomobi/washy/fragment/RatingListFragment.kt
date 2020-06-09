@@ -19,8 +19,9 @@ import com.kilomobi.washy.model.Rating
 import com.kilomobi.washy.viewmodel.MerchantViewModel
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
-class RatingListFragment : Fragment(), AdapterListener {
+class RatingListFragment : FragmentEmptyView(), AdapterListener {
 
+    private var viewContainer: ViewGroup? = null
     private lateinit var viewModel: MerchantViewModel
     private val listAdapter by lazy {
         RatingAdapter(
@@ -33,7 +34,7 @@ class RatingListFragment : Fragment(), AdapterListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        viewContainer = container
         return inflater.inflate(R.layout.layout_recycler_list, container, false)
     }
 
@@ -53,7 +54,7 @@ class RatingListFragment : Fragment(), AdapterListener {
             if (it != null && it.isNotEmpty()) {
                 listAdapter.submitList(it)
             } else {
-                Log.d("TAG", "awaiting for info")
+                displayEmptyView()
             }
         })
     }

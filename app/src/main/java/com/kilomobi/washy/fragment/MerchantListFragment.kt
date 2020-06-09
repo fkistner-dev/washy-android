@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.kilomobi.washy.viewmodel.MerchantListViewModel
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
@@ -21,9 +22,10 @@ import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.RecyclerItem
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
-class MerchantListFragment : Fragment(),
+class MerchantListFragment : FragmentEmptyView(),
     AdapterListener {
 
+    private lateinit var shimmerLayout: ShimmerFrameLayout
     private lateinit var viewModel: MerchantListViewModel
     private val listAdapter by lazy {
         MerchantAdapter(
@@ -41,6 +43,9 @@ class MerchantListFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        shimmerLayout = view.findViewById<ShimmerFrameLayout>(R.id.shimmer_layout)
+
         initialize()
     }
 
@@ -51,11 +56,22 @@ class MerchantListFragment : Fragment(),
         }
 
         viewModel = ViewModelProvider(this, NewInstanceFactory()).get(MerchantListViewModel::class.java)
+
+        viewModel.isLoading.observe(requireActivity(), Observer<Boolean> {
+            if (it) {
+                shimmerLayout.visibility = View.VISIBLE
+                shimmerLayout.startShimmer()
+            } else {
+                shimmerLayout.stopShimmer()
+                shimmerLayout.visibility = View.GONE
+            }
+        })
+
         viewModel.getAllMerchants().observe(viewLifecycleOwner, Observer<List<Merchant>> {
             if (it != null && it.isNotEmpty()) {
                 listAdapter.submitList(it)
             } else {
-                Log.d("TAG", "awaiting for info")
+                displayEmptyView()
             }
         })
     }

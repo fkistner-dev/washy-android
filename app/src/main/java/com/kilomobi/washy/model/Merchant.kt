@@ -2,25 +2,39 @@ package com.kilomobi.washy.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.GeoPoint
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.recycler.RecyclerItem
 
 data class Merchant(
-    var reference: Any? = null,
+    @Exclude var reference: Any? = null,
     var name: String = "",
-    var description: String? = null,
-    var position: GeoPoint? = null,
+    var description: String? = "",
+    var geohash: String? = "",
+    var position: GeoPoint? = GeoPoint(0.0,0.0),
+    var fullAddress: String = "",
     var priceStart: Double = 0.0,
+    var website: String = "",
     var phone: String = "",
+    var imgUrl: String = "",
+    var googleAvgRating: Float = 0f,
     var avgRating: Float = 0f,
+    var googleNumRating: Int = 0,
     var numRating: Int = 0,
     var services: ArrayList<String> = ArrayList(),
     var siren: String = "",
     var workAtCustomer: Boolean = false,
-    var isActive: Boolean = false,
-    var adminId: String = "",
-    var favoriteId: ArrayList<String> = ArrayList()
+    var active: Boolean = false,
+    var imported: Boolean = false,
+    var adminId: String? = "",
+    var lundi: String? = "",
+    var mardi: String? = "",
+    var mercredi: String? = "",
+    var jeudi: String? = "",
+    var vendredi: String? = "",
+    var samedi: String? = "",
+    var dimanche: String? = ""
 ) : RecyclerItem(), AdapterClick, Parcelable {
     companion object CREATOR : Parcelable.ClassLoaderCreator<Merchant> {
         override fun createFromParcel(parcel: Parcel): Merchant {

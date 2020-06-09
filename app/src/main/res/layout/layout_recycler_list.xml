@@ -7,6 +7,10 @@
     android:layout_marginTop="@dimen/text_marging"
     tools:context=".fragment.MerchantListFragment">
 
+    <include layout="@layout/shimmer_merchant" />
+
+    <include layout="@layout/fragment_empty" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"

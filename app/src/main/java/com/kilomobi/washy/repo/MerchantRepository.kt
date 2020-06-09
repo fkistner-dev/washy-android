@@ -1,5 +1,6 @@
 package com.kilomobi.washy.repo
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -7,7 +8,7 @@ import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Product
 import com.kilomobi.washy.model.Rating
 
-class MerchantRepository {
+class MerchantRepository : BaseRepository() {
 
     companion object {
         const val COLLECTION = "merchants"
@@ -30,6 +31,7 @@ class MerchantRepository {
             .addOnSuccessListener { result ->
                 tmpMerchant = result.toObject(Merchant::class.java)!!
                 merchant.value = tmpMerchant
+                onDataReceived()
             }
     }
 
@@ -47,6 +49,7 @@ class MerchantRepository {
                     tmpRating.add(document.toObject(Rating::class.java))
                 }
                 ratings.value = tmpRating
+                onDataReceived()
             }
     }
 
@@ -64,6 +67,18 @@ class MerchantRepository {
                     tmpProduct.add(document.toObject(Product::class.java))
                 }
                 products.value = tmpProduct
+                onDataReceived()
+            }
+    }
+
+    fun addMerchant(merchant: Merchant) {
+        db.collection(COLLECTION)
+            .add(merchant)
+            .addOnSuccessListener {
+                Log.d("MerchantRepo", "DocumentSnapshot written with ID: ${it.id}")
+            }
+            .addOnFailureListener {
+                Log.w("MerchantRepo", "Error adding document", it)
             }
     }
 }

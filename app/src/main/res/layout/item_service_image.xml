@@ -5,4 +5,4 @@
     android:layout_width="10dp"
     android:layout_height="10dp"
     android:tint="@color/colorAccent"
-    android:contentDescription="@string/app_intro_image_content_description" />
+    android:contentDescription="@string/common_image_content_description" />

@@ -1,11 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="elevation">0dp</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
@@ -28,6 +36,22 @@
     <style name="WashyText">
         <item name="android:layout_marginEnd">@dimen/text_padding</item>
         <item name="android:layout_marginStart">@dimen/text_padding</item>
+    </style>
+
+    <style name="WashyText.Onboarding" />
+
+    <style name="WashyText.Onboarding.Header">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_onboarding_header</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="WashyText.Onboarding.Subheader">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_onboarding_subtext</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="WashyText.Header">
@@ -62,6 +86,7 @@
     </style>
 
     <style name="LoginTheme" parent="FirebaseUI">
+        <item name="backgroundColor">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -72,9 +97,24 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="android:windowBackground">@drawable/car_at_night</item>
+        <item name="android:windowBackground">@drawable/ui_login_shape</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColorHint">@android:color/white</item>
     </style>
+
+    <style name="FirebaseUI.EditText">
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="FirebaseUI.Text.TextInputLayout" parent="@style/FirebaseUI.EditText" />
+    <style name="FirebaseUI.Text.HintText" parent="@style/FirebaseUI.EditText" />
+
 </resources>

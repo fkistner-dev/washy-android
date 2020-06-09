@@ -30,7 +30,8 @@ abstract class LoginFragmentHelper : FirebaseUIFragment() {
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setLogo(R.drawable.ic_local_car_wash)
+                .setIsSmartLockEnabled(false)
+                .setLogo(R.mipmap.ic_launcher)
                 .setTheme(R.style.LoginTheme)
                 .setTosAndPrivacyPolicyUrls(getString(R.string.tos_url), getString(R.string.privacy_url))
                 .build(),
@@ -38,30 +39,6 @@ abstract class LoginFragmentHelper : FirebaseUIFragment() {
         )
         // [END auth_fui_create_intent]
     }
-
-    // [START auth_fui_result]
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
-
-            if (resultCode == Activity.RESULT_OK) {
-                // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
-                findNavController().navigate(R.id.action_identification_fragment_to_map_fragment)
-
-                Toast.makeText(requireContext(), "Sign in success", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_LONG).show()
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
-            }
-        }
-    }
-    // [END auth_fui_result]
 
     private fun signOut() {
         // [START auth_fui_signout]

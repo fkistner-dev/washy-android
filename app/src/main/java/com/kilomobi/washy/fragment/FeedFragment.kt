@@ -1,18 +1,14 @@
 package com.kilomobi.washy.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.*
-import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.model.Feed
@@ -21,9 +17,10 @@ import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.viewmodel.FeedListViewModel
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
-class FeedFragment(val merchant: Merchant?) : Fragment(), AdapterListener, MainActivityDelegate {
+class FeedFragment(val merchant: Merchant? = null) : FragmentEmptyView(), AdapterListener {
 
     private lateinit var viewModel: FeedListViewModel
+    private var viewContainer: ViewGroup? = null
     private val listAdapter by lazy { FeedAdapter(this) }
 
     override fun onCreateView(
@@ -31,7 +28,8 @@ class FeedFragment(val merchant: Merchant?) : Fragment(), AdapterListener, MainA
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.layout_feed, container, false)
+        viewContainer = container
+        return inflater.inflate(R.layout.layout_photolab, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,15 +50,15 @@ class FeedFragment(val merchant: Merchant?) : Fragment(), AdapterListener, MainA
                 if (it != null && it.isNotEmpty()) {
                     listAdapter.submitList(it)
                 } else {
-                    Log.d("TAG", "awaiting for info")
+                    displayEmptyView()
                 }
             })
         } else {
-            viewModel.getMerchantFeed((merchant?.reference as DocumentReference).id).observe(viewLifecycleOwner, Observer<List<Feed>> {
+            viewModel.getMerchantFeed((merchant.reference as DocumentReference).id).observe(viewLifecycleOwner, Observer<List<Feed>> {
                 if (it != null && it.isNotEmpty()) {
                     listAdapter.submitList(it)
                 } else {
-                    Log.d("TAG", "awaiting for info")
+                    displayEmptyView()
                 }
             })
         }
@@ -69,47 +67,4 @@ class FeedFragment(val merchant: Merchant?) : Fragment(), AdapterListener, MainA
     override fun listen(click: AdapterClick?) {
         TODO("Not yet implemented")
     }
-
-    override fun setupNavDrawer(toolbar: Toolbar) {
-        TODO("Not yet implemented")
-    }
-
-    override fun closeDrawer() {
-        TODO("Not yet implemented")
-    }
-
-    override fun enableNavDrawer(enable: Boolean) {
-        TODO("Not yet implemented")
-    }
 }
-//
-//object ExampleFeedData {
-//
-//    fun createList(): List<RecyclerItem> {
-//        val list = ArrayList<RecyclerItem>()
-//
-//        list.add(
-//            Feed(
-//                name = "Total Wash",
-//                message = "Promotion exceptionnelle"
-//            )
-//        )
-//
-//        list.add(
-//            Feed(
-//                name = "Total Wash",
-//                message = "Tout pour le déconfinement !"
-//            )
-//        )
-//
-//        list.add(
-//            Feed(
-//                name = "Total Wash",
-//                message = "Washement Propwe !"
-//            )
-//        )
-//
-//        return list
-//    }
-//
-//}

@@ -1,2 +1,2 @@
 rootProject.name='Washy'
-include ':app'
+include ':app', ':geofirestore'

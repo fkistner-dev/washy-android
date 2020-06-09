@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +21,7 @@ import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
 import com.kilomobi.washy.util.initToolbar
 import kotlinx.android.synthetic.main.layout_merchant_tabbed.*
-import kotlinx.android.synthetic.main.layout_top_bar.*
+//import kotlinx.android.synthetic.main.layout_top_bar.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 class MerchantDetailFragment : Fragment() {
@@ -48,10 +49,13 @@ class MerchantDetailFragment : Fragment() {
             merchant = requireArguments()["merchant"] as Merchant
         }
 
+        if (merchant.imported) {
+            view.findViewById<TextView>(R.id.type).visibility = View.GONE
+        }
         view.findViewById<TextView>(R.id.type).text = if (merchant.siren.isNotEmpty()) getString(R.string.merchant_pro) else getString(R.string.merchant_part)
         view.findViewById<TextView>(R.id.title).text = merchant.name
         view.findViewById<TextView>(R.id.description).text = merchant.description
-        view.findViewById<MaterialRatingBar>(R.id.ratingBar).rating = merchant.avgRating
+        view.findViewById<MaterialRatingBar>(R.id.ratingBar).rating = if (merchant.avgRating < 0.1f) merchant.googleAvgRating else merchant.avgRating
 
         val serviceScrollView = view.findViewById<HorizontalScrollView>(R.id.serviceHorizontalScroll) as ViewGroup
         val linearLayout = LinearLayout(context)
@@ -80,13 +84,20 @@ class MerchantDetailFragment : Fragment() {
                 startActivity(intent)
         }
 
+        if (!merchant.imgUrl.isBlank()) {
+            view.findViewById<ImageView>(R.id.photo).visibility = View.VISIBLE
+            Glide.with(requireContext())
+                .load(merchant.imgUrl)
+                .into(view.findViewById<ImageView>(R.id.photo))
+        }
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initToolbar(toolbar, true)
+//        initToolbar(toolbar, true)
 
         val adapter = MerchantDetailViewPagerFragment(activity?.supportFragmentManager!!)
         adapter.addFragment(ProductListFragment(merchant), getString(R.string.offer_title))
@@ -104,7 +115,7 @@ class MerchantDetailFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_merchant_detail, menu)
 
-        isFavorite = merchant.favoriteId.contains(FirebaseAuth.getInstance().currentUser?.uid)
+//        isFavorite = merchant.favoriteId.contains(FirebaseAuth.getInstance().currentUser?.uid)
         menu.getItem(0).setIcon(if (isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_outline)
 
         super.onCreateOptionsMenu(menu, inflater)

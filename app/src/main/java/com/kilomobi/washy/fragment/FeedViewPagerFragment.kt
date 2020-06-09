@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.R
@@ -24,9 +25,10 @@ import com.kilomobi.washy.adapter.FeedPagerAdapter
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.viewmodel.FeedListViewModel
 
-class FeedViewPagerFragment : Fragment(),
-    AdapterListener, MainActivityDelegate {
+class FeedViewPagerFragment : FragmentEmptyView(),
+    AdapterListener {
 
+    private lateinit var shimmerLayout: ShimmerFrameLayout
     private lateinit var viewPager: ViewPager2
     private val feeds = ArrayList<Feed>()
 
@@ -42,19 +44,29 @@ class FeedViewPagerFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         viewPager = view.findViewById(R.id.viewPager)
 
+        shimmerLayout = view.findViewById<ShimmerFrameLayout>(R.id.shimmer_layout)
+
         val feedPagerAdapter = FeedPagerAdapter(
             requireContext(),
             feeds
         )
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            FeedListViewModel::class.java)
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FeedListViewModel::class.java)
+        viewModel.isLoading.observe(requireActivity(), Observer<Boolean> {
+            if (it) {
+                shimmerLayout.visibility = View.VISIBLE
+                shimmerLayout.startShimmer()
+            } else {
+                shimmerLayout.stopShimmer()
+                shimmerLayout.visibility = View.GONE
+            }
+        })
         viewModel.getAllFeeds().observe(viewLifecycleOwner, Observer<List<Feed>> {
             if (it != null && it.isNotEmpty()) {
                 feeds.addAll(it)
                 feedPagerAdapter.notifyDataSetChanged()
             } else {
-                Log.d("TAG", "awaiting for info")
+                displayEmptyView()
             }
         })
 
@@ -86,18 +98,6 @@ class FeedViewPagerFragment : Fragment(),
 
 
     override fun listen(click: AdapterClick?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun setupNavDrawer(toolbar: Toolbar) {
-        TODO("Not yet implemented")
-    }
-
-    override fun closeDrawer() {
-        TODO("Not yet implemented")
-    }
-
-    override fun enableNavDrawer(enable: Boolean) {
         TODO("Not yet implemented")
     }
 

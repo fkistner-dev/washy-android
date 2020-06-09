@@ -19,11 +19,17 @@ class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHold
 
     fun bind(merchant: Merchant, selectedItem: Int) {
         val context = merchantView.context
-
+        if (merchant.imported) {
+            merchantView.findViewById<TextView>(type).visibility = View.GONE
+        }
         merchantView.findViewById<TextView>(type).text = if (merchant.siren.isNotEmpty()) context.getString(R.string.merchant_pro) else context.getString(R.string.merchant_part)
         merchantView.findViewById<TextView>(title).text = merchant.name
-        merchantView.findViewById<TextView>(text).text = merchant.description
-        merchantView.findViewById<MaterialRatingBar>(rating).rating = merchant.avgRating
+        if (merchant.description.isNullOrBlank()) {
+            merchantView.findViewById<TextView>(text).visibility = View.GONE
+        } else {
+            merchantView.findViewById<TextView>(text).text = merchant.description
+        }
+        merchantView.findViewById<MaterialRatingBar>(rating).rating = if (merchant.avgRating < 0.1f) merchant.googleAvgRating else merchant.avgRating
 
         merchantView.findViewById<MaterialCardView>(cardview).apply {
             strokeColor = if (selectedItem == adapterPosition) context.getColor(

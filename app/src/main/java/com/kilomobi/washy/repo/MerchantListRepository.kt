@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kilomobi.washy.model.Merchant
 
-class MerchantListRepository {
+class MerchantListRepository : BaseRepository() {
 
     companion object {
         const val COLLECTION = "merchants"
@@ -21,7 +21,7 @@ class MerchantListRepository {
         val tmpListMerchant: ArrayList<Merchant> = ArrayList()
 
         db.collection(COLLECTION)
-            .whereEqualTo("isActive", true)
+            .whereEqualTo("active", true)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -30,6 +30,7 @@ class MerchantListRepository {
                      tmpListMerchant.add(merchant)
                 }
                 merchantList.value = tmpListMerchant
+                onDataReceived()
             }
     }
 }

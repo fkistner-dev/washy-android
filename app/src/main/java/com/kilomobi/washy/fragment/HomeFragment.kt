@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.R
-import com.kilomobi.washy.util.initToolbar
-import kotlinx.android.synthetic.main.layout_top_bar.*
 
 class HomeFragment : Fragment() {
 
@@ -28,15 +26,13 @@ class HomeFragment : Fragment() {
             throw ClassCastException()
         }
 
+        arguments?.getBoolean("isFullscreen")?.let { mainActivityDelegate.setFullscreen(it) }
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initToolbar(toolbar, false)
-        mainActivityDelegate.setupNavDrawer(toolbar)
-        mainActivityDelegate.enableNavDrawer(true)
 
         val fragmentTransaction: FragmentTransaction? =
             activity?.supportFragmentManager?.beginTransaction()

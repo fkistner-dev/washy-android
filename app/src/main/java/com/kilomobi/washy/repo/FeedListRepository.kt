@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kilomobi.washy.model.Feed
 
-class FeedListRepository {
+class FeedListRepository : BaseRepository() {
 
     companion object {
         const val COLLECTION = "feeds"
@@ -31,6 +31,7 @@ class FeedListRepository {
                     tmpListFeed.add(document.toObject(Feed::class.java))
                 }
                 feedList.value = tmpListFeed
+                onDataReceived()
             }
     }
 
@@ -47,6 +48,7 @@ class FeedListRepository {
                     tmpListFeed.add(document.toObject(Feed::class.java))
                 }
                 merchantFeedList.value = tmpListFeed
+                onDataReceived()
             }
     }
 }

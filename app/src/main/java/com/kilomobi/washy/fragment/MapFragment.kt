@@ -1,11 +1,26 @@
 package com.kilomobi.washy.fragment
 
+import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,26 +34,31 @@ import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.model.Merchant
-import com.kilomobi.washy.util.initToolbar
-import kotlinx.android.synthetic.main.layout_top_bar.*
+import com.kilomobi.washy.viewmodel.MerchantListViewModel
+import kotlinx.android.synthetic.main.marker_info_layout.view.*
 
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
     private var animateFromArgs = false
     private lateinit var mainActivityDelegate: MainActivityDelegate
+    private lateinit var viewModel: MerchantListViewModel
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_map, container, false)
 
         setHasOptionsMenu(true)
-        tag
+
         try {
             mainActivityDelegate = context as MainActivityDelegate
         } catch (e: ClassCastException) {
@@ -50,11 +70,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initToolbar(toolbar, false)
-        mainActivityDelegate.setupNavDrawer(toolbar)
-        mainActivityDelegate.enableNavDrawer(true)
-        mainActivityDelegate.closeDrawer()
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         // Try to obtain the map from the SupportMapFragment.
@@ -84,9 +99,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     }
 
     private fun setUpMap() {
-        if (ActivityCompat.checkSelfPermission(requireActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(),
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
@@ -101,7 +120,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                if (!animateFromArgs) map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                if (!animateFromArgs) map.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        currentLatLng,
+                        12f
+                    )
+                )
             }
         }
 
@@ -109,23 +133,107 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     }
 
     private fun setMerchantOnMap() {
+        setInfoBubble()
+
         if (arguments != null && requireArguments()["merchant"] != null && requireArguments()["merchant"] is Merchant) {
             animateFromArgs = true
 
             val merchant = requireArguments()["merchant"] as Merchant
-            val merchantPosition = LatLng(merchant.position!!.latitude, merchant.position!!.longitude)
+            val merchantPosition =
+                LatLng(merchant.position!!.latitude, merchant.position!!.longitude)
 
-            map.addMarker(MarkerOptions()
-                .position(merchantPosition)
-                .snippet((merchant.reference as DocumentReference).id))
+            map.addMarker(
+                MarkerOptions()
+                    .position(merchantPosition)
+                    .snippet((merchant.reference as DocumentReference).id)
+            )
 
 
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(merchantPosition, 16f))
+        } else {
+            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+                MerchantListViewModel::class.java
+            )
+
+            viewModel.getAllMerchants().observe(viewLifecycleOwner, Observer<List<Merchant>> {
+                if (it != null && it.isNotEmpty()) {
+                    onListReceived(it)
+                } else {
+                    displayEmptyView()
+                }
+            })
+        }
+    }
+
+    private fun onListReceived(merchantList: List<Merchant>) {
+        for (merchant in merchantList) {
+            val merchantPosition =
+                LatLng(merchant.position!!.latitude, merchant.position!!.longitude)
+            map.addMarker(
+                MarkerOptions()
+                    .position(merchantPosition)
+                    .snippet((merchant.reference as DocumentReference).id)
+            )
         }
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        return true
+        return false
+    }
+
+    private fun setInfoBubble() {
+        map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
+            override fun getInfoWindow(marker: Marker): View? {
+                return null
+            }
+
+            override fun getInfoContents(marker: Marker): View {
+                val ctx: Context = requireActivity()
+
+                val inflater = LayoutInflater.from(ctx)
+                val view = inflater.inflate(R.layout.marker_info_layout, null, false)
+
+                val merchant = viewModel.getAllMerchants().value?.find { (it.reference as DocumentReference).id == marker.snippet }
+                Glide.with(requireContext()).asBitmap()
+                    .load(merchant?.imgUrl)
+                    .override(50,50)
+                    .listener(object : RequestListener<Bitmap> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Bitmap>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: Bitmap?,
+                            model: Any?,
+                            target: Target<Bitmap>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            if(dataSource != null && !dataSource.equals(DataSource.MEMORY_CACHE))
+                                marker.showInfoWindow()
+                            return false
+                        }
+
+                    }).into(view.image)
+                view.header.text = merchant?.name
+                view.subheader.text = merchant?.fullAddress
+                view.text.text = merchant?.description
+
+                return view
+            }
+        })
+
+        // Set a listener for info window events.
+        map.setOnInfoWindowClickListener { marker ->
+            val merchant = viewModel.getAllMerchants().value?.find { (it.reference as DocumentReference).id == marker.snippet }
+            val bundle = bundleOf("merchant" to merchant)
+            findNavController().navigate(R.id.action_mapFragment_to_merchantDetailFragment, bundle)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

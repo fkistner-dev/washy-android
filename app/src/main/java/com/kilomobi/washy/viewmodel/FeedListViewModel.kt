@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.repo.FeedListRepository
 
-class FeedListViewModel : ViewModel() {
-
-    private val repository = FeedListRepository()
+class FeedListViewModel(private val repository: FeedListRepository = FeedListRepository()) : BaseViewModel(repository) {
 
     fun getAllFeeds(): MutableLiveData<ArrayList<Feed>> {
         return feeds
