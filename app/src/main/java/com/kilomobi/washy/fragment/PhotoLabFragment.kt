@@ -1,11 +1,10 @@
 package com.kilomobi.washy.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.R
@@ -35,6 +34,7 @@ class PhotoLabFragment(val merchant: Merchant? = null) : FragmentEmptyView(), Ad
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
+        setHasOptionsMenu(true)
     }
 
     private fun initialize() {
@@ -62,6 +62,22 @@ class PhotoLabFragment(val merchant: Merchant? = null) : FragmentEmptyView(), Ad
                     displayEmptyView()
                 }
             })
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_photo_lab, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_add_photo -> {
+                findNavController().navigate(R.id.action_photolabFragment_to_addPhotoFragment)
+                return true
+            }
+            android.R.id.home -> findNavController().popBackStack()
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

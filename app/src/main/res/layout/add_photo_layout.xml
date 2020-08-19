@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/uploadDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/image_marging"
+        android:layout_centerHorizontal="true"
+        android:text="@string/add_photo_text"/>
+
+    <ImageView
+        android:id="@+id/uploadImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="@dimen/image_marging"
+        android:layout_below="@id/uploadDescription"
+        android:src="@drawable/ic_image_outline"
+        android:tint="@color/colorPrimaryDark"
+        android:contentDescription="@string/common_image_content_description" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_choose_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/text_right_spacing"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/uploadImage"
+        android:textAllCaps="true"
+        android:text="@string/common_select"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/input_car"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_photo_car_text"
+        android:layout_below="@id/btn_choose_image"
+        app:counterEnabled="true"
+        app:counterMaxLength="256">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/input_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_photo_product_text"
+        android:layout_below="@id/input_car"
+        app:counterEnabled="true"
+        app:counterMaxLength="256">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_upload_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_marginStart="@dimen/text_padding"
+        android:layout_marginEnd="@dimen/text_padding"
+        android:text="@string/common_validate"/>
+
+</RelativeLayout>

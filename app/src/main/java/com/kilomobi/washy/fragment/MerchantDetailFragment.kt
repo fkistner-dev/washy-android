@@ -128,6 +128,9 @@ class MerchantDetailFragment : Fragment() {
                 item.setIcon(if (isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_outline)
                 return true
             }
+            R.id.action_add_rating -> {
+                return true
+            }
             android.R.id.home -> findNavController().popBackStack()
             else -> super.onOptionsItemSelected(item)
         }

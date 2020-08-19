@@ -10,12 +10,20 @@ import com.kilomobi.washy.recycler.RecyclerItem
 
 object OnboardingCell : Cell<RecyclerItem>() {
 
+    var itemState = -1
+
     override fun belongsTo(item: RecyclerItem?): Boolean {
-        return item is OnboardingItem
+        if (item !is OnboardingItem) return false
+        itemState = item.position
+        return true
     }
 
     override fun type(): Int {
-        return R.layout.item_container_onboarding
+        return when (itemState) {
+            1 -> R.layout.item_container_onboarding
+            2 -> R.layout.item_container_onboarding_2
+            else -> R.layout.item_container_onboarding_2
+        }
     }
 
     override fun holder(

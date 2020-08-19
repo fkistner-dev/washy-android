@@ -8,10 +8,10 @@ import com.kilomobi.washy.R
 class Service {
     companion object {
         private val COFFEE: Pair<String, Int> = Pair("coffee",
-            R.drawable.ic_coffee
+            R.drawable.ic_coffee_outline
         )
         private val WIFI: Pair<String, Int> = Pair("wifi",
-            R.drawable.ic_signal_wifi
+            R.drawable.ic_wifi
         )
         private val ELECTRIC_PLUG: Pair<String, Int> = Pair("electric_plug",
             R.drawable.ic_ev_station

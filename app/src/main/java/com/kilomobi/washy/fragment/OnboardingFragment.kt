@@ -58,18 +58,21 @@ class OnboardingFragment : Fragment(), AdapterListener {
 
         val onboardingItems = listOf(
             OnboardingItem(
+                1,
                 R.drawable.onboarding_01,
                 R.drawable.background_onboarding_01,
                 getString(R.string.onboarding_title_1),
                 getString(R.string.onboarding_description_1)
             ),
             OnboardingItem(
+                2,
                 R.drawable.onboarding_02,
                 R.drawable.background_onboarding_02,
                 getString(R.string.onboarding_title_2),
                 getString(R.string.onboarding_description_2)
             ),
             OnboardingItem(
+                3,
                 background = R.drawable.background_onboarding_03,
                 title = getString(R.string.onboarding_title_3),
                 description = getString(R.string.onboarding_description_3)

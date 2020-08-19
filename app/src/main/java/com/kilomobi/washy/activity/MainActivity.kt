@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity(),
             }
             R.id.action_photolab -> {
                 if (supportFragmentManager.currentNavigationFragment !is PhotoLabFragment) {
-                    navController.navigate(R.id.action_homeFragment_to_feedFragment)
+                    navController.navigate(R.id.action_homeFragment_to_photolabFragment)
                 }
                 true
             }

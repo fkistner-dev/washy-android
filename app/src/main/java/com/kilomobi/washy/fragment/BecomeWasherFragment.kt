@@ -151,32 +151,53 @@ class BecomeWasherFragment : Fragment() {
         var isAddressComplete = true
 
         if (inputName.editText?.text?.isNotBlank() == true) {
-            inputName.error = null
-            merchant.name = inputName.editText?.text.toString()
+            if (inputName.editText?.text!!.count() < 5) {
+                isValid = false
+                inputName.error = getString(R.string.input_error_name_requirement)
+            } else {
+                inputName.error = null
+                merchant.name = inputName.editText?.text.toString()
+            }
         } else {
             isValid = false
             inputName.error = getString(R.string.input_error_name)
         }
 
         if (inputDescription.editText?.text?.isNotBlank() == true) {
-            inputDescription.error = null
-            merchant.description = inputDescription.editText?.text.toString()
+            if (inputDescription.editText?.text!!.count() < 15) {
+                isValid = false
+                inputDescription.error = getString(R.string.input_error_description_requirement)
+            } else {
+                inputDescription.error = null
+                merchant.description = inputDescription.editText?.text.toString()
+            }
         } else {
             isValid = false
             inputDescription.error = getString(R.string.input_error_description)
         }
 
         if (inputPhone.editText?.text?.isNotBlank() == true) {
-            inputPhone.error = null
-            merchant.phone = inputPhone.editText?.text.toString()
+            if (inputPhone.editText?.text!!.count() != 10) {
+                isValid = false
+                inputPhone.error = getString(R.string.input_error_phone_requirement)
+            } else {
+                inputPhone.error = null
+                merchant.phone = inputPhone.editText?.text.toString()
+            }
         } else {
             isValid = false
             inputPhone.error = getString(R.string.input_error_phone)
         }
 
         if (inputAddress.editText?.text?.isNotBlank() == true) {
-            inputAddress.error = null
-            merchant.fullAddress = inputAddress.editText?.text.toString()
+            if (inputAddress.editText?.text!!.count() < 6) {
+                isValid = false
+                isAddressComplete = false
+                inputAddress.error = getString(R.string.input_error_address_requirement)
+            } else {
+                inputAddress.error = null
+                merchant.fullAddress = inputAddress.editText?.text.toString()
+            }
         } else {
             isValid = false
             isAddressComplete = false

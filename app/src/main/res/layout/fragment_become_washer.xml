@@ -10,27 +10,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-<!--        <include layout="@layout/layout_top_bar" />-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fragment_marging"
             android:orientation="vertical">
 
-        <TextView
-            style="@style/WashyText.Header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:text="@string/become_washer_title" />
+            <TextView
+                style="@style/WashyText.Header"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/text_marging_profil_header"
+                android:layout_marginEnd="@dimen/text_marging_profil_header"
+                android:text="@string/become_washer_title"
+                android:textAlignment="center" />
 
         <TextView
             style="@style/WashyText.Default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/text_sub_header"
             android:textAlignment="center"
             android:text="@string/become_washer_text" />
 
@@ -39,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/text_sub_header"
             android:textAlignment="center"
             android:text="@string/become_washer_emoji" />
 
@@ -47,7 +49,9 @@
             android:id="@+id/input_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/become_washer_name">
+            android:hint="@string/become_washer_name"
+            app:counterEnabled="true"
+            app:counterMaxLength="64">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -60,7 +64,9 @@
             android:id="@+id/input_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/become_washer_description">
+            android:hint="@string/become_washer_description"
+            app:counterEnabled="true"
+            app:counterMaxLength="256">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -73,7 +79,9 @@
             android:id="@+id/input_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/become_washer_phone">
+            android:hint="@string/become_washer_phone"
+            app:counterEnabled="true"
+            app:counterMaxLength="10">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:inputType="phone"
@@ -87,7 +95,8 @@
             android:id="@+id/input_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/become_washer_address">
+            android:hint="@string/become_washer_address"
+            app:counterMaxLength="256">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:inputType="textPostalAddress"
@@ -101,7 +110,8 @@
                 android:id="@+id/input_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/become_washer_city">
+                android:hint="@string/become_washer_city"
+                app:counterMaxLength="64">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:inputType="textPostalAddress"
@@ -188,7 +198,7 @@
                 android:layout_height="wrap_content"
                 app:chipBackgroundColor="@color/white"
                 app:chipIconTint="@color/colorGrey500"
-                app:chipIcon="@drawable/ic_coffee"
+                app:chipIcon="@drawable/ic_coffee_outline"
                 app:chipStrokeColor="@color/colorGrey200"
                 app:chipStrokeWidth="1dp"
                 app:chipCornerRadius="16dp"
@@ -200,7 +210,7 @@
                 android:layout_height="wrap_content"
                 app:chipBackgroundColor="@color/white"
                 app:chipIconTint="@color/colorGrey500"
-                app:chipIcon="@drawable/ic_signal_wifi"
+                app:chipIcon="@drawable/ic_wifi"
                 app:chipStrokeColor="@color/colorGrey200"
                 app:chipStrokeWidth="1dp"
                 app:chipCornerRadius="16dp"

@@ -10,6 +10,7 @@ data class Product(
     var duration: String = "",
     var price: Double = 0.0,
     var active: Boolean = true,
+    var verified: Boolean = false,
     var createdAt: Timestamp = Timestamp.now(),
     var imageUrl: String = ""
 ) : RecyclerItem(), AdapterClick

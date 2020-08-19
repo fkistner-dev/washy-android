@@ -45,6 +45,22 @@
     </fragment>
 
     <fragment
+        android:id="@+id/photolabFragment"
+        android:name="com.kilomobi.washy.fragment.PhotoLabFragment"
+        android:label=""
+        tools:layout="@layout/layout_photolab">
+        <action
+            android:id="@+id/action_photolabFragment_to_addPhotoFragment"
+            app:destination="@id/addPhotoFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/addPhotoFragment"
+        android:name="com.kilomobi.washy.fragment.AddPhotoFragment"
+        android:label=""
+        tools:layout="@layout/add_photo_layout">
+    </fragment>
+
+    <fragment
         android:id="@+id/termOfServiceFragment"
         android:name="com.kilomobi.washy.fragment.TermOfServiceFragment"
         android:label=""
@@ -70,6 +86,10 @@
         <action
             android:id="@+id/action_homeFragment_to_feedFragment"
             app:destination="@id/feedListFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_photolabFragment"
+            app:destination="@id/photolabFragment" />
 
         <action
             android:id="@+id/action_homeFragment_to_identificationFragment"

@@ -13,7 +13,6 @@ import com.kilomobi.washy.viewholder.FeedPhotoViewHolder
 import com.kilomobi.washy.viewholder.FeedPromotionalViewHolder
 import com.kilomobi.washy.viewholder.FeedStandardViewHolder
 import com.kilomobi.washy.viewholder.FeedViewHolder
-import java.util.*
 
 data class Feed(
     var merchantId: String = "",
@@ -21,6 +20,7 @@ data class Feed(
     var text: String = "",
     var price: Long = 0,
     var isPromotional: Boolean = false,
+    var verified: Boolean = false,
     var discount: Int = 0,
     var photos: List<String> = listOf(),
     var createdAt: Timestamp = Timestamp.now(),

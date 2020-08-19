@@ -54,6 +54,8 @@
     <string name="action_search">Rechercher</string>
     <string name="action_favorite">Favoris</string>
     <string name="action_add_favorite">Ajouter aux favoris</string>
+    <string name="action_add_rating">Ajouter un avis</string>
+    <string name="action_add_photo">Ajouter une photo</string>
     <string name="action_delete_favorite">Retirer des favoris</string>
     <string name="action_feed">Avis</string>
     <string name="action_photolab">PhotoLab</string>
@@ -66,7 +68,7 @@
     <string name="action_geolocalisation">Centrer</string>
 
     <!-- Become Washer -->
-    <string name="become_washer_title">Félicitation !\nTu es à 5 minutes de devenir un Washer</string>
+    <string name="become_washer_title">Félicitation ! Tu es à 5 minutes de devenir un Washer</string>
     <string name="become_washer_text">Il suffit de répondre à quelques questions</string>
     <string name="become_washer_emoji">&#128513;</string>
 
@@ -81,11 +83,21 @@
     <string name="become_washer_siren">Numéro SIREN (pro) ?</string>
 
     <!-- Common -->
+    <string name="common_select">Sélectionner</string>
     <string name="common_validate">Valider</string>
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_image_content_description">Image</string>
     <string name="common_disconnect_success">Vous êtes maintenant déconnecté</string>
+
+    <!-- Add Photo -->
+    <string name="select_picture">Choisissez une photo</string>
+    <string name="no_picture_taken">Aucune photo sélectionner</string>
+    <string name="picture_upload_success">Envoie avec succès !</string>
+    <string name="picture_upload_error">Erreur lors de l\'envoie, veuillez vérifier votre connexion internet</string>
+    <string name="add_photo_text">Les photos s\'afficheront sous 48H dans le flux d\'accueil et également dans PhotoLab</string>
+    <string name="add_photo_car_text">Envie de rajouter des infos sur le véhicule ?</string>
+    <string name="add_photo_product_text">Quel(s) produit(s) utilisé(s) ?</string>
 
     <!-- Chip DB -->
     <string name="chip_db_headlight" translatable="false">headlight</string>
@@ -119,14 +131,20 @@
 
     <!-- Input -->
     <string name="input_error_name">Veuillez insérer un nom pour l\'affichage</string>
+    <string name="input_error_name_requirement">Veuillez entrer un nom d\'affichage plus long</string>
     <string name="input_error_description">Veuillez insérer une description</string>
+    <string name="input_error_description_requirement">Veuillez entrer au moins 10 mots pour vous présenter</string>
     <string name="input_error_phone">Veuillez insérer votre téléphone</string>
+    <string name="input_error_phone_requirement">Veuillez entrer un numéro valide</string>
     <string name="input_error_address">Veuillez insérer votre adresse</string>
+    <string name="input_error_address_requirement">Veuillez insérer une adresse valide</string>
     <string name="input_error_city">Veuillez insérer une ville</string>
-    <string name="input_error_services">Veuillez insérer au moins un service</string>
+    <string name="input_error_city_requirement">Veuillez insérer une ville valide</string>
+    <string name="input_error_services">Veuillez sélectionner au moins un service</string>
     <string name="input_error_work_at_home">Veuillez sélectionner si vous travailler à domicile</string>
     <string name="input_error_is_pro">Veuillez sélectionner si vous êtes un professionnel ou non</string>
     <string name="input_error_siren">Veuillez insérer votre numéro SIREN</string>
+    <string name="input_error_siren_requirement">Veuillez insérer un SIREN valide</string>
     <string name="input_error_no_service">Veuillez sélectionner un service que vous proposez</string>
     <string name="input_error_no_radio">Veuillez sélectionner une des options : [oui] ou [non]</string>
     <string name="input_merchant_create_success">Félicitation, vous êtes maintenant un Washer</string>

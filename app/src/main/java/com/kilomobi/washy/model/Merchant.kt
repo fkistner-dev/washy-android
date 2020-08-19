@@ -26,6 +26,7 @@ data class Merchant(
     var siren: String = "",
     var workAtCustomer: Boolean = false,
     var active: Boolean = false,
+    var verified: Boolean = false,
     var imported: Boolean = false,
     var adminId: String? = "",
     var lundi: String? = "",

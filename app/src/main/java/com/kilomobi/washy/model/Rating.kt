@@ -9,6 +9,7 @@ data class Rating(
     var userName: String = "",
     var createdAt: Timestamp = Timestamp.now(),
     var rating: Float = 0f,
+    var verified: Boolean = false,
     var text: String? = null) : RecyclerItem(), AdapterClick {
 
     override fun equals(other: Any?): Boolean {
