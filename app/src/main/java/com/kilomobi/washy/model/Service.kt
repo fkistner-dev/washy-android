@@ -7,41 +7,53 @@ import com.kilomobi.washy.R
 // Enum would imply performance issue
 class Service {
     companion object {
-        private val COFFEE: Pair<String, Int> = Pair("coffee",
-            R.drawable.ic_coffee_outline
+        private val COFFEE: ChipModel = ChipModel("coffee",
+            R.drawable.ic_coffee_outline,
+            R.string.chip_coffee
         )
-        private val WIFI: Pair<String, Int> = Pair("wifi",
-            R.drawable.ic_wifi
+        private val WIFI: ChipModel = ChipModel("wifi",
+            R.drawable.ic_wifi,
+            R.string.chip_wifi
         )
-        private val ELECTRIC_PLUG: Pair<String, Int> = Pair("electric_plug",
-            R.drawable.ic_ev_station
+        private val ELECTRIC_PLUG: ChipModel = ChipModel("electric_plug",
+            R.drawable.ic_ev_station,
+            R.string.chip_electric_plug
         )
-        private val BIKE: Pair<String, Int> = Pair("bike",
-            R.drawable.ic_motorcycle
+        private val BIKE: ChipModel = ChipModel("bike",
+            R.drawable.ic_motorcycle,
+            R.string.chip_motorbike
         )
-        private val HAND_WASH: Pair<String, Int> = Pair("hand_wash",
-            R.drawable.ic_hand_water
+        private val HAND_WASH: ChipModel = ChipModel("hand_wash",
+            R.drawable.ic_hand_water,
+            R.string.chip_hand_wash
         )
-        private val HEADLIGHT: Pair<String, Int> = Pair("headlight",
-            R.drawable.ic_car_light_dimmed
+        private val HEADLIGHT: ChipModel = ChipModel("headlight",
+            R.drawable.ic_car_light_dimmed,
+            R.string.chip_headlight
         )
-        private val TRANSPORT: Pair<String, Int> = Pair("transport",
-            R.drawable.ic_train_car
+        private val TRANSPORT: ChipModel = ChipModel("transport",
+            R.drawable.ic_train_car,
+            R.string.chip_transport
         )
-        private val ECO_FRIENDLY: Pair<String, Int> = Pair("eco_friendly",
-            R.drawable.ic_leaf
+        private val ECO_FRIENDLY: ChipModel = ChipModel("eco_friendly",
+            R.drawable.ic_leaf,
+            R.string.chip_eco
         )
-        private val CERAMIC: Pair<String, Int> = Pair("ceramic",
-            R.drawable.ic_car_convertible
+        private val CERAMIC: ChipModel = ChipModel("ceramic",
+            R.drawable.ic_car_convertible,
+            R.string.chip_ceramic
         )
-        private val INTERIOR: Pair<String, Int> = Pair("interior",
-            R.drawable.ic_car_seat
+        private val INTERIOR: ChipModel = ChipModel("interior",
+            R.drawable.ic_car_seat,
+            R.string.chip_interior
         )
-        private val EXTERIOR: Pair<String, Int> = Pair("exterior",
-            R.drawable.ic_car_convertible
+        private val EXTERIOR: ChipModel = ChipModel("exterior",
+            R.drawable.ic_car_convertible,
+            R.string.chip_exterior
         )
-        private val WINDSHIELD: Pair<String, Int> = Pair("windshield",
-            R.drawable.ic_car_windshield_outline
+        private val WINDSHIELD: ChipModel = ChipModel("windshield",
+            R.drawable.ic_car_windshield_outline,
+            R.string.chip_windshield
         )
 
         private val serviceList = listOf(
@@ -98,7 +110,11 @@ class Service {
         }
 
         fun retrieveImage(service: String): Int {
-            return serviceList.find { pair -> pair.first == service }!!.second
+            return serviceList.find { chipModel -> chipModel.id == service }!!.image
+        }
+
+        fun retrieveText(service: String): Int {
+            return serviceList.find { chipModel -> chipModel.id == service }!!.text
         }
     }
 }

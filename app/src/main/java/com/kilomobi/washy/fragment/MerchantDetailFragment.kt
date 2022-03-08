@@ -14,14 +14,11 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.chip.Chip
-import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
-import com.kilomobi.washy.util.initToolbar
 import kotlinx.android.synthetic.main.layout_merchant_tabbed.*
-//import kotlinx.android.synthetic.main.layout_top_bar.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 class MerchantDetailFragment : Fragment() {
@@ -51,8 +48,9 @@ class MerchantDetailFragment : Fragment() {
 
         if (merchant.imported) {
             view.findViewById<TextView>(R.id.type).visibility = View.GONE
+        } else {
+            view.findViewById<TextView>(R.id.type).text = if (merchant.siren.isNotEmpty()) getString(R.string.merchant_pro) else getString(R.string.merchant_part)
         }
-        view.findViewById<TextView>(R.id.type).text = if (merchant.siren.isNotEmpty()) getString(R.string.merchant_pro) else getString(R.string.merchant_part)
         view.findViewById<TextView>(R.id.title).text = merchant.name
         view.findViewById<TextView>(R.id.description).text = merchant.description
         view.findViewById<MaterialRatingBar>(R.id.ratingBar).rating = if (merchant.avgRating < 0.1f) merchant.googleAvgRating else merchant.avgRating
@@ -64,7 +62,7 @@ class MerchantDetailFragment : Fragment() {
         for (service in merchant.services) {
             if (service.isBlank()) return null
             val chip = Chip(requireContext())
-            chip.text = service
+            chip.text = context?.getString(Service.retrieveText(service))
             chip.minHeight = 16
             chip.chipIcon = ContextCompat.getDrawable(requireContext(), Service.retrieveImage(service))
             chip.setChipBackgroundColorResource(R.color.white)
