@@ -37,11 +37,9 @@ class HomeFragment : Fragment() {
         val fragmentTransaction: FragmentTransaction? =
             activity?.supportFragmentManager?.beginTransaction()
 
-        fragmentTransaction?.add(R.id.listFeed,
-            FeedViewPagerFragment(), "feed")
-//        fragmentTransaction?.add(R.id.listMap, MapFragment(),"map")
-        fragmentTransaction?.add(R.id.listMerchant,
-            MerchantListFragment(), "merchant")
+        fragmentTransaction?.add(R.id.listFeed, FeedViewPagerFragment(), "feed")
+        //fragmentTransaction?.add(R.id.listMap, MapFragment(),"map")
+        fragmentTransaction?.add(R.id.listMerchant, MerchantListFragment(), "merchant")
 
         fragmentTransaction?.commit()
     }

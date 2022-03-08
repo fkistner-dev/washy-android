@@ -44,7 +44,7 @@ class FeedViewPagerFragment : FragmentEmptyView(),
         super.onViewCreated(view, savedInstanceState)
         viewPager = view.findViewById(R.id.viewPager)
 
-        shimmerLayout = view.findViewById<ShimmerFrameLayout>(R.id.shimmer_layout)
+        shimmerLayout = view.findViewById(R.id.shimmer_layout)
 
         val feedPagerAdapter = FeedPagerAdapter(
             requireContext(),

@@ -62,9 +62,11 @@ class MerchantDetailFragment : Fragment() {
         for (service in merchant.services) {
             if (service.isBlank()) return null
             val chip = Chip(requireContext())
-            chip.text = context?.getString(Service.retrieveText(service))
+            chip.text = Service.retrieveText(service)?.let { context?.getString(it) }
             chip.minHeight = 16
-            chip.chipIcon = ContextCompat.getDrawable(requireContext(), Service.retrieveImage(service))
+            chip.chipIcon =
+                Service.retrieveImage(service)
+                    ?.let { ContextCompat.getDrawable(requireContext(), it) }
             chip.setChipBackgroundColorResource(R.color.white)
             chip.setChipIconTintResource(R.color.colorPrimary)
             linearLayout.addView(chip)

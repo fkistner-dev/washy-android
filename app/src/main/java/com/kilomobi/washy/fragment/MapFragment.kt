@@ -110,6 +110,8 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
         // Add the user's mark (blue dot)
         map.isMyLocationEnabled = true
+        // Center to France
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(46.227638, 2.213749), 15f))
 
         fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
             // Got last known location. In some rare situations this can be null.

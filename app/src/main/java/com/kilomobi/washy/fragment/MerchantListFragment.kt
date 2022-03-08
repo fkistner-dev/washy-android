@@ -44,7 +44,7 @@ class MerchantListFragment : FragmentEmptyView(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        shimmerLayout = view.findViewById<ShimmerFrameLayout>(R.id.shimmer_layout)
+        shimmerLayout = view.findViewById(R.id.shimmer_layout)
 
         initialize()
     }

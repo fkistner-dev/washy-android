@@ -15,9 +15,13 @@ class Service {
             R.drawable.ic_wifi,
             R.string.chip_wifi
         )
-        private val ELECTRIC_PLUG: ChipModel = ChipModel("electric_plug",
+        private val ELECTRIC_PLUG: ChipModel = ChipModel("ev_plug",
             R.drawable.ic_ev_station,
             R.string.chip_electric_plug
+        )
+        private val CREDIT_CARD: ChipModel = ChipModel("credit_card",
+            R.drawable.ic_credit_card,
+            R.string.chip_cb
         )
         private val BIKE: ChipModel = ChipModel("bike",
             R.drawable.ic_motorcycle,
@@ -58,6 +62,7 @@ class Service {
 
         private val serviceList = listOf(
             COFFEE,
+            CREDIT_CARD,
             WIFI,
             ELECTRIC_PLUG,
             BIKE,
@@ -109,12 +114,12 @@ class Service {
             return arrayService
         }
 
-        fun retrieveImage(service: String): Int {
-            return serviceList.find { chipModel -> chipModel.id == service }!!.image
+        fun retrieveImage(service: String): Int? {
+            return serviceList.find { chipModel -> chipModel.id == service }?.image
         }
 
-        fun retrieveText(service: String): Int {
-            return serviceList.find { chipModel -> chipModel.id == service }!!.text
+        fun retrieveText(service: String): Int? {
+            return serviceList.find { chipModel -> chipModel.id == service }?.text
         }
     }
 }
