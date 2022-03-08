@@ -73,7 +73,7 @@ class Service {
             val wifi = context.getString(R.string.chip_wifi)
             val ceramic = context.getString(R.string.chip_ceramic)
             val handWash = context.getString(R.string.chip_hand_wash)
-            val leaf = context.getString(R.string.chip_eco)
+            val ecoFriendly = context.getString(R.string.chip_eco)
             val motorcycle = context.getString(R.string.chip_motorbike)
 
             for (s in service) {
@@ -89,7 +89,7 @@ class Service {
                     wifi -> arrayService.add(context.getString(R.string.chip_db_wifi))
                     ceramic -> arrayService.add(context.getString(R.string.chip_db_ceramic))
                     handWash -> arrayService.add(context.getString(R.string.chip_db_hand_wash))
-                    leaf -> arrayService.add(context.getString(R.string.chip_db_eco))
+                    ecoFriendly -> arrayService.add(context.getString(R.string.chip_db_eco))
                     motorcycle -> arrayService.add(context.getString(R.string.chip_db_motorbike))
                 }
             }

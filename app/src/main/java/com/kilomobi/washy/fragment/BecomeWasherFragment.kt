@@ -40,7 +40,7 @@ class BecomeWasherFragment : Fragment() {
     private lateinit var chipHeadlight: Chip
     private lateinit var chipInterior: Chip
     private lateinit var chipWindshield: Chip
-    private lateinit var chipLeaf: Chip
+    private lateinit var chipEcoFriendly: Chip
     private lateinit var chipCb: Chip
     private lateinit var chipCoffee: Chip
     private lateinit var chipWifi: Chip
@@ -81,7 +81,7 @@ class BecomeWasherFragment : Fragment() {
         chipHeadlight = view.findViewById<Chip>(R.id.chip_headlight)
         chipInterior = view.findViewById<Chip>(R.id.chip_interior)
         chipWindshield = view.findViewById<Chip>(R.id.chip_windshield)
-        chipLeaf = view.findViewById<Chip>(R.id.chip_eco)
+        chipEcoFriendly = view.findViewById<Chip>(R.id.chip_eco)
         chipCb = view.findViewById<Chip>(R.id.chip_cb)
         chipCoffee = view.findViewById<Chip>(R.id.chip_coffee)
         chipWifi = view.findViewById<Chip>(R.id.chip_wifi)
@@ -122,7 +122,7 @@ class BecomeWasherFragment : Fragment() {
         chipInterior.setOnClickListener(chipListener)
         chipWindshield.setOnClickListener(chipListener)
         chipWifi.setOnClickListener(chipListener)
-        chipLeaf.setOnClickListener(chipListener)
+        chipEcoFriendly.setOnClickListener(chipListener)
         chipCb.setOnClickListener(chipListener)
         chipCoffee.setOnClickListener(chipListener)
         chipElectric.setOnClickListener(chipListener)

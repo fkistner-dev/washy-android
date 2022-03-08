@@ -1,7 +1,6 @@
 package com.kilomobi.washy.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.repo.MerchantListRepository
 

@@ -107,7 +107,7 @@
     <string name="chip_db_electric_plug" translatable="false">ev_plug</string>
     <string name="chip_db_transport" translatable="false">transport</string>
     <string name="chip_db_cb" translatable="false">credit_card</string>
-    <string name="chip_db_eco" translatable="false">leaf</string>
+    <string name="chip_db_eco" translatable="false">eco_friendly</string>
     <string name="chip_db_wifi" translatable="false">wifi</string>
     <string name="chip_db_coffee" translatable="false">coffee</string>
     <string name="chip_db_ceramic" translatable="false">ceramic</string>
