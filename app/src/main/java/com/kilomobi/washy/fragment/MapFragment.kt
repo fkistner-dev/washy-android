@@ -3,16 +3,11 @@ package com.kilomobi.washy.fragment
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -30,6 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
@@ -45,7 +41,7 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private var animateFromArgs = false
     private lateinit var mainActivityDelegate: MainActivityDelegate
     private lateinit var viewModel: MerchantListViewModel
-
+    private var enablePosition = false
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -119,6 +115,7 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
             // Got last known location. In some rare situations this can be null.
             if (location != null) {
                 lastLocation = location
+                enablePosition = true
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 if (!animateFromArgs) map.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
@@ -214,7 +211,7 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            if(dataSource != null && !dataSource.equals(DataSource.MEMORY_CACHE))
+                            if(dataSource != null && dataSource != DataSource.MEMORY_CACHE)
                                 marker.showInfoWindow()
                             return false
                         }
@@ -244,8 +241,12 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_geolocalisation -> {
-                val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                if (enablePosition) {
+                    val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                } else {
+                    Snackbar.make(requireView(), R.string.position_not_ready, Snackbar.LENGTH_SHORT).show()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)

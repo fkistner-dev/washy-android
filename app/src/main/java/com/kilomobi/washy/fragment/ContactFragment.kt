@@ -26,7 +26,10 @@ class ContactFragment(val merchant: Merchant) : Fragment() {
 
         if (merchant.phone.isNotBlank()) {
             view.findViewById<TextView>(R.id.phoneText).text = getString(R.string.phone_text_placeholder, merchant.phone)
+        } else {
+            view.findViewById<RelativeLayout>(R.id.phoneRl).visibility = View.GONE
         }
+
         if (merchant.workAtCustomer) {
             view.findViewById<RelativeLayout>(R.id.addressRl).visibility = View.GONE
         } else {
