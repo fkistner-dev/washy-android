@@ -18,6 +18,10 @@
         <include layout="@layout/row_merchant_shimmer"/>
         <include layout="@layout/row_merchant_shimmer"/>
         <include layout="@layout/row_merchant_shimmer"/>
+        <include layout="@layout/row_merchant_shimmer"/>
+        <include layout="@layout/row_merchant_shimmer"/>
+        <include layout="@layout/row_merchant_shimmer"/>
+        <include layout="@layout/row_merchant_shimmer"/>
     </LinearLayout>
 
 </com.facebook.shimmer.ShimmerFrameLayout>

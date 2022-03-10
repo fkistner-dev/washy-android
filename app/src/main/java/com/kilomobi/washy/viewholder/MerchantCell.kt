@@ -7,6 +7,7 @@ import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.Cell
+import kotlinx.android.synthetic.main.row_merchant_item.view.*
 
 object MerchantCell : Cell<RecyclerItem>() {
 
@@ -36,7 +37,7 @@ object MerchantCell : Cell<RecyclerItem>() {
     ) {
         if (holder is MerchantViewHolder && item is Merchant) {
             holder.bind(item, selectedPosition)
-            holder.itemView.setOnClickListener {
+            holder.itemView.cardview?.setOnClickListener {
                 listener?.listen(item)
             }
         }
