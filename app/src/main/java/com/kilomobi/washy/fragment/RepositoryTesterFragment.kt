@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.gson.GsonBuilder
-import com.kilomobi.washy.City
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.*
 import com.kilomobi.washy.util.GeoPointDeserializer
@@ -20,8 +19,6 @@ import com.kilomobi.washy.viewmodel.FeedListViewModel
 import com.kilomobi.washy.viewmodel.FeedViewModel
 import com.kilomobi.washy.viewmodel.MerchantListViewModel
 import com.kilomobi.washy.viewmodel.MerchantViewModel
-import io.realm.Realm
-import io.realm.RealmConfiguration
 import org.imperiumlabs.geofirestore.GeoFirestore
 import org.imperiumlabs.geofirestore.GeoLocation
 import org.imperiumlabs.geofirestore.core.GeoHash
@@ -35,23 +32,6 @@ class RepositoryTesterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Realm.init(context)
-
-        // The RealmConfiguration is created using the builder pattern.
-        // The Realm file will be located in Context.getFilesDir() with name "myrealm.realm"
-        val config = RealmConfiguration.Builder().assetFile("cities.realm").name("cities.realm").build()
-
-        // Use the config
-        val realm = Realm.getInstance(config)
-
-        try {
-            val test = realm.where(City::class.java).findAll()
-            realm.where(City::class.java).findAll()
-        } finally {
-            realm.close()
-        }
-
         val view = inflater.inflate(R.layout.layout_tester_repository, container, false)
 
         view.findViewById<Button>(R.id.tester01).setOnClickListener {
