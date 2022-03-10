@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.R
+import com.kilomobi.washy.activity.MainActivityDelegate
 
 class HomeFragment : Fragment() {
 

@@ -42,9 +42,7 @@ class ProductListFragment(val merchant: Merchant) : FragmentEmptyView(), Adapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         view.findViewById<ShimmerFrameLayout>(R.id.shimmer_layout).visibility = View.GONE
-
         initialize()
     }
 

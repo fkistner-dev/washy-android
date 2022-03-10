@@ -101,7 +101,7 @@ class MerchantDetailFragment : Fragment() {
 
         val adapter = MerchantDetailViewPagerFragment(activity?.supportFragmentManager!!)
         adapter.addFragment(ProductListFragment(merchant), getString(R.string.offer_title))
-        adapter.addFragment(FeedFragment(merchant), getString(R.string.feed_title))
+        adapter.addFragment(RatingListFragment(merchant), getString(R.string.feed_title))
         adapter.addFragment(ContactFragment(merchant), getString(R.string.contact_title))
 
         viewPager.adapter = adapter

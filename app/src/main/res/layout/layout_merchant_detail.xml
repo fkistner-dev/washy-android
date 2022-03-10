@@ -53,6 +53,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_toStartOf="@id/ratingBar"
                 android:layout_toEndOf="@id/photo"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_default"
+                android:textColor="@color/white"
                 tools:text="@string/mockup_data_fictive_pro" />
 
             <TextView
@@ -62,6 +65,8 @@
                 android:layout_below="@id/type"
                 android:layout_toStartOf="@id/ratingBar"
                 android:layout_toEndOf="@id/photo"
+                android:textSize="@dimen/text_default"
+                android:textColor="@color/white"
                 tools:text="@string/mockup_data_title_jl_lavage" />
 
             <TextView
@@ -73,6 +78,8 @@
                 android:layout_toEndOf="@id/photo"
                 android:ellipsize="end"
                 android:maxLines="3"
+                android:textSize="@dimen/text_default"
+                android:textColor="@color/white"
                 tools:text="@string/mockup_data_fictive_product_description" />
 
             <HorizontalScrollView
@@ -82,12 +89,6 @@
                 android:layout_below="@id/description"
                 android:layout_marginTop="@dimen/text_marging"
                 android:layout_marginBottom="@dimen/text_marging" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/serviceHorizontalScroll"
-                android:background="@color/white" />
 
         </RelativeLayout>
     </RelativeLayout>

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
@@ -16,10 +17,11 @@ import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.RatingAdapter
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Rating
+import com.kilomobi.washy.viewmodel.FeedListViewModel
 import com.kilomobi.washy.viewmodel.MerchantViewModel
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
-class RatingListFragment : FragmentEmptyView(), AdapterListener {
+class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(), AdapterListener {
 
     private var viewContainer: ViewGroup? = null
     private lateinit var viewModel: MerchantViewModel
@@ -40,6 +42,7 @@ class RatingListFragment : FragmentEmptyView(), AdapterListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.findViewById<ShimmerFrameLayout>(R.id.shimmer_layout).visibility = View.GONE
         initialize()
     }
 
@@ -50,7 +53,8 @@ class RatingListFragment : FragmentEmptyView(), AdapterListener {
         }
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MerchantViewModel::class.java)
-        viewModel.getRatings(((arguments?.get("merchant") as Merchant).reference as DocumentReference).id).observe(viewLifecycleOwner, Observer<List<Rating>> {
+
+        viewModel.getRatings((merchant?.reference as DocumentReference).id).observe(viewLifecycleOwner, Observer<List<Rating>> {
             if (it != null && it.isNotEmpty()) {
                 listAdapter.submitList(it)
             } else {

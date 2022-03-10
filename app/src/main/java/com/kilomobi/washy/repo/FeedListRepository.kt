@@ -12,8 +12,8 @@ class FeedListRepository : BaseRepository() {
     }
 
     private val db = FirebaseFirestore.getInstance()
-    var feedList: MutableLiveData<ArrayList<Feed>> = MutableLiveData<ArrayList<Feed>>()
-    var merchantFeedList: MutableLiveData<ArrayList<Feed>> = MutableLiveData<ArrayList<Feed>>()
+    var feedList: MutableLiveData<ArrayList<Feed>> = MutableLiveData()
+    var merchantFeedList: MutableLiveData<ArrayList<Feed>> = MutableLiveData()
 
     init {
         listenFeedList()

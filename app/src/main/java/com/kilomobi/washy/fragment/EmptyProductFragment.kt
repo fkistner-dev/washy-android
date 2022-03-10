@@ -1,4 +1,3 @@
 package com.kilomobi.washy.fragment
 
-class EmptyProductFragment : BaseEmptyFragment() {
-}
+class EmptyProductFragment : BaseEmptyFragment()

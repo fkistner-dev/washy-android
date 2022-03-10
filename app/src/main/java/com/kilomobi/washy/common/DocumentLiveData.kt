@@ -21,12 +21,12 @@ class DocumentLiveData<T>(
         value = Resource(snapshot?.toObject(type)!!)
     }
 
-    protected override fun onActive() {
+    override fun onActive() {
         super.onActive()
         registration = ref.addSnapshotListener(this)
     }
 
-    protected override fun onInactive() {
+    override fun onInactive() {
         super.onInactive()
         if (registration != null) {
             registration!!.remove()

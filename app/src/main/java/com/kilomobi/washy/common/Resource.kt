@@ -8,8 +8,8 @@ class Resource<T> private constructor(
     @field:Nullable @param:Nullable private val error: Exception?
 ) {
 
-    constructor(@NonNull data: T) : this(data, null) {}
-    constructor(@NonNull exception: Exception?) : this(null, exception) {}
+    constructor(@NonNull data: T) : this(data, null)
+    constructor(@NonNull exception: Exception?) : this(null, exception)
 
     val isSuccessful: Boolean
         get() = data != null && error == null

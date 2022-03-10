@@ -21,13 +21,13 @@
 
             <me.zhanghai.android.materialratingbar.MaterialRatingBar
                 android:id="@+id/ratingBar"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
                 tools:numStars="5"
-                tools:rating="3"/>
+                tools:rating="3" />
 
             <TextView
                 android:id="@+id/title"
@@ -40,10 +40,10 @@
 
             <TextView
                 android:id="@+id/text"
+                style="@style/WashyText.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
-                style="@style/WashyText.Default"
                 tools:text="@string/mockup_data_fictive_rating_text" />
 
         </RelativeLayout>

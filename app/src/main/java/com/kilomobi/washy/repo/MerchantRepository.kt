@@ -18,9 +18,9 @@ class MerchantRepository : BaseRepository() {
     }
 
     private val db = FirebaseFirestore.getInstance()
-    var merchant: MutableLiveData<Merchant> = MutableLiveData<Merchant>()
-    var ratings: MutableLiveData<ArrayList<Rating>> = MutableLiveData<ArrayList<Rating>>()
-    var products: MutableLiveData<ArrayList<Product>> = MutableLiveData<ArrayList<Product>>()
+    var merchant: MutableLiveData<Merchant> = MutableLiveData()
+    var ratings: MutableLiveData<ArrayList<Rating>> = MutableLiveData()
+    var products: MutableLiveData<ArrayList<Product>> = MutableLiveData()
 
     fun retrieveMerchant(merchantId: String) {
         var tmpMerchant: Merchant

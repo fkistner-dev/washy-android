@@ -11,7 +11,7 @@ class RatingViewHolder(private val ratingView: View) : RecyclerView.ViewHolder(r
 
     val title: Int = R.id.title
     val text: Int = R.id.text
-    val ratingBar: Int = R.id.ratingBar
+    private val ratingBar: Int = R.id.ratingBar
 
     fun bind(rating: Rating, selectedItem: Int) {
         ratingView.findViewById<TextView>(title).text = rating.userName

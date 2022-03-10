@@ -44,7 +44,7 @@ class MerchantRatingRepository @Inject constructor(@param:Named(COLLECTION_NAME)
             DocumentLiveData(
                 merchantRef,
                 Merchant::class.java
-            )!!
+            )
         merchantRef.addSnapshotListener(data)
         return data
     }
