@@ -73,7 +73,12 @@
     <string name="become_washer_text">Il suffit de répondre à quelques questions</string>
     <string name="become_washer_emoji">&#128513;</string>
 
+    <!-- Add Rating -->
+    <string name="add_rating_header">Ajouter un avis pour %1$s</string>
+    <string name="action_rating_stars">Evaluation :</string>
+
     <!-- TextInput -->
+    <string name="add_rating_text">Détail de l\'évaluation</string>
     <string name="become_washer_name">Nom affiché</string>
     <string name="become_washer_description">Description</string>
     <string name="become_washer_phone">Numéro de téléphone</string>
@@ -132,6 +137,7 @@
 
     <!-- Input -->
     <string name="input_error_name">Veuillez insérer un nom pour l\'affichage</string>
+    <string name="input_error_generic_length_requirement">Veuillez entrer au moins 10 caractères</string>
     <string name="input_error_name_requirement">Veuillez entrer un nom d\'affichage plus long</string>
     <string name="input_error_description">Veuillez insérer une description</string>
     <string name="input_error_description_requirement">Veuillez entrer au moins 10 mots pour vous présenter</string>
@@ -155,5 +161,8 @@
     <!-- Dialog -->
     <string name="dialog_disconnect_title">Déconnexion</string>
     <string name="dialog_disconnect_text">Êtes-vous sûr(e) de vouloir partir ?</string>
+
+    <!-- Error -->
+    <string name="error_merchant_marker">Une erreur est survenue, le détail n\'est pas disponible.</string>
 
 </resources>

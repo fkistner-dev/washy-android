@@ -8,7 +8,7 @@
     <TextView
         style="@style/WashyText.Header"
         android:id="@+id/emoji"
-        android:layout_marginBottom="@dimen/text_marging"
+        android:layout_marginBottom="@dimen/text_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

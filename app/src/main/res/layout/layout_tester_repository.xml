@@ -9,68 +9,75 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester01"/>
+        android:text="T_NULL"/>
 
     <Button
         android:id="@+id/tester02"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester02"/>
+        android:text="T_NULL"/>
 
     <Button
         android:id="@+id/tester03"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester03"/>
+        android:text="T_NULL"/>
 
     <Button
         android:id="@+id/tester04"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester04"/>
+        android:text="T_NULL"/>
 
     <Button
         android:id="@+id/tester05"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester05" />
+        android:text="T_NULL" />
 
     <Button
         android:id="@+id/tester06"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester06" />
+        android:text="T_NULL" />
 
     <Button
         android:id="@+id/tester07"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester07" />
+        android:text="T_Json" />
 
     <Button
         android:id="@+id/tester08"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester08" />
+        android:text="T_NULL" />
 
     <Button
         android:id="@+id/tester09"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester09" />
+        android:text="T_NEAREST_MERC" />
 
     <Button
         android:id="@+id/tester10"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tester10" />
+        android:text="T_DEL_LOC" />
+
+    <Button
+        android:id="@+id/tester11"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="T_DEL_LOC" />
 </LinearLayout>

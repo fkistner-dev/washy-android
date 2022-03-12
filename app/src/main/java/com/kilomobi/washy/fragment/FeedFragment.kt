@@ -29,7 +29,7 @@ class FeedFragment(val merchant: Merchant? = null) : FragmentEmptyView(), Adapte
     ): View? {
         // Inflate the layout for this fragment
         viewContainer = container
-        return inflater.inflate(R.layout.layout_photolab, container, false)
+        return inflater.inflate(R.layout.layout_feed, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

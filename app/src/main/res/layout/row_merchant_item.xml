@@ -64,10 +64,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_below="@id/ratingBar"
-                android:src="@drawable/ic_chevron_right"
-                android:contentDescription="@string/common_image_content_description"/>
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/common_image_content_description"
+                android:src="@drawable/ic_chevron_right" />
 
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

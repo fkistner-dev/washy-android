@@ -9,14 +9,14 @@
     <dimen name="text_default">14sp</dimen>
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_padding">5dp</dimen>
-    <dimen name="text_marging">10dp</dimen>
-    <dimen name="text_marging_profil_header">22dp</dimen>
-    <dimen name="text_marging_very_high">42dp</dimen>
+    <dimen name="text_margin">10dp</dimen>
+    <dimen name="text_margin_profile_header">22dp</dimen>
+    <dimen name="text_margin_very_high">42dp</dimen>
     <dimen name="text_right_spacing">12dp</dimen>
     <dimen name="icon_right_spacing">6dp</dimen>
-    <dimen name="fragment_marging">10dp</dimen>
-    <dimen name="onboarding_top_marging">42dp</dimen>
-    <dimen name="image_marging">20dp</dimen>
+    <dimen name="fragment_margin">10dp</dimen>
+    <dimen name="onboarding_top_margin">42dp</dimen>
+    <dimen name="image_margin">20dp</dimen>
 
     <!-- ViewPager -->
     <dimen name="viewpager_next_item_visible">20dp</dimen>

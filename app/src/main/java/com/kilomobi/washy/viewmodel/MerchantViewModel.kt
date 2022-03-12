@@ -27,6 +27,10 @@ class MerchantViewModel(private val repository: MerchantRepository = MerchantRep
         repository.addMerchant(merchant)
     }
 
+    fun addRating(rating: Rating) {
+        //repository.addRating(rating)
+    }
+
     private var merchant: MutableLiveData<Merchant>
         get() { return repository.merchant }
         set(value) { repository.merchant = value }

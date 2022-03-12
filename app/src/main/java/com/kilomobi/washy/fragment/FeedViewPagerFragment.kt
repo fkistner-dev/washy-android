@@ -17,7 +17,6 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener

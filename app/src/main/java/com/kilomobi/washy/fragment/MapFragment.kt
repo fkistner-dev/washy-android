@@ -1,12 +1,15 @@
 package com.kilomobi.washy.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.view.*
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,9 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.R
@@ -42,6 +43,8 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
     private lateinit var mainActivityDelegate: MainActivityDelegate
     private lateinit var viewModel: MerchantListViewModel
     private var enablePosition = false
+    private var merchantList: List<Merchant> = listOf()
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -125,6 +128,7 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
                         12f
                     )
                 )
+                setNearestMerchant(location)
             }
         }
 
@@ -143,43 +147,46 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
             map.addMarker(
                 MarkerOptions()
+                    .icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_map_marker))
                     .position(merchantPosition)
                     .snippet((merchant.reference as DocumentReference).id)
             )
 
-
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(merchantPosition, 16f))
-        } else {
-            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-                MerchantListViewModel::class.java
-            )
-
-            viewModel.getAllMerchants().observe(viewLifecycleOwner, Observer<List<Merchant>> {
-                if (it != null && it.isNotEmpty()) {
-                    onListReceived(it)
-                } else {
-                    displayEmptyView()
-                }
-            })
         }
     }
 
+    private fun setNearestMerchant(location: Location) {
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            MerchantListViewModel::class.java
+        )
+
+        viewModel.getNearestMerchant(location.latitude, location.longitude).observe(viewLifecycleOwner, Observer<List<Merchant>> {
+            if (it != null && it.isNotEmpty()) {
+                if (merchantList.count() == 0) // TODO check why list is received when taping infobubble
+                    onListReceived(it)
+            } else {
+                displayEmptyView()
+            }
+        })
+    }
+
     private fun onListReceived(merchantList: List<Merchant>) {
+        this.merchantList = merchantList
+
         for (merchant in merchantList) {
             val merchantPosition =
                 LatLng(merchant.position!!.latitude, merchant.position!!.longitude)
             map.addMarker(
                 MarkerOptions()
+                    .icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_map_marker))
                     .position(merchantPosition)
                     .snippet((merchant.reference as DocumentReference).id)
             )
         }
     }
 
-    override fun onMarkerClick(p0: Marker?): Boolean {
-        return false
-    }
-
+    @SuppressLint("PotentialBehaviorOverride")
     private fun setInfoBubble() {
         map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
             override fun getInfoWindow(marker: Marker): View? {
@@ -229,9 +236,14 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
 
         // Set a listener for info window events.
         map.setOnInfoWindowClickListener { marker ->
-            val merchant = viewModel.getAllMerchants().value?.find { (it.reference as DocumentReference).id == marker.snippet }
-            val bundle = bundleOf("merchant" to merchant)
-            findNavController().navigate(R.id.action_mapFragment_to_merchantDetailFragment, bundle)
+            val merchant = merchantList.find { (it.reference as DocumentReference).id == marker.snippet }
+            if (merchant != null) {
+                val bundle = bundleOf("merchant" to merchant)
+                findNavController().navigate(R.id.action_mapFragment_to_merchantDetailFragment, bundle)
+            } else {
+                marker.remove()
+                Snackbar.make(requireView(), getString(R.string.error_merchant_marker), Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -253,5 +265,18 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        return ContextCompat.getDrawable(context, vectorResId)?.run {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+            val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            draw(Canvas(bitmap))
+            BitmapDescriptorFactory.fromBitmap(bitmap)
+        }
+    }
+
+    override fun onMarkerClick(p0: Marker): Boolean {
+        return false
     }
 }

@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fragment_marging"
+            android:layout_margin="@dimen/fragment_margin"
             android:orientation="vertical">
 
             <TextView
@@ -21,8 +21,8 @@
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/text_marging_profil_header"
-                android:layout_marginEnd="@dimen/text_marging_profil_header"
+                android:layout_marginStart="@dimen/text_margin_profile_header"
+                android:layout_marginEnd="@dimen/text_margin_profile_header"
                 android:text="@string/become_washer_title"
                 android:textAlignment="center" />
 

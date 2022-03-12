@@ -1,28 +1,23 @@
 package com.kilomobi.washy.fragment
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MerchantDetailViewPagerFragment(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class MerchantDetailViewPagerFragment(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     private val fragmentList = ArrayList<Fragment>()
     private val fragmentTitleList = ArrayList<String>()
 
-    override fun getItem(position: Int): Fragment {
-        return fragmentList[position]
-    }
-
-    override fun getCount(): Int {
-        return fragmentList.size
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        return fragmentTitleList[position]
-    }
-
     fun addFragment(fragment: Fragment, title: String) {
         fragmentList.add(fragment)
         fragmentTitleList.add(title)
+    }
+
+    override fun getItemCount(): Int {
+        return fragmentList.size
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        return fragmentList[position]
     }
 }

@@ -13,7 +13,14 @@ class GeoPointDeserializer : JsonDeserializer<GeoPoint> {
         context: JsonDeserializationContext?
     ): GeoPoint {
         return if (json != null) {
-            GeoPoint(json.asJsonObject["Latitude"].asJsonPrimitive.asDouble, json.asJsonObject["Longitude"].asJsonPrimitive.asDouble)
+            val latitude = json.asJsonObject["latitude"]?.asJsonPrimitive?.asDouble
+            val longitude = json.asJsonObject["longitude"]?.asJsonPrimitive?.asDouble
+
+            if (latitude != null && longitude != null) {
+                GeoPoint(latitude, longitude)
+            } else {
+                GeoPoint(0.0,0.0)
+            }
         } else {
             GeoPoint(0.0,0.0)
         }

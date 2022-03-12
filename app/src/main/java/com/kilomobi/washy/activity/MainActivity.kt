@@ -26,8 +26,6 @@ import com.kilomobi.washy.util.currentNavigationFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.drawer_layout
 import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.android.synthetic.main.nav_host_fragment.*
-import kotlinx.android.synthetic.main.nav_host_fragment.view.*
 
 class MainActivity : AppCompatActivity(),
     MainActivityDelegate, UserListener, NavigationView.OnNavigationItemSelectedListener {

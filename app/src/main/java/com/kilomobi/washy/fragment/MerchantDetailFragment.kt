@@ -9,17 +9,20 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.chip.Chip
+import com.google.android.material.tabs.TabLayoutMediator
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
 import kotlinx.android.synthetic.main.layout_merchant_tabbed.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
+
 
 class MerchantDetailFragment : Fragment() {
 
@@ -49,11 +52,11 @@ class MerchantDetailFragment : Fragment() {
         if (merchant.imported) {
             view.findViewById<TextView>(R.id.type).visibility = View.GONE
         } else {
-            view.findViewById<TextView>(R.id.type).text = if (merchant.siren.isNotEmpty()) getString(R.string.merchant_pro) else getString(R.string.merchant_part)
+            view.findViewById<TextView>(R.id.type).text = if (merchant.siren?.isNotEmpty() == true) getString(R.string.merchant_pro) else getString(R.string.merchant_part)
         }
         view.findViewById<TextView>(R.id.title).text = merchant.name
         view.findViewById<TextView>(R.id.description).text = merchant.description
-        view.findViewById<MaterialRatingBar>(R.id.ratingBar).rating = if (merchant.avgRating < 0.1f) merchant.googleAvgRating else merchant.avgRating
+        view.findViewById<MaterialRatingBar>(R.id.ratingBar).rating = merchant.avgRating
 
         val serviceScrollView = view.findViewById<HorizontalScrollView>(R.id.serviceHorizontalScroll) as ViewGroup
         val linearLayout = LinearLayout(context)
@@ -84,11 +87,11 @@ class MerchantDetailFragment : Fragment() {
                 startActivity(intent)
         }
 
-        if (!merchant.imgUrl.isBlank()) {
+        if (merchant.imgUrl?.isNotBlank() == true) {
             view.findViewById<ImageView>(R.id.photo).visibility = View.VISIBLE
             Glide.with(requireContext())
                 .load(merchant.imgUrl)
-                .into(view.findViewById<ImageView>(R.id.photo))
+                .into(view.findViewById(R.id.photo))
         }
 
         return view
@@ -99,13 +102,16 @@ class MerchantDetailFragment : Fragment() {
 
 //        initToolbar(toolbar, true)
 
-        val adapter = MerchantDetailViewPagerFragment(activity?.supportFragmentManager!!)
+        val adapter = MerchantDetailViewPagerFragment(this)
         adapter.addFragment(ProductListFragment(merchant), getString(R.string.offer_title))
         adapter.addFragment(RatingListFragment(merchant), getString(R.string.feed_title))
         adapter.addFragment(ContactFragment(merchant), getString(R.string.contact_title))
 
         viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            viewPager.currentItem = tab.position
+        }.attach()
 
         tabLayout.getTabAt(0)?.setIcon(R.drawable.ic_cart_outline)
         tabLayout.getTabAt(1)?.setIcon(R.drawable.ic_comment_quote_outline)
@@ -129,6 +135,8 @@ class MerchantDetailFragment : Fragment() {
                 return true
             }
             R.id.action_add_rating -> {
+                val bundle = bundleOf("merchant" to merchant)
+                findNavController().navigate(R.id.action_merchantDetailFragment_to_addRatingFragment, bundle)
                 return true
             }
             android.R.id.home -> findNavController().popBackStack()

@@ -13,14 +13,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_marging"
+            android:layout_margin="@dimen/text_margin"
             android:background="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/gmaps"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
                 android:layout_alignParentEnd="true"
                 android:contentDescription="@string/common_image_content_description"
                 android:scaleType="fitXY"
@@ -32,7 +32,7 @@
                 android:layout_height="64dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/text_marging"
+                android:layout_marginEnd="@dimen/text_margin"
                 android:contentDescription="@string/common_image_content_description"
                 android:scaleType="fitXY"
                 android:visibility="gone" />
@@ -43,8 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="@dimen/text_marging"
-                android:layout_toStartOf="@+id/gmaps" />
+                android:layout_alignParentEnd="true"/>
 
             <TextView
                 android:id="@+id/type"
@@ -74,12 +73,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@id/photo"
+                android:layout_toStartOf="@id/gmaps"
+                android:layout_marginEnd="@dimen/text_margin"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:textSize="@dimen/text_default"
                 android:textColor="@color/white"
+                android:textSize="@dimen/text_default"
                 tools:text="@string/mockup_data_fictive_product_description" />
 
             <HorizontalScrollView
@@ -87,8 +86,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/description"
-                android:layout_marginTop="@dimen/text_marging"
-                android:layout_marginBottom="@dimen/text_marging" />
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_marginBottom="@dimen/text_margin" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -98,6 +97,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/content"
-        android:layout_margin="@dimen/text_marging" />
+        android:layout_margin="@dimen/text_margin" />
 
 </RelativeLayout>

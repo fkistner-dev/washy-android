@@ -24,7 +24,7 @@ class ContactFragment(val merchant: Merchant) : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_contact_layout, container, false)
 
-        if (merchant.phone.isNotBlank()) {
+        if (merchant.phone?.isNotBlank() == true) {
             view.findViewById<TextView>(R.id.phoneText).text = getString(R.string.phone_text_placeholder, merchant.phone)
         } else {
             view.findViewById<RelativeLayout>(R.id.phoneRl).visibility = View.GONE

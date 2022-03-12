@@ -54,10 +54,11 @@ class AddPhotoFragment : BaseEmptyFragment() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
+
         startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), PICK_IMAGE_REQUEST)
     }
 
-    private fun uploadImage(){
+    private fun uploadImage() {
         if (filePath != null){
             val ref = storageReference?.child("uploads/" + UUID.randomUUID().toString())
             val uploadTask = ref?.putFile(filePath!!)
@@ -95,8 +96,8 @@ class AddPhotoFragment : BaseEmptyFragment() {
 
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
-                uploadImage.setImageBitmap(bitmap)
-                uploadImage.imageTintList = null
+                upload_image.setImageBitmap(bitmap)
+                upload_image.imageTintList = null
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -118,7 +119,7 @@ class AddPhotoFragment : BaseEmptyFragment() {
                 Snackbar.make(requireView(), getString(R.string.picture_upload_success), Snackbar.LENGTH_LONG).show()
                 findNavController().popBackStack()
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener {
                 Snackbar.make(requireView(), getString(R.string.picture_upload_error), Snackbar.LENGTH_LONG).show()
             }
     }

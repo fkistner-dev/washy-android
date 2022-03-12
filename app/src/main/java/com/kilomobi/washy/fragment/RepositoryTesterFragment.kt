@@ -1,6 +1,8 @@
 package com.kilomobi.washy.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.GeoPoint
 import com.google.gson.GsonBuilder
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.*
+import com.kilomobi.washy.repo.MerchantListRepository
 import com.kilomobi.washy.util.GeoPointDeserializer
 import com.kilomobi.washy.viewmodel.FeedListViewModel
 import com.kilomobi.washy.viewmodel.FeedViewModel
@@ -111,7 +114,7 @@ class RepositoryTesterFragment : Fragment() {
             )
 
             val gson = gsonBuilder.create()
-            val `is`: InputStream = resources.openRawResource(R.raw.firebase_carwash)
+            val `is`: InputStream = resources.openRawResource(R.raw.csv_r0) // 0 ok, transfert d'un batch de 5000 en 2min30
             val writer: Writer = StringWriter()
             val buffer = CharArray(1024)
             `is`.use { `is` ->
@@ -127,9 +130,10 @@ class RepositoryTesterFragment : Fragment() {
 
             val viewModel = MerchantViewModel()
 //            viewModel.addMerchant(merchantListResponse.merchants[0])
-
+            // Null Geopoint
+            val geoNull = GeoPoint(0.0,0.0)
             for (merchant in merchantListResponse.merchants) {
-                if (merchant.position != null) {
+                if (merchant.position != null && merchant.position != geoNull) {
                     val geoHash = GeoHash(GeoLocation(merchant.position!!.latitude, merchant.position!!.longitude))
                     merchant.geohash = geoHash.geoHashString
                     viewModel.addMerchant(merchant)
@@ -154,26 +158,35 @@ class RepositoryTesterFragment : Fragment() {
             val collectionRef = FirebaseFirestore.getInstance().collection("merchants")
             val geoFirestore = GeoFirestore(collectionRef)
 
-//            geoFirestore.getLocation("0FOejkOzUJ3ZRiDfBzcc") { location, exception ->
-//                if (exception == null && location != null){
-//                    Log.d("TAG", "The location for this document is $location")
-//                }
-//            }
-
             geoFirestore.getAtLocation(GeoPoint(48.60368749777777, 7.602562499977777), 8000.0) { docs, ex ->
                 if (ex != null) {
-                    val geoQuery = geoFirestore.queryAtLocation(GeoPoint(48.59, 7.70), 0.6)
-
                     Log.e("TAG", "onError: ", ex)
                     return@getAtLocation
                 } else {
-                    val geoFirestore = GeoFirestore(collectionRef)
-                    // ...
+                    if (docs != null) {
+                        for (doc in docs) {
+                            val merchant = doc.toObject(Merchant::class.java)
+                            Log.d(RepositoryTesterFragment::class.java.canonicalName, doc.id)
+                        }
+                    }
                 }
             }
         }
 
         view.findViewById<Button>(R.id.tester10).setOnClickListener {
+            val collectionRef = FirebaseFirestore.getInstance().collection("merchants")
+            collectionRef
+                .whereEqualTo("name", "Lavage")
+                .limit(5000)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        document.reference.delete().addOnSuccessListener { Log.d(RepositoryTesterFragment::class.java.canonicalName, "DocumentSnapshot successfully deleted!") }
+                    }
+                }
+        }
+
+        view.findViewById<Button>(R.id.tester11).setOnClickListener {
             val collectionRef = FirebaseFirestore.getInstance().collection("merchants")
             val geoFirestore = GeoFirestore(collectionRef)
 

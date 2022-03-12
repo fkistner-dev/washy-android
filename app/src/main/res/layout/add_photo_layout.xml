@@ -8,19 +8,19 @@
         android:id="@+id/uploadDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/image_marging"
+        android:layout_margin="@dimen/image_margin"
         android:layout_centerHorizontal="true"
         android:text="@string/add_photo_text"/>
 
     <ImageView
-        android:id="@+id/uploadImage"
+        android:id="@+id/upload_image"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_margin="@dimen/image_marging"
+        android:layout_margin="@dimen/image_margin"
         android:layout_below="@id/uploadDescription"
         android:src="@drawable/ic_image_outline"
-        android:tint="@color/colorPrimaryDark"
-        android:contentDescription="@string/common_image_content_description" />
+        android:contentDescription="@string/common_image_content_description"
+        app:tint="@color/colorPrimaryDark" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_choose_image"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/text_right_spacing"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/uploadImage"
+        android:layout_below="@id/upload_image"
         android:textAllCaps="true"
         android:text="@string/common_select"/>
 
