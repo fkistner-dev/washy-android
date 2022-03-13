@@ -10,9 +10,8 @@ class MerchantListLiveData : LiveData<List<Merchant>>() {
     private val merchantListTemp: ArrayList<Merchant> = ArrayList()
     var merchantList: MutableLiveData<List<Merchant>> = MutableLiveData<List<Merchant>>()
     private var listenerRegistration = ListenerRegistration {}
-    private val TAG = "MerchantListLiveData"
 
-    //
+//
 //    override fun onEvent(p0: QuerySnapshot?, p1: FirebaseFirestoreException?) {
 //        // 2
 //        if (p0 != null && !p0.isEmpty) {
@@ -41,7 +40,7 @@ class MerchantListLiveData : LiveData<List<Merchant>>() {
 //            // 6
 //            merchantList.setValue(merchantListTemp)
 //        } else {
-//            Log.d("TAG", "error")
+//            Log.d(TAG, "error")
 //        }
 //    }
 }

@@ -3,6 +3,7 @@ package com.kilomobi.washy.fragment
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -24,6 +25,8 @@ import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
 import com.kilomobi.washy.viewmodel.MerchantViewModel
+import org.imperiumlabs.geofirestore.GeoLocation
+import org.imperiumlabs.geofirestore.core.GeoHash
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -244,6 +247,13 @@ class BecomeWasherFragment : Fragment() {
             isValid = false
         } else {
             merchant.workAtCustomer = radioGroupIsPro.checkedRadioButtonId == 0
+        }
+
+        val geoHash = GeoHash(GeoLocation(merchant.position!!.latitude, merchant.position!!.longitude))
+        if (!TextUtils.isEmpty(geoHash.geoHashString)) {
+            merchant.geohash = geoHash.geoHashString
+        } else {
+            Snackbar.make(requireView(), getString(R.string.input_error_no_geohash), Snackbar.LENGTH_LONG).show()
         }
         
         if (isValid) {

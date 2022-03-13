@@ -24,7 +24,7 @@ import com.kilomobi.washy.adapter.FeedPagerAdapter
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.viewmodel.FeedListViewModel
 
-class FeedViewPagerFragment : FragmentEmptyView(),
+class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
     AdapterListener {
 
     private lateinit var shimmerLayout: ShimmerFrameLayout

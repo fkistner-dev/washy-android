@@ -21,7 +21,7 @@ import com.kilomobi.washy.model.Product
 import com.kilomobi.washy.viewmodel.MerchantViewModel
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
-class ProductListFragment(val merchant: Merchant) : FragmentEmptyView(), AdapterListener {
+class ProductListFragment(val merchant: Merchant) : FragmentEmptyView(R.layout.layout_recycler_list), AdapterListener {
 
     private lateinit var viewModel: MerchantViewModel
     private var viewContainer: ViewGroup? = null

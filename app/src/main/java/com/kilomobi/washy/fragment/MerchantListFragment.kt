@@ -22,7 +22,7 @@ import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.RecyclerItem
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
-class MerchantListFragment : FragmentEmptyView(),
+class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
     AdapterListener {
 
     private lateinit var shimmerLayout: ShimmerFrameLayout
@@ -33,20 +33,14 @@ class MerchantListFragment : FragmentEmptyView(),
         )
     }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.layout_recycler_list, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        shimmerLayout = view.findViewById(R.id.shimmer_layout)
-
-        initialize()
+        if (!viewIsCreated) {
+            shimmerLayout = view.findViewById(R.id.shimmer_layout)
+            initialize()
+            viewIsCreated = true
+        }
     }
 
     private fun initialize() {

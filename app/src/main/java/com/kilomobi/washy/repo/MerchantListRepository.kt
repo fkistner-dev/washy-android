@@ -12,7 +12,7 @@ class MerchantListRepository : BaseRepository() {
 
     companion object {
         const val COLLECTION = "merchants"
-        const val RADIUS_IN_METER = 8000.0 // 8km
+        const val RADIUS_IN_METER = 80000.0 // 8km
     }
 
     private val db = FirebaseFirestore.getInstance()

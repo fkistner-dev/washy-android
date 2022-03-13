@@ -11,7 +11,6 @@ import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -34,14 +33,14 @@ import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.viewmodel.MerchantListViewModel
 import kotlinx.android.synthetic.main.marker_info_layout.view.*
 
-class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
     private var animateFromArgs = false
     private lateinit var mainActivityDelegate: MainActivityDelegate
-    private lateinit var viewModel: MerchantListViewModel
+    private var viewModel: MerchantListViewModel? = null
     private var enablePosition = false
     private var merchantList: List<Merchant> = listOf()
 
@@ -54,29 +53,31 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_map, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
 
         setHasOptionsMenu(true)
-
         try {
             mainActivityDelegate = context as MainActivityDelegate
         } catch (e: ClassCastException) {
             throw ClassCastException()
         }
 
-        return view
+        return currentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        // Try to obtain the map from the SupportMapFragment.
-        val mapFragment = SupportMapFragment.newInstance()
-        childFragmentManager.beginTransaction().replace(R.id.listMap, mapFragment).commit()
+        if (!viewIsCreated) {
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            // Try to obtain the map from the SupportMapFragment.
+            val mapFragment = SupportMapFragment.newInstance()
+            childFragmentManager.beginTransaction().replace(R.id.listMap, mapFragment).commit()
 
-        mapFragment.getMapAsync(this)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+            mapFragment.getMapAsync(this)
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+            viewIsCreated = true
+        }
     }
 
     /**
@@ -97,7 +98,46 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
         setUpMap()
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    @SuppressLint("MissingPermission")
     private fun setUpMap() {
+        if (viewModel == null)
+            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MerchantListViewModel::class.java]
+
+        if (hasPermission()) {
+            // Add the user's mark (blue dot)
+            map.isMyLocationEnabled = true
+            // Center to France
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(46.227638, 2.213749), 15f))
+
+            fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
+                // Got last known location. In some rare situations this can be null.
+                if (location != null) {
+                    lastLocation = location
+                    enablePosition = true
+                    val currentLatLng = LatLng(location.latitude, location.longitude)
+                    if (!animateFromArgs) map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            currentLatLng,
+                            12f
+                        )
+                    )
+                    setNearestMerchant(location)
+                }
+            }
+
+            setMerchantOnMap()
+        }
+    }
+
+    private fun hasPermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -108,31 +148,9 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
-            return
+            return false
         }
-
-        // Add the user's mark (blue dot)
-        map.isMyLocationEnabled = true
-        // Center to France
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(46.227638, 2.213749), 15f))
-
-        fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
-            // Got last known location. In some rare situations this can be null.
-            if (location != null) {
-                lastLocation = location
-                enablePosition = true
-                val currentLatLng = LatLng(location.latitude, location.longitude)
-                if (!animateFromArgs) map.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        currentLatLng,
-                        12f
-                    )
-                )
-                setNearestMerchant(location)
-            }
-        }
-
-        setMerchantOnMap()
+        return true
     }
 
     private fun setMerchantOnMap() {
@@ -157,18 +175,17 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
     }
 
     private fun setNearestMerchant(location: Location) {
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            MerchantListViewModel::class.java
-        )
-
-        viewModel.getNearestMerchant(location.latitude, location.longitude).observe(viewLifecycleOwner, Observer<List<Merchant>> {
-            if (it != null && it.isNotEmpty()) {
-                if (merchantList.count() == 0) // TODO check why list is received when taping infobubble
+        if (merchantList.isNotEmpty()) {
+            onListReceived(merchantList)
+        } else {
+            viewModel!!.getNearestMerchant(location.latitude, location.longitude).observe(viewLifecycleOwner) {
+                if (it != null && it.isNotEmpty()) {
                     onListReceived(it)
-            } else {
-                displayEmptyView()
+                } else {
+                    displayEmptyView()
+                }
             }
-        })
+        }
     }
 
     private fun onListReceived(merchantList: List<Merchant>) {
@@ -199,7 +216,9 @@ class MapFragment : FragmentEmptyView(), OnMapReadyCallback, GoogleMap.OnMarkerC
                 val inflater = LayoutInflater.from(ctx)
                 val view = inflater.inflate(R.layout.marker_info_layout, null, false)
 
-                val merchant = viewModel.getAllMerchants().value?.find { (it.reference as DocumentReference).id == marker.snippet }
+                //val merchant = viewModel.getNearestMerchant(lastLocation.latitude, lastLocation.longitude).value?.find { (it.reference as DocumentReference).id == marker.snippet }
+                val merchant = merchantList.find { (it.reference as DocumentReference).id == marker.snippet }
+
                 Glide.with(requireContext()).asBitmap()
                     .load(merchant?.imgUrl)
                     .override(50,50)

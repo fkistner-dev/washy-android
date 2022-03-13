@@ -16,25 +16,18 @@ import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.viewmodel.FeedListViewModel
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
-class PhotoLabFragment(val merchant: Merchant? = null) : FragmentEmptyView(), AdapterListener {
+class PhotoLabFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.layout.layout_photolab), AdapterListener {
 
     private lateinit var viewModel: FeedListViewModel
-    private var viewContainer: ViewGroup? = null
     private val listAdapter by lazy { FeedAdapter(this) }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        viewContainer = container
-        return inflater.inflate(R.layout.layout_photolab, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initialize()
-        setHasOptionsMenu(true)
+        if (!viewIsCreated) {
+            initialize()
+            setHasOptionsMenu(true)
+            viewIsCreated = true
+        }
     }
 
     private fun initialize() {
