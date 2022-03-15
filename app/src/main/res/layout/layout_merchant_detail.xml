@@ -20,8 +20,10 @@
                 android:id="@+id/gmaps"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_centerInParent="true"
+                android:layout_below="@id/ratingBar"
                 android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/text_padding"
                 android:contentDescription="@string/common_image_content_description"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_google_maps_icon" />
@@ -43,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@+id/type"
@@ -52,9 +54,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_toStartOf="@id/ratingBar"
                 android:layout_toEndOf="@id/photo"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_default"
                 android:textColor="@color/white"
+                android:textSize="@dimen/text_default"
+                android:textStyle="bold"
                 tools:text="@string/mockup_data_fictive_pro" />
 
             <TextView
@@ -64,19 +66,19 @@
                 android:layout_below="@id/type"
                 android:layout_toStartOf="@id/ratingBar"
                 android:layout_toEndOf="@id/photo"
-                android:textSize="@dimen/text_default"
                 android:textColor="@color/white"
+                android:textSize="@dimen/text_default"
                 tools:text="@string/mockup_data_title_jl_lavage" />
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_toStartOf="@id/gmaps"
+                android:layout_below="@id/gmaps"
                 android:layout_marginEnd="@dimen/text_margin"
+                android:layout_toStartOf="@id/gmaps"
                 android:ellipsize="end"
-                android:maxLines="3"
+                android:maxLines="5"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_default"
                 tools:text="@string/mockup_data_fictive_product_description" />
@@ -97,6 +99,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/content"
-        android:layout_margin="@dimen/text_margin" />
+        android:layout_marginStart="@dimen/text_margin"
+        android:layout_marginTop="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
+        android:layout_marginBottom="@dimen/text_margin" />
 
 </RelativeLayout>

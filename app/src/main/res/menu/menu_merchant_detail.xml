@@ -7,11 +7,4 @@
         android:title="@string/action_add_favorite"
         app:showAsAction="always"
         app:iconTint="@color/white"/>
-
-    <item
-        android:id="@+id/action_add_rating"
-        android:orderInCategory="100"
-        android:title="@string/action_add_rating"
-        app:showAsAction="ifRoom"
-        app:iconTint="@color/white"/>
 </menu>

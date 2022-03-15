@@ -1,13 +1,8 @@
 package com.kilomobi.washy.fragment
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import androidx.navigation.fragment.findNavController
@@ -18,8 +13,8 @@ import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.MerchantAdapter
-import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.RecyclerItem
+import kotlinx.android.synthetic.main.layout_merchant_tabbed.*
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
 class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
@@ -49,9 +44,9 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
             adapter = listAdapter
         }
 
-        viewModel = ViewModelProvider(this, NewInstanceFactory()).get(MerchantListViewModel::class.java)
+        viewModel = ViewModelProvider(this, NewInstanceFactory())[MerchantListViewModel::class.java]
 
-        viewModel.isLoading.observe(requireActivity(), Observer<Boolean> {
+        viewModel.isLoading.observe(requireActivity()) {
             if (it) {
                 shimmerLayout.visibility = View.VISIBLE
                 shimmerLayout.startShimmer()
@@ -59,15 +54,15 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
                 shimmerLayout.stopShimmer()
                 shimmerLayout.visibility = View.GONE
             }
-        })
+        }
 
-        viewModel.getAllMerchants().observe(viewLifecycleOwner, Observer<List<Merchant>> {
+        viewModel.getAllMerchants().observe(viewLifecycleOwner) {
             if (it != null && it.isNotEmpty()) {
-                listAdapter.submitList(it)
+                listAdapter.submitList(it as List<RecyclerItem>?)
             } else {
                 displayEmptyView()
             }
-        })
+        }
     }
 
     override fun listen(click: AdapterClick?) {

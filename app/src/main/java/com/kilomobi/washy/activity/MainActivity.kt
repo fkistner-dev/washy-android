@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity(),
             if (user.photoUrl != null) {
                 Glide.with(applicationContext)
                     .load(user.photoUrl)
-                    .into(headerView.findViewById<ImageView>(R.id.profilePic))
+                    .into(headerView.findViewById(R.id.profilePic))
             }
 
             headerView.findViewById<TextView>(R.id.profileText).text = user.displayName
@@ -197,7 +197,7 @@ class MainActivity : AppCompatActivity(),
             headerView.findViewById<FrameLayout>(R.id.profileFrame).visibility = View.GONE
             Glide.with(applicationContext)
                 .load(R.drawable.ic_account_outline)
-                .into(headerView.findViewById<ImageView>(R.id.profilePic))
+                .into(headerView.findViewById(R.id.profilePic))
             headerView.findViewById<TextView>(R.id.profileText).text = ""
         }
 

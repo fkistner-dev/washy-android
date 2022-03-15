@@ -1,13 +1,7 @@
 package com.kilomobi.washy.fragment
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 
 abstract class LoginFragmentHelper : FirebaseUIFragment() {

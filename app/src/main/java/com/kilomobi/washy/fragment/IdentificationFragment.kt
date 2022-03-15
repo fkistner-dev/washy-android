@@ -6,10 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.UserListener
 
 class IdentificationFragment : LoginFragmentHelper() {
@@ -44,11 +45,7 @@ class IdentificationFragment : LoginFragmentHelper() {
                 val user = FirebaseAuth.getInstance().currentUser
                 user?.let { userListener.onConnected(it) }
             } else {
-                Toast.makeText(requireContext(), "Sign in failed", Toast.LENGTH_LONG).show()
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
+                Snackbar.make(requireView(), getString(R.string.authentication_sign_in_error, response?.error?.errorCode), Snackbar.LENGTH_LONG).show()
             }
         }
         findNavController().popBackStack()

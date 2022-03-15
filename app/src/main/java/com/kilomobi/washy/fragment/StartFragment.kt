@@ -6,7 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.kilomobi.washy.R
 
-class StartFragment : FragmentEmptyView(null) {
+class StartFragment : FragmentEmptyView(R.layout.fragment_empty) {
     companion object {
         const val COMPLETED_ONBOARDING_PREF_NAME = "COMPLETED_ONBOARDING_PREF_NAME"
     }

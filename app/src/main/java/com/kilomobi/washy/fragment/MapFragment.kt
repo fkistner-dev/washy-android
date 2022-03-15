@@ -91,10 +91,10 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
      */
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        map.uiSettings.isMyLocationButtonEnabled = false
+        map.uiSettings.isZoomControlsEnabled = false
 
-        map.uiSettings.isZoomControlsEnabled = true
         map.setOnMarkerClickListener(this)
-
         setUpMap()
     }
 
@@ -167,7 +167,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
                 MarkerOptions()
                     .icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_map_marker))
                     .position(merchantPosition)
-                    .snippet((merchant.reference as DocumentReference).id)
+                    .snippet(merchant.reference)
             )
 
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(merchantPosition, 16f))
@@ -198,7 +198,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
                 MarkerOptions()
                     .icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_map_marker))
                     .position(merchantPosition)
-                    .snippet((merchant.reference as DocumentReference).id)
+                    .snippet(merchant.reference)
             )
         }
     }
@@ -217,7 +217,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
                 val view = inflater.inflate(R.layout.marker_info_layout, null, false)
 
                 //val merchant = viewModel.getNearestMerchant(lastLocation.latitude, lastLocation.longitude).value?.find { (it.reference as DocumentReference).id == marker.snippet }
-                val merchant = merchantList.find { (it.reference as DocumentReference).id == marker.snippet }
+                val merchant = merchantList.find { it.reference == marker.snippet }
 
                 Glide.with(requireContext()).asBitmap()
                     .load(merchant?.imgUrl)
@@ -255,7 +255,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
 
         // Set a listener for info window events.
         map.setOnInfoWindowClickListener { marker ->
-            val merchant = merchantList.find { (it.reference as DocumentReference).id == marker.snippet }
+            val merchant = merchantList.find { it.reference == marker.snippet }
             if (merchant != null) {
                 val bundle = bundleOf("merchant" to merchant)
                 findNavController().navigate(R.id.action_mapFragment_to_merchantDetailFragment, bundle)

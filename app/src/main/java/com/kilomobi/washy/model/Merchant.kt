@@ -1,14 +1,13 @@
 package com.kilomobi.washy.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.GeoPoint
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.recycler.RecyclerItem
+import java.io.Serializable
 
 data class Merchant(
-    @Exclude var reference: Any? = null,
+    @Exclude var reference: String? = null,
     var name: String = "",
     var description: String? = "",
     var geohash: String? = "",
@@ -27,27 +26,4 @@ data class Merchant(
     var imported: Boolean = false,
     var adminId: String? = "",
     var week: Map<String, String>? = mapOf()
-) : RecyclerItem(), AdapterClick, Parcelable {
-    companion object CREATOR : Parcelable.ClassLoaderCreator<Merchant> {
-        override fun createFromParcel(parcel: Parcel): Merchant {
-            return Merchant(parcel)
-        }
-        override fun createFromParcel(source: Parcel?, loader: ClassLoader?): Merchant {
-            return Merchant()
-        }
-
-        override fun newArray(size: Int): Array<Merchant?> {
-            return arrayOfNulls(size)
-        }
-
-    }
-
-    override fun writeToParcel(parcel: Parcel, i: Int) {
-        parcel.writeDouble(position!!.latitude)
-        parcel.writeDouble(position!!.longitude)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-}
+) : RecyclerItem(), AdapterClick, Serializable

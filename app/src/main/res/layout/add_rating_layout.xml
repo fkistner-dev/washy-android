@@ -20,12 +20,9 @@
                 style="@style/WashyText.Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/text_margin_profile_header"
                 android:layout_marginEnd="@dimen/text_margin_profile_header"
                 android:layout_marginBottom="@dimen/text_margin_profile_header"
-                android:text="@string/action_add_rating"
-                android:textAlignment="center" />
+                android:text="@string/action_add_rating" />
 
             <TextView
                 style="@style/WashyText.Default"

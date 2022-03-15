@@ -2,6 +2,7 @@ package com.kilomobi.washy.repo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.kilomobi.washy.model.Merchant
@@ -28,7 +29,7 @@ class MerchantListRepository : BaseRepository() {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val merchant = document.toObject(Merchant::class.java)
-                    merchant.reference = document.reference
+                    merchant.reference = document.id
                     tmpListMerchant.add(merchant)
                 }
                 merchantList.value = tmpListMerchant
@@ -46,7 +47,7 @@ class MerchantListRepository : BaseRepository() {
                     for (document in docs) {
                         val merchant = document.toObject(Merchant::class.java)
                         merchant?.let {
-                            merchant.reference = document.reference
+                            merchant.reference = document.id
                             tmpListMerchant.add(merchant)
                         }
                     }

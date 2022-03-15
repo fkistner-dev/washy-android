@@ -57,6 +57,10 @@ class BecomeWasherFragment : Fragment() {
     private lateinit var validateButton: MaterialButton
     private var chipArrayList: ArrayList<Chip> = ArrayList()
 
+    companion object {
+        const val GEOHASH_NULL = "7zzzzzzzzz"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -104,8 +108,6 @@ class BecomeWasherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        initToolbar(toolbar, true)
 
         val chipListener = View.OnClickListener {
             val chipView: Chip = it as Chip
@@ -250,9 +252,10 @@ class BecomeWasherFragment : Fragment() {
         }
 
         val geoHash = GeoHash(GeoLocation(merchant.position!!.latitude, merchant.position!!.longitude))
-        if (!TextUtils.isEmpty(geoHash.geoHashString)) {
+        if (!TextUtils.isEmpty(geoHash.geoHashString) && geoHash.geoHashString != GEOHASH_NULL) {
             merchant.geohash = geoHash.geoHashString
         } else {
+            isValid = false
             Snackbar.make(requireView(), getString(R.string.input_error_no_geohash), Snackbar.LENGTH_LONG).show()
         }
         

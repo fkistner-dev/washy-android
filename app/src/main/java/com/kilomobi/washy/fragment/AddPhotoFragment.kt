@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.add_photo_layout.*
 import java.io.IOException
 import java.util.*
 
-class AddPhotoFragment : BaseEmptyFragment() {
+class AddPhotoFragment : FragmentEmptyView(R.layout.add_photo_layout) {
 
     private var filePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
@@ -34,20 +34,17 @@ class AddPhotoFragment : BaseEmptyFragment() {
         private const val PICK_IMAGE_REQUEST = 71
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.add_photo_layout, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        firebaseStore = FirebaseStorage.getInstance()
-        storageReference = FirebaseStorage.getInstance().reference
+        if (!viewIsCreated) {
+            firebaseStore = FirebaseStorage.getInstance()
+            storageReference = FirebaseStorage.getInstance().reference
 
-        view.findViewById<MaterialButton>(R.id.btn_choose_image).setOnClickListener { launchGallery() }
-        view.findViewById<MaterialButton>(R.id.btn_upload_image).setOnClickListener { uploadImage() }
-
-        return view
+            view.findViewById<MaterialButton>(R.id.btn_choose_image).setOnClickListener { launchGallery() }
+            view.findViewById<MaterialButton>(R.id.btn_upload_image).setOnClickListener { uploadImage() }
+            viewIsCreated = true
+        }
     }
 
     private fun launchGallery() {

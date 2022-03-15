@@ -37,6 +37,7 @@ object MerchantCell : Cell<RecyclerItem>() {
     ) {
         if (holder is MerchantViewHolder && item is Merchant) {
             holder.bind(item, selectedPosition)
+            holder.itemView.cardview?.ratingBar?.rating = item.avgRating
             holder.itemView.cardview?.setOnClickListener {
                 listener?.listen(item)
             }

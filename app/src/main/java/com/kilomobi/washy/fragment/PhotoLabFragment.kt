@@ -13,6 +13,7 @@ import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.model.FeedAdapter
 import com.kilomobi.washy.model.Merchant
+import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.viewmodel.FeedListViewModel
 import kotlinx.android.synthetic.main.layout_recycler_list.*
 
@@ -48,13 +49,13 @@ class PhotoLabFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.lay
                 }
             })
         } else {
-            viewModel.getMerchantFeed((merchant.reference as DocumentReference).id).observe(viewLifecycleOwner, Observer<List<Feed>> {
+            viewModel.getMerchantFeed(merchant.reference!!).observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
-                    listAdapter.submitList(it)
+                    listAdapter.submitList(it as List<RecyclerItem>?)
                 } else {
                     displayEmptyView()
                 }
-            })
+            }
         }
     }
 

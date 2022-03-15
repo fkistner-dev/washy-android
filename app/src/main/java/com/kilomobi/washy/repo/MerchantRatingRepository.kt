@@ -49,7 +49,7 @@ class MerchantRatingRepository @Inject constructor(@param:Named(COLLECTION_NAME)
         return data
     }
 
-    fun addRating(merchantId: String?, rating: Rating?): CompletionLiveData? {
+    fun addRating(merchantId: String?, rating: Rating?): CompletionLiveData {
         val completion = CompletionLiveData()
 
         merchants?.firestore?.runTransaction {
@@ -66,7 +66,7 @@ class MerchantRatingRepository @Inject constructor(@param:Named(COLLECTION_NAME)
             // Compute new average rating
             val oldRatingTotal: Float = merchant.avgRating * merchant.numRating
             val newAvgRating: Float =
-                (oldRatingTotal + rating!!.rating) / newNumRatings
+                (oldRatingTotal + rating!!.stars) / newNumRatings
 
             // Set new merchant info
             merchant.numRating = newNumRatings

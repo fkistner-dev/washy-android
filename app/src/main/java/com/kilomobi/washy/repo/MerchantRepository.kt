@@ -2,8 +2,10 @@ package com.kilomobi.washy.repo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.kilomobi.washy.common.CompletionLiveData
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Product
 import com.kilomobi.washy.model.Rating
@@ -46,7 +48,9 @@ class MerchantRepository : BaseRepository() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    tmpRating.add(document.toObject(Rating::class.java))
+                    val rating = document.toObject(Rating::class.java)
+                    rating.reference = document.id
+                    tmpRating.add(rating)
                 }
                 ratings.value = tmpRating
                 onDataReceived()
@@ -80,5 +84,46 @@ class MerchantRepository : BaseRepository() {
             .addOnFailureListener {
                 Log.w("MerchantRepo", "Error adding document", it)
             }
+    }
+
+    fun addRating(merchantId: String, rating: Rating): CompletionLiveData {
+        val completion = CompletionLiveData()
+
+        db.collection(MerchantListRepository.COLLECTION).firestore.runTransaction {
+            val collectionRef = db.collection(MerchantListRepository.COLLECTION)
+            val merchantRef = collectionRef.document(merchantId)
+            val ratingRef = merchantRef.collection(SUB_COLLECTION_RATINGS).document()
+
+            val merchant: Merchant? = it[merchantRef].toObject(
+                Merchant::class.java
+            )
+
+            // Compute new number of ratings
+            val newNumRatings: Int = merchant!!.numRating.plus(1)
+
+            // Compute new average rating
+            val oldRatingTotal: Float = merchant.avgRating * merchant.numRating
+            val newAvgRating: Float =
+                (oldRatingTotal + rating.stars) / newNumRatings
+
+            // Set new merchant info
+            merchant.numRating = newNumRatings
+            merchant.avgRating = newAvgRating
+
+            // Commit to Firestore
+            it[merchantRef] = merchant
+            it[ratingRef] = rating
+        }
+
+        return completion
+    }
+
+    fun modifyRating(merchantId: String, rating: Rating) {
+        val ratingRef = db.collection(COLLECTION)
+            .document(merchantId)
+            .collection(SUB_COLLECTION_RATINGS).document(rating.reference)
+
+        rating.editedAt = Timestamp.now()
+        ratingRef.set(rating)
     }
 }

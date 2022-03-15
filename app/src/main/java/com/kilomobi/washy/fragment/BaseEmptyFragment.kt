@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 
 abstract class BaseEmptyFragment : Fragment() {
@@ -15,4 +16,6 @@ abstract class BaseEmptyFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_empty, container, false)
     }
+
+    fun isConnected() : Boolean = !FirebaseAuth.getInstance().uid.isNullOrBlank()
 }
