@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "683527892086-82kvqj2sp5p836fg5273fe3m294m37ve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kilomobi.washy.dev",
+            "certificate_hash": "b8d99250dfd0dc4401527871a81dba83d7901f65"
+          }
+        },
+        {
           "client_id": "683527892086-kbgijuo0laqvs6sjt5n5icr5kev43e11.apps.googleusercontent.com",
           "client_type": 3
         }
