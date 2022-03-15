@@ -26,12 +26,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.kilomobi.washy.BuildConfig
 import com.kilomobi.washy.R
 import com.kilomobi.washy.fragment.*
 import com.kilomobi.washy.util.currentNavigationFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.drawer_layout
-import kotlinx.android.synthetic.main.activity_main.toolbar
 
 class MainActivity : AppCompatActivity(),
     MainActivityDelegate, UserListener, NavigationView.OnNavigationItemSelectedListener {
@@ -75,7 +74,6 @@ class MainActivity : AppCompatActivity(),
     private fun setupNavigationItem() {
         val menu = nav_view.menu
         val isConnected = !FirebaseAuth.getInstance().uid.isNullOrBlank()
-
         menu.clear()
 
         if (isConnected) {
@@ -84,8 +82,15 @@ class MainActivity : AppCompatActivity(),
             nav_view.inflateMenu(R.menu.menu_nav_drawer_disconnected)
         }
 
-        assignUserToHeader(FirebaseAuth.getInstance().currentUser)
+        // AddMenu Item if debug
+        if (BuildConfig.FLAVOR == "Dev") {
+            val submenu = menu.addSubMenu("Admin")
+            submenu.add("Debug")
+            submenu.getItem(0).setIcon(R.drawable.ic_motorcycle)
+            nav_view.invalidate()
+        }
 
+        assignUserToHeader(FirebaseAuth.getInstance().currentUser)
         val headerView: View = nav_view.getHeaderView(0)
         headerView.findViewById<ImageView>(R.id.washy).visibility = if (isConnected) View.GONE else View.VISIBLE
     }
@@ -121,18 +126,6 @@ class MainActivity : AppCompatActivity(),
             R.id.action_map -> {
                 if (supportFragmentManager.currentNavigationFragment !is MapFragment) {
                     navController.navigate(R.id.action_homeFragment_to_mapFragment)
-                }
-                true
-            }
-            R.id.action_feed -> {
-                if (supportFragmentManager.currentNavigationFragment !is FeedFragment) {
-                    navController.navigate(R.id.action_homeFragment_to_feedFragment)
-                }
-                true
-            }
-            R.id.action_photolab -> {
-                if (supportFragmentManager.currentNavigationFragment !is PhotoLabFragment) {
-                    navController.navigate(R.id.action_homeFragment_to_photolabFragment)
                 }
                 true
             }
@@ -186,7 +179,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    fun Context.isPackageInstalled(packageName: String): Boolean {
+    private fun Context.isPackageInstalled(packageName: String): Boolean {
         // check if chrome is installed or not
         return try {
             packageManager.getPackageInfo(packageName, 0)
@@ -233,6 +226,5 @@ class MainActivity : AppCompatActivity(),
                 .into(headerView.findViewById(R.id.profilePic))
             headerView.findViewById<TextView>(R.id.profileText).text = ""
         }
-
     }
 }

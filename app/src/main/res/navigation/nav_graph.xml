@@ -84,14 +84,6 @@
             app:destination="@id/becomeWasherFragment" />
 
         <action
-            android:id="@+id/action_homeFragment_to_feedFragment"
-            app:destination="@id/feedListFragment" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_photolabFragment"
-            app:destination="@id/photolabFragment" />
-
-        <action
             android:id="@+id/action_homeFragment_to_identificationFragment"
             app:destination="@id/identificationFragment" />
 

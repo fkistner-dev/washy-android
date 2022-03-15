@@ -122,4 +122,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation project(':geofirestore')
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+    // ChromeTab
+    implementation "androidx.browser:browser:1.4.0"
 }
