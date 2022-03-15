@@ -1,5 +1,8 @@
 package com.kilomobi.washy.activity
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -8,6 +11,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabColorSchemeParams
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -40,7 +46,6 @@ class MainActivity : AppCompatActivity(),
         setSupportActionBar(toolbar)
 
         navController = findNavController(R.id.nav_controller_fragment)
-//        appBarConfiguration = AppBarConfiguration(navController.graph, drawer_layout)
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
@@ -149,7 +154,25 @@ class MainActivity : AppCompatActivity(),
             }
             R.id.action_tos -> {
                 if (supportFragmentManager.currentNavigationFragment !is TermOfServiceFragment) {
-                    navController.navigate(R.id.action_homeFragment_to_tosFragment)
+                    val builder = CustomTabsIntent.Builder()
+                    val params = CustomTabColorSchemeParams.Builder()
+                    params.setToolbarColor(ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
+                    builder.setDefaultColorSchemeParams(params.build())
+                    builder.setShowTitle(false)
+
+                    builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
+                    builder.setExitAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
+                    val customBuilder = builder.build()
+                    val packageName = "com.android.chrome";
+
+                    if (this.isPackageInstalled(packageName)) {
+                        // if chrome is available use chrome custom tabs
+                        customBuilder.intent.setPackage(packageName)
+                        customBuilder.launchUrl(this, Uri.parse(getString(R.string.privacy_url)))
+                    } else {
+                        // if not available use WebView to launch the url
+                        navController.navigate(R.id.action_homeFragment_to_tosFragment)
+                    }
                 }
                 true
             }
@@ -160,6 +183,16 @@ class MainActivity : AppCompatActivity(),
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun Context.isPackageInstalled(packageName: String): Boolean {
+        // check if chrome is installed or not
+        return try {
+            packageManager.getPackageInfo(packageName, 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
         }
     }
 
