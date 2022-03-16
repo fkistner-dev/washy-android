@@ -78,38 +78,21 @@
                 android:contentDescription="@string/common_image_content_description"
                 android:src="@drawable/ic_chevron_right" />
 
-            <LinearLayout
-                android:id="@+id/ll_service_holder"
+            <HorizontalScrollView
+                android:id="@+id/serviceHorizontalScroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@id/text"
                 android:layout_marginTop="@dimen/text_padding"
                 android:visibility="gone"
-                tools:visibility="visible" >
+                tools:visibility="visible">
 
-                <View
-                    android:id="@+id/lineSeparator"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginEnd="@dimen/text_margin_very_high"
-                    android:layout_marginTop="@dimen/text_padding"
-                    android:layout_marginBottom="@dimen/text_padding"
-                    android:background="@color/colorPrimary" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true" />
 
-                <HorizontalScrollView
-                    android:id="@+id/serviceHorizontalScroll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chip_group"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:singleLine="true" />
-
-                </HorizontalScrollView>
-            </LinearLayout>
+            </HorizontalScrollView>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

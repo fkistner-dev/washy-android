@@ -24,8 +24,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.ktx.Firebase
 import com.kilomobi.washy.BuildConfig
 import com.kilomobi.washy.R
 import com.kilomobi.washy.fragment.*
@@ -37,12 +40,14 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        firebaseAnalytics = Firebase.analytics
 
         navController = findNavController(R.id.nav_controller_fragment)
         appBarConfiguration = AppBarConfiguration(
@@ -114,6 +119,10 @@ class MainActivity : AppCompatActivity(),
     override fun setFullscreen(enable: Boolean) {
         if (enable) supportActionBar?.hide()
         else supportActionBar?.show()
+    }
+
+    override fun getAnalytics(): FirebaseAnalytics {
+        return firebaseAnalytics
     }
 
     override fun onSupportNavigateUp(): Boolean {

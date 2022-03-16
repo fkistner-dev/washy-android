@@ -2,6 +2,7 @@ package com.kilomobi.washy.viewholder
 
 import android.graphics.Color
 import android.view.View
+import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -20,7 +21,7 @@ class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHold
     val title: Int = R.id.subheader
     val text: Int = R.id.text
     val rating: Int = R.id.ratingBar
-    private val llService: Int = R.id.ll_service_holder
+    private val horizontalScroll: Int = R.id.serviceHorizontalScroll
     private val cardview: Int = R.id.cardview
 
     fun bind(merchant: Merchant, selectedItem: Int) {
@@ -45,7 +46,7 @@ class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHold
         }
 
         if (merchant.services.isNotEmpty()) {
-            merchantView.findViewById<LinearLayout>(llService).visibility = View.VISIBLE
+            merchantView.findViewById<HorizontalScrollView>(horizontalScroll).visibility = View.VISIBLE
             val chipGroup = merchantView.findViewById(R.id.chip_group) as ChipGroup
 
             for (service in merchant.services) {
