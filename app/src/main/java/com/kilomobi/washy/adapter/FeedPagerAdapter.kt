@@ -13,10 +13,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.util.GlideApp
-import com.kilomobi.washy.util.MyAppGlideModule
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>) :
     RecyclerView.Adapter<FeedPagerAdapter.FeedViewHolder>() {
@@ -26,7 +25,13 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
     }
 
     class FeedViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var title: TextView = itemView.findViewById(R.id.text)
+        var header: TextView = itemView.findViewById(R.id.header)
+        var subHeader: TextView = itemView.findViewById(R.id.subheader)
+        var text: TextView = itemView.findViewById(R.id.text)
+        var subText: TextView = itemView.findViewById(R.id.subtext)
+        var date: TextView = itemView.findViewById(R.id.date)
+        var badge: TextView = itemView.findViewById(R.id.badge)
+        var like: TextView = itemView.findViewById(R.id.like)
         var image: ImageView = itemView.findViewById(R.id.image)
     }
 
@@ -44,9 +49,21 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.title.text = items[position].merchantName
-        if (items[position].photos.isNotEmpty()) {
-            val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(FIRESTORE_BUCKET + "feeds/" + items[position].photos[0])
+        val feed = items[position]
+        holder.header.text = feed.merchantName
+        holder.subHeader.text = feed.subHeader
+        holder.text.text = feed.text
+        holder.subText.text = feed.subText
+        holder.date.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(feed.createdAt.toDate())
+        holder.badge.text = "Badge"
+        if (feed.like == 0) {
+            holder.like.visibility = View.INVISIBLE
+        } else {
+            holder.like.text = context.resources.getString(R.string.cardview_like, feed.like)
+        }
+
+        if (feed.photos.isNotEmpty()) {
+            val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(FIRESTORE_BUCKET + "feeds/" + feed.photos[0])
 
             GlideApp.with(context)
                 .load(urlToLoad)
@@ -57,5 +74,13 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
     private fun getDateTime(timestamp: Long): String? {
         val date = Date(timestamp)
         return DateFormat.getDateInstance().format(date)
+    }
+
+    fun getDate(dateStr: String) {
+        try {
+            val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val mDate = formatter.parse(dateStr)
+            return
+        } catch (e: Exception) { }
     }
 }

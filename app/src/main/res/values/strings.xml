@@ -176,4 +176,7 @@
     <!-- Error -->
     <string name="error_merchant_marker">Une erreur est survenue, le détail n\'est pas disponible.</string>
 
+    <!-- ViewPager -->
+    <string name="cardview_like">%1d &#128153;</string>
+
 </resources>

@@ -17,7 +17,10 @@ import com.kilomobi.washy.viewholder.FeedViewHolder
 data class Feed(
     var merchantId: String = "",
     var merchantName: String = "",
+    var header: String = "",
+    var subHeader: String = "",
     var text: String = "",
+    var subText: String = "",
     var price: Long = 0,
     var like: Int = 0,
     var isPromotional: Boolean = false,
