@@ -38,6 +38,7 @@ class BecomeWasherFragment : Fragment() {
     private lateinit var inputPhone: TextInputLayout
     private lateinit var inputAddress: TextInputLayout
     private lateinit var inputCity: TextInputLayout
+    private lateinit var inputZipCode: TextInputLayout
     private lateinit var inputSiren: TextInputLayout
     private lateinit var chipGroupServices: ChipGroup
     private lateinit var chipHeadlight: Chip
@@ -81,6 +82,7 @@ class BecomeWasherFragment : Fragment() {
         inputPhone = view.findViewById<TextInputLayout>(R.id.input_phone)
         inputAddress = view.findViewById<TextInputLayout>(R.id.input_address)
         inputCity = view.findViewById<TextInputLayout>(R.id.input_city)
+        inputZipCode = view.findViewById<TextInputLayout>(R.id.input_zipcode)
         inputSiren = view.findViewById<TextInputLayout>(R.id.input_siren)
         chipGroupServices = view.findViewById<ChipGroup>(R.id.input_chip_group)
 
@@ -207,6 +209,16 @@ class BecomeWasherFragment : Fragment() {
             isValid = false
             isAddressComplete = false
             inputAddress.error = getString(R.string.input_error_address)
+        }
+
+        if (inputZipCode.editText?.text?.isNotBlank() == true && inputZipCode.editText?.text!!.contains(
+                Regex.fromLiteral("^[0-9]*$"))) {
+            inputZipCode.error = null
+            merchant.fullAddress += " " +inputZipCode.editText?.text.toString()
+        } else {
+            isValid = false
+            isAddressComplete = false
+            inputZipCode.error = getString(R.string.input_error_zipcode)
         }
 
         if (inputCity.editText?.text?.isNotBlank() == true) {

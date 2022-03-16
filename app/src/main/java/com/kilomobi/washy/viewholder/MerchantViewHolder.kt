@@ -3,7 +3,6 @@ package com.kilomobi.washy.viewholder
 import android.graphics.Color
 import android.view.View
 import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView

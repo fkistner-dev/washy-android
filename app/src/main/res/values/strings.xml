@@ -71,8 +71,7 @@
 
     <!-- Become Washer -->
     <string name="become_washer_title">Félicitation ! Tu es à 5 minutes de devenir un Washer</string>
-    <string name="become_washer_text">Il suffit de répondre à quelques questions</string>
-    <string name="become_washer_emoji">&#128513;</string>
+    <string name="become_washer_text">Il suffit de répondre à quelques questions &#128513;</string>
 
     <!-- Add Rating -->
     <string name="add_rating_header">%1$s une évaluation pour %2$s</string>
@@ -90,6 +89,7 @@
     <string name="become_washer_phone">Numéro de téléphone</string>
     <string name="become_washer_address">Adresse</string>
     <string name="become_washer_city">Ville</string>
+    <string name="become_washer_zipcode">Code postal</string>
     <string name="become_washer_services">Services proposés :</string>
     <string name="become_washer_work_at_home">Travaille à domicile ?</string>
     <string name="become_washer_siren">Numéro SIREN (pro) ?</string>
@@ -153,6 +153,8 @@
     <string name="input_error_phone_requirement">Veuillez entrer un numéro valide</string>
     <string name="input_error_address">Veuillez insérer votre adresse</string>
     <string name="input_error_address_requirement">Veuillez insérer une adresse valide</string>
+    <string name="input_error_zipcode">Veuillez insérer votre code postal</string>
+    <string name="input_error_zipcode_requirement">Veuillez insérer un code postal valide</string>
     <string name="input_error_city">Veuillez insérer une ville</string>
     <string name="input_error_city_requirement">Veuillez insérer une ville valide</string>
     <string name="input_error_services">Veuillez sélectionner au moins un service</string>

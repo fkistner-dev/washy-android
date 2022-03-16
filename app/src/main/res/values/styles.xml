@@ -80,6 +80,10 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
+    <style name="WashyText.Header.Contrast">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="WashyText.Header.Price">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_sub_header</item>
@@ -97,6 +101,10 @@
     <style name="WashyText.Default">
         <item name="android:textSize">@dimen/text_default</item>
         <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="WashyText.Default.Contrast">
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="WashyText.Promotional">

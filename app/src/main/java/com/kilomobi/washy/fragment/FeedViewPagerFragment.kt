@@ -3,14 +3,10 @@ package com.kilomobi.washy.fragment
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DimenRes
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -51,7 +47,7 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
         )
 
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FeedListViewModel::class.java)
-        viewModel.isLoading.observe(requireActivity(), Observer<Boolean> {
+        viewModel.isLoading.observe(requireActivity()) {
             if (it) {
                 shimmerLayout.visibility = View.VISIBLE
                 shimmerLayout.startShimmer()
@@ -59,19 +55,19 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
                 shimmerLayout.stopShimmer()
                 shimmerLayout.visibility = View.GONE
             }
-        })
-        viewModel.getAllFeeds().observe(viewLifecycleOwner, Observer<List<Feed>> {
+        }
+
+        viewModel.getAllFeeds().observe(viewLifecycleOwner) {
             if (it != null && it.isNotEmpty()) {
                 feeds.addAll(it)
                 feedPagerAdapter.notifyDataSetChanged()
             } else {
                 displayEmptyView()
             }
-        })
+        }
 
         viewPager.orientation = ORIENTATION_HORIZONTAL
         viewPager.adapter = feedPagerAdapter
-
         viewPager.offscreenPageLimit = 1
 
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)

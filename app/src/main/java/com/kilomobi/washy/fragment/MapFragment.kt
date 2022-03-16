@@ -8,6 +8,7 @@ import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.view.*
+import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -283,8 +284,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
     private fun handleServices(merchant: Merchant?) {
         if (merchant != null && merchant.services.isNotEmpty()) {
             val chipGroup = cardview.findViewById(R.id.chip_group) as ChipGroup
-            val llService = cardview.findViewById(R.id.ll_service_holder) as LinearLayout
-            llService.visibility = View.VISIBLE
+            cardview.findViewById<HorizontalScrollView>(R.id.serviceHorizontalScroll).visibility = View.VISIBLE
             chipGroup.removeAllViews()
 
             for (service in merchant.services) {

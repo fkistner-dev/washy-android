@@ -9,15 +9,21 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Feed
+import com.kilomobi.washy.util.GlideApp
+import com.kilomobi.washy.util.MyAppGlideModule
 import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>) :
     RecyclerView.Adapter<FeedPagerAdapter.FeedViewHolder>() {
+
+    companion object {
+        const val FIRESTORE_BUCKET = "gs://washy-dev.appspot.com/"
+    }
 
     class FeedViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView = itemView.findViewById(R.id.text)
@@ -39,10 +45,13 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.title.text = items[position].merchantName
+        if (items[position].photos.isNotEmpty()) {
+            val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(FIRESTORE_BUCKET + "feeds/" + items[position].photos[0])
 
-        Glide.with(context)
-            .load(items[position].photos[0])
-            .into(holder.image)
+            GlideApp.with(context)
+                .load(urlToLoad)
+                .into(holder.image)
+        }
     }
 
     private fun getDateTime(timestamp: Long): String? {
@@ -50,39 +59,3 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
         return DateFormat.getDateInstance().format(date)
     }
 }
-//
-//object ExampleFeedPagerData {
-//
-//    fun createList(): ArrayList<Feed> {
-//        val list = ArrayList<Feed>()
-//
-//        val date = Date().time
-//
-//        list.add(
-//            Feed(
-//                name = "Nett Auto'",
-//                imageUrl = "https://scontent-frt3-2.cdninstagram.com/v/t51.2885-15/e35/85248777_197953478111089_4455077596656151746_n.jpg?_nc_ht=scontent-frt3-2.cdninstagram.com&_nc_cat=101&_nc_ohc=JepJaytaOuYAX_AVHIY&oh=42a52ad451a43841e168b8fe885915b6&oe=5EF4CC2B",
-//                timestamp = date - 100
-//            )
-//        )
-//
-//        list.add(
-//            Feed(
-//                name = "Total Wash",
-//                imageUrl = "https://scontent-frt3-1.cdninstagram.com/v/t51.2885-15/e35/82179981_712136375986051_7445858551959714530_n.jpg?_nc_ht=scontent-frt3-1.cdninstagram.com&_nc_cat=107&_nc_ohc=d5rfPBnCbsAAX9pREWR&oh=c85bae3e65c7114fe385903ad56b0cd5&oe=5EF5759E",
-//                timestamp = date - 300
-//            )
-//        )
-//
-//        list.add(
-//            Feed(
-//                name = "JL Lavage",
-//                imageUrl = "https://scontent-frt3-1.cdninstagram.com/v/t51.2885-15/e35/84693514_524605288162782_8817558855297671390_n.jpg?_nc_ht=scontent-frt3-1.cdninstagram.com&_nc_cat=106&_nc_ohc=mWDRYGttEKEAX9ISDRZ&oh=244c25e963cfeb933641252186874910&oe=5EF5FA21",
-//                timestamp = date - 1020
-//            )
-//        )
-//
-//        return list
-//    }
-//
-//}

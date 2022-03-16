@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_dialog_info"
-        android:contentDescription="@string/mockup_data_feed_image_description"/>
+        android:contentDescription="@string/mockup_data_feed_image_description"
+        android:src="@android:drawable/ic_dialog_info" />
 
 </RelativeLayout>

@@ -19,9 +19,10 @@ data class Feed(
     var merchantName: String = "",
     var text: String = "",
     var price: Long = 0,
+    var like: Int = 0,
     var isPromotional: Boolean = false,
     var verified: Boolean = false,
-    var discount: Int = 0,
+    var discount: String = "",
     var photos: List<String> = listOf(),
     var createdAt: Timestamp = Timestamp.now(),
     var expireAt: Timestamp = Timestamp.now()

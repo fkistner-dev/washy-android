@@ -13,12 +13,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fragment_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorPrimary" >
 
             <TextView
-                style="@style/WashyText.Header"
-                android:layout_width="260dp"
+                style="@style/WashyText.Header.Contrast"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/text_margin_profile_header"
@@ -26,84 +26,84 @@
                 android:text="@string/become_washer_title"
                 android:textAlignment="center" />
 
-        <TextView
-            style="@style/WashyText.Default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/text_sub_header"
-            android:textAlignment="center"
-            android:text="@string/become_washer_text" />
+            <TextView
+                style="@style/WashyText.Default.Contrast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/text_small"
+                android:layout_marginBottom="@dimen/text_small"
+                android:textAlignment="center"
+                android:text="@string/become_washer_text" />
+        </LinearLayout>
 
-        <TextView
-            style="@style/WashyText.SubHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/text_sub_header"
-            android:textAlignment="center"
-            android:text="@string/become_washer_emoji" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/input_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/become_washer_name"
-            app:counterEnabled="true"
-            app:counterMaxLength="64">
+            android:orientation="vertical"
+            android:layout_margin="@dimen/fragment_margin">
 
-            <com.google.android.material.textfield.TextInputEditText
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/input_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/become_washer_name"
+                app:counterEnabled="true"
+                app:counterMaxLength="64">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/input_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/become_washer_description"
-            app:counterEnabled="true"
-            app:counterMaxLength="256">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/input_description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/become_washer_description"
+                app:counterEnabled="true"
+                app:counterMaxLength="256">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/input_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/become_washer_phone"
-            app:counterEnabled="true"
-            app:counterMaxLength="10">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:inputType="phone"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/input_phone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/become_washer_phone"
+                app:counterEnabled="true"
+                app:counterMaxLength="10">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/input_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/become_washer_address"
-            app:counterMaxLength="256">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:inputType="textPostalAddress"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/input_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/become_washer_address"
+                app:counterMaxLength="256">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textPostalAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -120,114 +120,132 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            style="@style/WashyText.Default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/become_washer_services" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/input_zipcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/become_washer_zipcode"
+                app:counterEnabled="true"
+                app:counterMaxLength="5">
 
-        <include layout="@layout/layout_chip_group" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <TextView
+                style="@style/WashyText.Default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/text_small"
+                android:layout_marginBottom="@dimen/text_small"
+                android:text="@string/become_washer_services" />
 
-                <TextView
-                    style="@style/WashyText.Default"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/become_washer_work_at_home" />
-
-                <RadioGroup
-                    android:id="@+id/group_work_at_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/common_yes"/>
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/common_no"/>
-
-                </RadioGroup>
-
-            </LinearLayout>
-
-<!--            <View-->
-<!--                android:layout_width="1dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:layout_gravity="center_vertical"-->
-<!--                android:background="@color/colorGrey300"/>-->
+            <include layout="@layout/layout_chip_group" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    style="@style/WashyText.Default"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/become_washer_siren" />
+                    android:orientation="vertical">
 
-                <RadioGroup
-                    android:id="@+id/group_is_pro"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        style="@style/WashyText.Default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/become_washer_work_at_home" />
+
+                    <RadioGroup
+                        android:id="@+id/group_work_at_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/common_yes"/>
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/common_no"/>
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <!--            <View-->
+                <!--                android:layout_width="1dp"-->
+                <!--                android:layout_height="30dp"-->
+                <!--                android:layout_gravity="center_vertical"-->
+                <!--                android:background="@color/colorGrey300"/>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:gravity="end"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:id="@+id/radio_pro_yes"
+                    <TextView
+                        style="@style/WashyText.Default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/common_yes"/>
+                        android:text="@string/become_washer_siren" />
 
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:id="@+id/radio_pro_no"
+                    <RadioGroup
+                        android:id="@+id/group_is_pro"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/common_no"/>
+                        android:orientation="horizontal">
 
-                </RadioGroup>
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radio_pro_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/common_yes"/>
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radio_pro_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/common_no"/>
+
+                    </RadioGroup>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/input_siren"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:hint="@string/become_washer_siren"
-            tools:visibility="visible">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:inputType="number"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/input_siren"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:hint="@string/become_washer_siren"
+                tools:visibility="visible">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/validate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/common_validate"
-            style="?attr/materialButtonOutlinedStyle"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/validate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/common_validate"
+                style="?attr/materialButtonOutlinedStyle"/>
 
         </LinearLayout>
     </LinearLayout>
