@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_custom_info_window">
 
     <ImageView
         android:id="@+id/image"
@@ -10,35 +11,53 @@
         android:layout_height="64dp"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_car_convertible"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/mockup_data_feed_image_description" />
+        android:visibility="gone"
+        android:contentDescription="@string/mockup_data_feed_image_description"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/image"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/header"
-            style="@style/WashyText.Header"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/mockup_data_title_jl_lavage" />
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/subheader"
-            style="@style/WashyText.SubHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/mockup_data_subtitle_jl_lavage" />
+            <TextView
+                android:id="@+id/header"
+                style="@style/WashyText.SubHeader"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/mockup_data_title_jl_lavage" />
 
-        <TextView
-            android:id="@+id/text"
-            style="@style/WashyText.Default"
-            android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/mockup_data_lorem_ipsum" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/subheader"
+                style="@style/WashyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/mockup_data_subtitle_jl_lavage" />
+
+            <TextView
+                android:id="@+id/text"
+                style="@style/WashyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/mockup_data_lorem_ipsum" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -62,17 +81,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            tools:visibility="gone"
+            tools:visibility="visible"
             tools:text="Premium"/>
 
         <TextView
             style="@style/WashyText.Promotional"
-            android:id="@+id/extraComplet"
+            android:id="@+id/extraFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
             tools:visibility="visible"
-            tools:text="Complet"/>
+            tools:text="Full"/>
 
     </LinearLayout>
 

@@ -18,6 +18,12 @@
     <dimen name="onboarding_top_margin">42dp</dimen>
     <dimen name="image_margin">20dp</dimen>
 
+    <!-- CardView -->
+    <dimen name="text_cardview_header">18sp</dimen>
+    <dimen name="text_cardview_sub_header">14sp</dimen>
+    <dimen name="text_cardview_default">12sp</dimen>
+    <dimen name="text_cardview_chip_size">20dp</dimen>
+
     <!-- ViewPager -->
     <dimen name="viewpager_next_item_visible">20dp</dimen>
     <dimen name="viewpager_current_item_horizontal_margin">22dp</dimen>

@@ -54,6 +54,26 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
+    <style name="WashyText.CardView" />
+
+    <style name="WashyText.CardView.Header">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_cardview_header</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="WashyText.CardView.SubHeader">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_cardview_default</item>
+        <item name="fontFamily">@font/roboto_black</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="WashyText.CardView.Text">
+        <item name="android:textSize">@dimen/text_cardview_default</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
     <style name="WashyText.Header">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_header</item>
@@ -80,9 +100,11 @@
     </style>
 
     <style name="WashyText.Promotional">
-        <item name="android:paddingTop">@dimen/text_padding</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:paddingRight">@dimen/text_padding</item>
         <item name="android:paddingLeft">0dp</item>
+        <item name="android:background">@drawable/profile_circle_shape</item>
     </style>
 
     <style name="LoginTheme" parent="FirebaseUI">

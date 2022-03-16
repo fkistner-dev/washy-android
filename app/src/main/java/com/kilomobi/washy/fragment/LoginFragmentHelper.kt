@@ -24,7 +24,7 @@ abstract class LoginFragmentHelper : FirebaseUIFragment() {
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(false)
+                .setIsSmartLockEnabled(true)
                 .setLogo(R.mipmap.ic_launcher)
                 .setTheme(R.style.LoginTheme)
                 .setTosAndPrivacyPolicyUrls(getString(R.string.tos_url), getString(R.string.privacy_url))

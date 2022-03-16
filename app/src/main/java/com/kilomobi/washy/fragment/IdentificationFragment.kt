@@ -43,9 +43,9 @@ class IdentificationFragment : LoginFragmentHelper() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
-                user?.let { userListener.onConnected(it) }
+                user?.let { userListener.onAuthenticationConnected(it) }
             } else {
-                Snackbar.make(requireView(), getString(R.string.authentication_sign_in_error, response?.error?.errorCode), Snackbar.LENGTH_LONG).show()
+                userListener.onAuthenticationCancel()
             }
         }
         findNavController().popBackStack()

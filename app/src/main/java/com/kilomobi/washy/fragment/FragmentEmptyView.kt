@@ -44,11 +44,13 @@ abstract class FragmentEmptyView(private val resourceInt: Int) : Fragment() {
         view?.findViewById<TextView>(R.id.empty_view_text)?.visibility = View.GONE
     }
 
-    fun isConnected() : Boolean {
+    fun isConnected(requireSnack: Boolean = false) : Boolean {
         return if (!FirebaseAuth.getInstance().uid.isNullOrBlank()) {
             true
-        } else {
+        } else if (requireSnack) {
             Snackbar.make(requireView(), R.string.common_feature_require_authentication, Snackbar.LENGTH_LONG).show()
+            false
+        } else {
             false
         }
     }

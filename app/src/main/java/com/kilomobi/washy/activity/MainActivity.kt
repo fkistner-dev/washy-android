@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity(),
                     val params = CustomTabColorSchemeParams.Builder()
                     params.setToolbarColor(ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
                     builder.setDefaultColorSchemeParams(params.build())
-                    builder.setShowTitle(false)
+                    builder.setShowTitle(true)
 
                     builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
                     builder.setExitAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
@@ -202,10 +202,12 @@ class MainActivity : AppCompatActivity(),
         builder.show()
     }
 
-    override fun onConnected(user: FirebaseUser) {
+    override fun onAuthenticationConnected(user: FirebaseUser) {
         invalidateOptionsMenu()
         assignUserToHeader(user)
     }
+
+    override fun onAuthenticationCancel() { }
 
     private fun assignUserToHeader(user: FirebaseUser?) {
         val headerView: View = nav_view.getHeaderView(0)

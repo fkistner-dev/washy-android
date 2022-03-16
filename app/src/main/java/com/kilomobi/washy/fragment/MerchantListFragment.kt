@@ -66,69 +66,7 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
     }
 
     override fun listen(click: AdapterClick?) {
-//        listAdapter.selectedItemPosition = (click as Merchant)
         val bundle = bundleOf("merchant" to click)
         findNavController().navigate(R.id.action_merchantListFragment_to_merchantDetailFragment, bundle)
-        listAdapter.notifyDataSetChanged()
     }
-
-    fun updateListPosition(id: Int) {
-        listAdapter.selectedItemPosition = id
-        listAdapter.notifyDataSetChanged()
-        recycler.smoothScrollToPosition(id)
-    }
-}
-
-object ExampleMerchantData {
-
-    fun createList(): List<RecyclerItem> {
-        val list = ArrayList<RecyclerItem>()
-
-//        list.add(
-//            Merchant(
-//                name = "Total Wash",
-//                presentation = "Vous ne connaissez pas encore TOTAL Wash ? C'est l'offre de lavage auto et moto de Total présente dans près de 1000 stations-service du réseau Total.",
-//                priceStart = 4.50,
-//                rating = 2.6f,
-//                services = Service.servicesToString(Service.COFFEE.first, Service.BIKE.first, Service.WIFI.first, Service.TRANSPORT.first),
-//                adminId = 0
-//            )
-//        )
-//
-//        list.add(
-//            Merchant(
-//                name = "JL Lavage",
-//                presentation = "JL Lavage est un établissement situé à La Wack, spécialisé dans le lavage de véhicules de luxe depuis 5 ans. Sur place, une équipe de professionnels mettant leur expérience et leur savoir-faire au service de chaque conducteur, pour rendre à chaque véhicule la splendeur de ses premiers kilomètres.",
-//                priceStart = 45.0,
-//                rating = 4.6f,
-//                services = Service.servicesToString(Service.CERAMIC.first, Service.ECO_FRIENDLY.first, Service.HAND_WASH.first),
-//                adminId = 0
-//            )
-//        )
-//
-//        list.add(
-//            Merchant(
-//                name = "LK Renov Auto",
-//                presentation = "Profiter d’une rénovation d’optiques des phares dans un centre qualifié et spécialisé dans l’entretien et le nettoyage automobile",
-//                priceStart = 12.0,
-//                rating = 1f,
-//                services = Service.servicesToString(Service.COFFEE.first, Service.WIFI.first),
-//                adminId = 0
-//            )
-//        )
-//
-//        list.add(
-//            Merchant(
-//                name = "MacWash",
-//                presentation = "Texte de presentation rapide",
-//                priceStart = 99.0,
-//                rating = 5f,
-//                services = Service.servicesToString(Service.HAND_WASH.first),
-//                adminId = 0
-//            )
-//        )
-
-        return list
-    }
-
 }

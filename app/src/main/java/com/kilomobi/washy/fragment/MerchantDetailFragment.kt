@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
@@ -59,50 +60,47 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
             merchant = requireArguments()["merchant"] as Merchant
         }
 
-        currentView?.let {
+        currentView?.let { v ->
             if (merchant.imported) {
-                it.findViewById<TextView>(R.id.type).visibility = View.GONE
+                v.findViewById<TextView>(R.id.type).visibility = View.GONE
             } else {
-                it.findViewById<TextView>(R.id.type).text = if (merchant.siren?.isNotEmpty() == true) getString(R.string.merchant_pro) else getString(R.string.merchant_part)
+                v.findViewById<TextView>(R.id.type).text = if (merchant.siren?.isNotEmpty() == true) getString(R.string.merchant_pro) else getString(R.string.merchant_part)
             }
-            it.findViewById<TextView>(R.id.title).text = merchant.name
-            it.findViewById<TextView>(R.id.description).text = merchant.description
-            it.findViewById<MaterialRatingBar>(R.id.ratingBar).rating = merchant.avgRating
+            v.findViewById<TextView>(R.id.title).text = merchant.name
+            v.findViewById<TextView>(R.id.description).text = merchant.description
+            v.findViewById<MaterialRatingBar>(R.id.ratingBar).rating = merchant.avgRating
 
-            val serviceScrollView = it.findViewById<HorizontalScrollView>(R.id.serviceHorizontalScroll) as ViewGroup
-            val linearLayout = LinearLayout(context)
-            linearLayout.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            if (merchant.services.isNotEmpty()) {
+                val horizontalScrollView = v.findViewById(R.id.serviceHorizontalScroll) as HorizontalScrollView
+                val chipGroup = v.findViewById(R.id.chip_group) as ChipGroup
+                horizontalScrollView.visibility = View.VISIBLE
 
-            for (service in merchant.services) {
-                if (service.isBlank()) return
-                val chip = Chip(requireContext())
-                chip.text = Service.retrieveText(service)?.let { context?.getString(it) }
-                chip.minHeight = 16
-                chip.chipIcon =
-                    Service.retrieveImage(service)
-                        ?.let { ContextCompat.getDrawable(requireContext(), it) }
-                chip.setChipBackgroundColorResource(R.color.white)
-                chip.setChipIconTintResource(R.color.colorPrimary)
-                linearLayout.addView(chip)
+                for (service in merchant.services) {
+                    if (service.isBlank()) return
+                    val chip = Chip(context)
+                    chip.text = Service.retrieveText(service)?.let { context?.getString(it) }
+                    chip.chipIcon =
+                        Service.retrieveImage(service)
+                            ?.let { ContextCompat.getDrawable(requireContext(), it) }
+                    chip.setChipIconSizeResource(R.dimen.text_cardview_chip_size)
+                    chip.setChipBackgroundColorResource(R.color.white)
+                    chip.setChipIconTintResource(R.color.colorPrimary)
 
-                val emptyView = View(requireContext())
-                emptyView.layoutParams = ViewGroup.LayoutParams(12, 0)
-                linearLayout.addView(emptyView)
+                    chipGroup.addView(chip)
+                }
             }
 
-            serviceScrollView.addView(linearLayout)
-
-            it.findViewById<ImageView>(R.id.gmaps).setOnClickListener {
+            v.findViewById<ImageView>(R.id.gmaps).setOnClickListener {
                 val merchantPosition = LatLng(merchant.position!!.latitude, merchant.position!!.longitude)
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+merchantPosition.latitude+","+merchantPosition.longitude+"?q="+merchantPosition.latitude+","+merchantPosition.longitude+"("+merchant.name+")"))
                 startActivity(intent)
             }
 
             if (merchant.imgUrl?.isNotBlank() == true) {
-                it.findViewById<ImageView>(R.id.photo).visibility = View.VISIBLE
+                v.findViewById<ImageView>(R.id.photo).visibility = View.VISIBLE
                 Glide.with(requireContext())
                     .load(merchant.imgUrl)
-                    .into(it.findViewById(R.id.photo))
+                    .into(v.findViewById(R.id.photo))
             }
         }
     }

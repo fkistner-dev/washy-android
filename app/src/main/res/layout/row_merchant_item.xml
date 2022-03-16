@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
@@ -22,40 +23,48 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"/>
-
             <TextView
-                android:id="@+id/type"
-                style="@style/WashyText.SubHeader"
+                android:id="@+id/distance"
+                style="@style/WashyText.CardView.Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_toStartOf="@id/ratingBar"
                 tools:text="@string/merchant_pro" />
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/WashyText.Header"
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/type"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/header"
+                style="@style/WashyText.CardView.Header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/distance"
+                tools:text="@string/merchant_pro" />
+
+            <TextView
+                android:id="@+id/subheader"
+                style="@style/WashyText.CardView.SubHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/header"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@id/ratingBar"
                 tools:text="@string/mockup_data_title_jl_lavage" />
 
             <TextView
                 android:id="@+id/text"
-                style="@style/WashyText.Default"
+                style="@style/WashyText.CardView.Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@id/title"
+                android:layout_below="@id/subheader"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:ellipsize="end"
@@ -64,11 +73,43 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ratingBar"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/common_image_content_description"
                 android:src="@drawable/ic_chevron_right" />
 
+            <LinearLayout
+                android:id="@+id/ll_service_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/text"
+                android:layout_marginTop="@dimen/text_padding"
+                android:visibility="gone"
+                tools:visibility="visible" >
+
+                <View
+                    android:id="@+id/lineSeparator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="@dimen/text_margin_very_high"
+                    android:layout_marginTop="@dimen/text_padding"
+                    android:layout_marginBottom="@dimen/text_padding"
+                    android:background="@color/colorPrimary" />
+
+                <HorizontalScrollView
+                    android:id="@+id/serviceHorizontalScroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleLine="true" />
+
+                </HorizontalScrollView>
+            </LinearLayout>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

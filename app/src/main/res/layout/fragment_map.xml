@@ -4,13 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:tag="map">
-
-<!--    <include layout="@layout/layout_top_bar" />-->
-</RelativeLayout>
-
-<!--
-app:layout_constraintHeight_percent="0.7"
-    app:layout_constraintTop_toTopOf="parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    -->
+    android:tag="map" />

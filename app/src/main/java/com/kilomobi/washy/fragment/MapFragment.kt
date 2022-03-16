@@ -8,16 +8,12 @@ import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,15 +21,24 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.GeoPoint
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.model.Merchant
+import com.kilomobi.washy.model.Service
 import com.kilomobi.washy.viewmodel.MerchantListViewModel
-import kotlinx.android.synthetic.main.marker_info_layout.view.*
+import kotlinx.android.synthetic.main.row_merchant_item.*
+import kotlinx.android.synthetic.main.row_merchant_item.view.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import kotlin.math.acos
+import kotlin.math.cos
+import kotlin.math.sin
 
-class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -43,6 +48,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
     private var viewModel: MerchantListViewModel? = null
     private var enablePosition = false
     private var merchantList: List<Merchant> = listOf()
+    private var previousMarker: Marker? = null
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -126,7 +132,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
                     if (!animateFromArgs) map.animateCamera(
                         CameraUpdateFactory.newLatLngZoom(
                             currentLatLng,
-                            12f
+                            13f
                         )
                     )
                     setNearestMerchant(location)
@@ -134,6 +140,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
             }
 
             setMerchantOnMap()
+            view!!.cardview.visibility = View.INVISIBLE
         }
     }
 
@@ -154,8 +161,6 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
     }
 
     private fun setMerchantOnMap() {
-        setInfoBubble()
-
         if (arguments != null && requireArguments()["merchant"] != null && requireArguments()["merchant"] is Merchant) {
             animateFromArgs = true
 
@@ -203,69 +208,6 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
         }
     }
 
-    @SuppressLint("PotentialBehaviorOverride")
-    private fun setInfoBubble() {
-        map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
-            override fun getInfoWindow(marker: Marker): View? {
-                return null
-            }
-
-            override fun getInfoContents(marker: Marker): View {
-                val ctx: Context = requireActivity()
-
-                val inflater = LayoutInflater.from(ctx)
-                val view = inflater.inflate(R.layout.marker_info_layout, null, false)
-
-                //val merchant = viewModel.getNearestMerchant(lastLocation.latitude, lastLocation.longitude).value?.find { (it.reference as DocumentReference).id == marker.snippet }
-                val merchant = merchantList.find { it.reference == marker.snippet }
-
-                Glide.with(requireContext()).asBitmap()
-                    .load(merchant?.imgUrl)
-                    .override(50,50)
-                    .listener(object : RequestListener<Bitmap> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Bitmap>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Bitmap?,
-                            model: Any?,
-                            target: Target<Bitmap>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            if(dataSource != null && dataSource != DataSource.MEMORY_CACHE)
-                                marker.showInfoWindow()
-                            return false
-                        }
-
-                    }).into(view.image)
-                view.header.text = merchant?.name
-                view.subheader.text = merchant?.fullAddress
-                view.text.text = merchant?.description
-
-                return view
-            }
-        })
-
-        // Set a listener for info window events.
-        map.setOnInfoWindowClickListener { marker ->
-            val merchant = merchantList.find { it.reference == marker.snippet }
-            if (merchant != null) {
-                val bundle = bundleOf("merchant" to merchant)
-                findNavController().navigate(R.id.action_mapFragment_to_merchantDetailFragment, bundle)
-            } else {
-                marker.remove()
-                Snackbar.make(requireView(), getString(R.string.error_merchant_marker), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_map, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -295,7 +237,105 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map), OnMapReadyCallback
         }
     }
 
-    override fun onMarkerClick(p0: Marker): Boolean {
-        return false
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val context: Context = requireActivity()
+        val inflater = LayoutInflater.from(context)
+
+        // Manage marker visibility
+        previousMarker?.setIcon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_map_marker))
+        marker.setIcon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_map_marker_highlight))
+
+        val cardview: View = if (view?.cardview == null) {
+            inflater.inflate(R.layout.row_merchant_item, null, false)
+        } else {
+            view!!.cardview
+        }
+
+        val merchant = merchantList.find { it.reference == marker.snippet }
+        cardview.visibility = View.VISIBLE
+        cardview.header.text = merchant?.name
+        cardview.subheader.text = merchant?.fullAddress
+        cardview.text.text = merchant?.description
+        val currentLatLng = GeoPoint(lastLocation.latitude, lastLocation.longitude)
+        val merchantLatLng = merchant?.position
+
+        if (merchantLatLng != null)
+            cardview.distance.text = String.format(distance(currentLatLng, merchantLatLng) + " km")
+
+        merchant?.avgRating?.let { cardview.ratingBar.rating = it }
+
+        cardview.setOnClickListener {
+            if (merchant != null) {
+                val bundle = bundleOf("merchant" to merchant)
+                findNavController().navigate(R.id.action_mapFragment_to_merchantDetailFragment, bundle)
+            } else {
+                marker.remove()
+                Snackbar.make(requireView(), getString(R.string.error_merchant_marker), Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        previousMarker = marker
+        handleServices(merchant)
+
+        return true
+    }
+
+    private fun handleServices(merchant: Merchant?) {
+        if (merchant != null && merchant.services.isNotEmpty()) {
+            val chipGroup = cardview.findViewById(R.id.chip_group) as ChipGroup
+            val llService = cardview.findViewById(R.id.ll_service_holder) as LinearLayout
+            llService.visibility = View.VISIBLE
+            chipGroup.removeAllViews()
+
+            for (service in merchant.services) {
+                if (service.isNotBlank()) {
+                    val chip = Chip(context)
+                    chip.setEnsureMinTouchTargetSize(false)
+                    chip.chipIcon =
+                        Service.retrieveImage(service)
+                            ?.let { ContextCompat.getDrawable(requireContext(), it) }
+                    chip.chipStartPadding = 0f
+                    chip.chipEndPadding = 0f
+                    chip.textEndPadding = 0f
+                    chip.closeIconEndPadding = 0f
+                    chip.closeIconStartPadding = 0f
+                    chip.textStartPadding = 0f
+                    chip.iconEndPadding = 0f
+                    chip.iconStartPadding = 0f
+                    chip.setPadding(0, 0, 0, 0)
+                    chip.setChipIconSizeResource(R.dimen.text_cardview_chip_size)
+                    chip.setChipBackgroundColorResource(R.color.white)
+                    chip.setChipIconTintResource(R.color.colorPrimary)
+
+                    chipGroup.addView(chip)
+                }
+            }
+        }
+    }
+
+    private fun distance(p1: GeoPoint, p2: GeoPoint): String {
+        val theta = p1.longitude - p2.longitude
+        var dist = (sin(deg2rad(p1.latitude))
+                * sin(deg2rad(p2.latitude))
+                + (cos(deg2rad(p1.latitude))
+                * cos(deg2rad(p2.latitude))
+                * cos(deg2rad(theta))))
+        dist = acos(dist)
+        dist = rad2deg(dist)
+        dist *= 60 * 1.1515
+        dist /= 0.62137
+
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.DOWN
+
+        return df.format(dist)
+    }
+
+    private fun deg2rad(deg: Double): Double {
+        return deg * Math.PI / 180.0
+    }
+
+    private fun rad2deg(rad: Double): Double {
+        return rad * 180.0 / Math.PI
     }
 }

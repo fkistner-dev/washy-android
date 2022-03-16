@@ -53,7 +53,7 @@ class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.l
             val set = ConstraintSet()
             fab.id = View.generateViewId() // cannot set id after add
             fab.setOnClickListener {
-                if (isConnected()) {
+                if (isConnected(true)) {
                     val bundle = bundleOf("merchant" to merchant)
                     userRating?.let { bundle.putSerializable("rating", it) }
                     findNavController().navigate(
