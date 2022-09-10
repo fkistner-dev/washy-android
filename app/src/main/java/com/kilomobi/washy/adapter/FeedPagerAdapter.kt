@@ -1,15 +1,18 @@
 package com.kilomobi.washy.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.storage.FirebaseStorage
+import com.kilomobi.washy.BuildConfig
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.util.GlideApp
@@ -20,10 +23,6 @@ import java.util.*
 class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>) :
     RecyclerView.Adapter<FeedPagerAdapter.FeedViewHolder>() {
 
-    companion object {
-        const val FIRESTORE_BUCKET = "gs://washy-dev.appspot.com/"
-    }
-
     class FeedViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
         var header: TextView = itemView.findViewById(R.id.header)
         var subHeader: TextView = itemView.findViewById(R.id.subheader)
@@ -33,6 +32,7 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
         var badge: TextView = itemView.findViewById(R.id.badge)
         var like: TextView = itemView.findViewById(R.id.like)
         var image: ImageView = itemView.findViewById(R.id.image)
+        var action: Button = itemView.findViewById(R.id.call_to_action)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
@@ -55,15 +55,41 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
         holder.text.text = feed.text
         holder.subText.text = feed.subText
         holder.date.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(feed.createdAt.toDate())
-        holder.badge.text = "Badge"
+        holder.badge.text = feed.discount
+        //holder.action.text = context.resources.getString(R.string.cardview_call_to_action)
         if (feed.like == 0) {
             holder.like.visibility = View.INVISIBLE
         } else {
             holder.like.text = context.resources.getString(R.string.cardview_like, feed.like)
         }
 
+        holder.setOnLongClickListener {
+            Log.d("Hello", "World")
+            true
+            /*val viewModel = FeedListViewModel()
+            viewModel.incrementFeedLike(feed.reference)
+
+            value += " " + feed.reference
+            with (sharedPref.edit()) {
+                putString(context.resources.getString(R.string.shared_pref_like), feed.reference)
+                apply()
+            }*/
+        }
+
+        /*
+        // SharedPref
+        val sharedPref = context.getSharedPreferences(context.resources.getString(R.string.shared_pref_name), Context.MODE_PRIVATE)
+        // Get value
+        var value = sharedPref.getString(context.resources.getString(R.string.shared_pref_like), "")
+
+
+
+        if (value!!.toListId().contains(feed.reference)) {
+            holder.action.isEnabled = false
+        } */
+
         if (feed.photos.isNotEmpty()) {
-            val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(FIRESTORE_BUCKET + "feeds/" + feed.photos[0])
+            val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + "feeds/" + feed.photos[0])
 
             GlideApp.with(context)
                 .load(urlToLoad)

@@ -1,13 +1,14 @@
 package com.kilomobi.washy.viewholder
 
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.kilomobi.washy.R
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.Cell
-import kotlinx.android.synthetic.main.row_merchant_item.view.*
+import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 object MerchantCell : Cell<RecyclerItem>() {
 
@@ -37,8 +38,9 @@ object MerchantCell : Cell<RecyclerItem>() {
     ) {
         if (holder is MerchantViewHolder && item is Merchant) {
             holder.bind(item, selectedPosition)
-            holder.itemView.cardview?.ratingBar?.rating = item.avgRating
-            holder.itemView.cardview?.setOnClickListener {
+            // TODO : not CPU efficiency, need to check after passing by ViewBinding
+            holder.itemView.findViewById<MaterialRatingBar>(holder.rating).rating = item.avgRating
+            holder.itemView.findViewById<CardView>(holder.cardview)?.setOnClickListener {
                 listener?.listen(item)
             }
         }

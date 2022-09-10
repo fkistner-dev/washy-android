@@ -234,7 +234,7 @@ class BecomeWasherFragment : Fragment() {
             merchant.position = getLatLongFromAddress(inputAddress.editText!!.text.toString() + " " + inputCity.editText!!.text.toString())
         }
 
-        if (chipArrayList.isNullOrEmpty()) {
+        if (chipArrayList.isEmpty()) {
             Snackbar.make(requireView(), getString(R.string.input_error_no_service), Snackbar.LENGTH_LONG).show()
             isValid = false
         } else {
@@ -272,8 +272,7 @@ class BecomeWasherFragment : Fragment() {
         }
         
         if (isValid) {
-            val viewModel = MerchantViewModel()
-
+            val merchantViewModel = MerchantViewModel()
             merchant.active = true
             FirebaseAuth.getInstance().uid.let {
                 if (it != null) {
@@ -281,8 +280,7 @@ class BecomeWasherFragment : Fragment() {
                 }
             }
 
-            viewModel.addMerchant(merchant)
-
+            merchantViewModel.addMerchant(merchant)
             Snackbar.make(requireView(), getString(R.string.input_merchant_create_success), Snackbar.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_becomeWasherFragment_to_homeFragment)
         }
@@ -295,12 +293,12 @@ class BecomeWasherFragment : Fragment() {
         }
     }
 
-    private fun getLatLongFromAddress(address: String) : GeoPoint? {
+    private fun getLatLongFromAddress(address: String) : GeoPoint {
         val geoCoder = Geocoder(requireContext(), Locale.getDefault())
         try {
-            val addresses: List<Address> =
+            val addresses: List<Address>? =
                 geoCoder.getFromLocationName(address, 1)
-            if (addresses.isNotEmpty()) {
+            if (addresses?.isNotEmpty() == true) {
                 return GeoPoint(addresses[0].latitude, addresses[0].longitude)
             }
         } catch (e: Exception) {

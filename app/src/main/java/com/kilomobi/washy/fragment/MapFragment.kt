@@ -1,38 +1,49 @@
 package com.kilomobi.washy.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Location
+import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.*
-import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.location.LocationManagerCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.GeoPoint
+import com.kilomobi.washy.BuildConfig
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
+import com.kilomobi.washy.databinding.FragmentMapCardviewBinding
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
+import com.kilomobi.washy.util.awaitCurrentLocation
 import com.kilomobi.washy.viewmodel.MerchantListViewModel
-import kotlinx.android.synthetic.main.row_merchant_item.*
-import kotlinx.android.synthetic.main.row_merchant_item.view.*
+import kotlinx.coroutines.launch
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.math.acos
@@ -50,10 +61,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
     private var enablePosition = false
     private var merchantList: List<Merchant> = listOf()
     private var previousMarker: Marker? = null
-
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-    }
+    private lateinit var binding: FragmentMapCardviewBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,11 +84,12 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
         super.onViewCreated(view, savedInstanceState)
 
         if (!viewIsCreated) {
+            binding = FragmentMapCardviewBinding.bind(view)
+
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             // Try to obtain the map from the SupportMapFragment.
-            val mapFragment = SupportMapFragment.newInstance()
-            childFragmentManager.beginTransaction().replace(R.id.listMap, mapFragment).commit()
-
+//            val mapFragment = SupportMapFragment.newInstance()
+            val mapFragment = childFragmentManager.findFragmentById(binding.fragmentMapLayoutId.id) as SupportMapFragment
             mapFragment.getMapAsync(this)
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
             viewIsCreated = true
@@ -105,26 +114,24 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
         setUpMap()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
     @SuppressLint("MissingPermission")
-    private fun setUpMap() {
-        if (viewModel == null)
-            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MerchantListViewModel::class.java]
+    private fun onPermissionGranted() {
+        val lm = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (LocationManagerCompat.isLocationEnabled(lm)) {
+            // You can do this your own way, eg. from a viewModel
+            // But here is where you wanna start the coroutine.
+            // Choose your priority based on the permission you required
+            val priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            lifecycleScope.launch {
+                val location = LocationServices
+                    .getFusedLocationProviderClient(requireContext())
+                    .awaitCurrentLocation(priority)
+                // Do whatever with this location, notice that it's nullable
+                // Add the user's mark (blue dot)
+                map.isMyLocationEnabled = true
+                // Center to France
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(46.227638, 2.213749), 15f))
 
-        if (hasPermission()) {
-            // Add the user's mark (blue dot)
-            map.isMyLocationEnabled = true
-            // Center to France
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(46.227638, 2.213749), 15f))
-
-            fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
                 // Got last known location. In some rare situations this can be null.
                 if (location != null) {
                     lastLocation = location
@@ -136,29 +143,69 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
                             13f
                         )
                     )
+
+                    setMerchantOnMap()
                     setNearestMerchant(location)
                 }
             }
-
-            setMerchantOnMap()
-            view!!.cardview.visibility = View.INVISIBLE
+        } else {
+            displayCustomTile(getString(R.string.perm_no_geolocation_title), getString(R.string.perm_no_geolocation_message), false)
         }
     }
 
-    private fun hasPermission(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-            return false
+    // Need to register this anywhere before onCreateView, ideally as a field
+    private val permissionRequester = registerForActivityResult(
+        // You can use RequestPermission() contract if you only need 1 permission
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { map ->
+        // If you requested 1 permission, change `map` to `isGranted`
+        // Keys are permissions Strings, values are isGranted Booleans
+        // An easy way to check if "any" permission was granted is map.containsValue(true)
+        // You can use your own logic for multiple permissions,
+        // but they have to follow the same checks here:
+        val response = map.entries.first()
+        val permission = response.key
+        val isGranted = response.value
+        when {
+            isGranted -> {
+                hidePermissionTile()
+                onPermissionGranted()
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission) -> {
+                // Permission denied but not permanently, telling user why we need it
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.perm_request_geolocation_title)
+                    .setMessage(R.string.perm_request_geolocation_message)
+                    .setPositiveButton(R.string.perm_request_geolocation_again) { _, _ ->
+                        requirePermission()
+                    }
+                    .setNegativeButton(R.string.perm_request_geolocation_nop, null)
+                    .create()
+                    .show()
+            }
+            else -> {
+                // Permission permanently denied
+                displayCustomTile(getString(R.string.perm_request_geolocation_title), getString(R.string.perm_request_geolocation_message), true)
+            }
         }
-        return true
+    }
+
+    private fun requirePermission() {
+        val permissions = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            // optional: Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+        permissionRequester.launch(permissions)
+    }
+
+    private fun setUpMap() {
+        if (viewModel == null)
+            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MerchantListViewModel::class.java]
+
+        requirePermission()
+
+        // Hide cardview
+        binding.rowMerchantItemLayoutId.cardview.visibility = View.INVISIBLE
     }
 
     private fun setMerchantOnMap() {
@@ -239,31 +286,30 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        val context: Context = requireActivity()
-        val inflater = LayoutInflater.from(context)
+//        val context: Context = requireActivity()
+//        val inflater = LayoutInflater.from(context)
 
         // Manage marker visibility
         previousMarker?.setIcon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_map_marker))
         marker.setIcon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_map_marker_highlight))
 
-        val cardview: View = if (view?.cardview == null) {
-            inflater.inflate(R.layout.row_merchant_item, null, false)
-        } else {
-            view!!.cardview
-        }
-
+        val cardview: MaterialCardView = binding.rowMerchantItemLayoutId.cardview
         val merchant = merchantList.find { it.reference == marker.snippet }
         cardview.visibility = View.VISIBLE
-        cardview.header.text = merchant?.name
-        cardview.subheader.text = merchant?.fullAddress
-        cardview.text.text = merchant?.description
+        binding.rowMerchantItemLayoutId.header.text = merchant?.name
+        binding.rowMerchantItemLayoutId.subheader.text = merchant?.fullAddress
+        if (merchant?.description.isNullOrEmpty()) {
+            binding.rowMerchantItemLayoutId.text.visibility = View.GONE
+            binding.rowMerchantItemLayoutId.subtext.visibility = View.GONE
+        }
+        binding.rowMerchantItemLayoutId.text.text = merchant?.description
         val currentLatLng = GeoPoint(lastLocation.latitude, lastLocation.longitude)
         val merchantLatLng = merchant?.position
 
         if (merchantLatLng != null)
-            cardview.distance.text = String.format(distance(currentLatLng, merchantLatLng) + " km")
+            binding.rowMerchantItemLayoutId.distance.text = String.format(distance(currentLatLng, merchantLatLng) + " km")
 
-        merchant?.avgRating?.let { cardview.ratingBar.rating = it }
+        merchant?.avgRating?.let { binding.rowMerchantItemLayoutId.ratingBar.rating = it }
 
         cardview.setOnClickListener {
             if (merchant != null) {
@@ -283,8 +329,8 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
 
     private fun handleServices(merchant: Merchant?) {
         if (merchant != null && merchant.services.isNotEmpty()) {
-            val chipGroup = cardview.findViewById(R.id.chip_group) as ChipGroup
-            cardview.findViewById<HorizontalScrollView>(R.id.serviceHorizontalScroll).visibility = View.VISIBLE
+            val chipGroup = binding.rowMerchantItemLayoutId.chipGroup
+            binding.rowMerchantItemLayoutId.serviceHorizontalScroll.visibility = View.VISIBLE
             chipGroup.removeAllViews()
 
             for (service in merchant.services) {
@@ -337,5 +383,37 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
 
     private fun rad2deg(rad: Double): Double {
         return rad * 180.0 / Math.PI
+    }
+
+    private fun displayCustomTile(title: String, message: String, isPermission: Boolean) {
+        binding.rowMerchantItemLayoutId.cardview.visibility = View.VISIBLE
+        binding.rowMerchantItemLayoutId.header.text = title
+        binding.rowMerchantItemLayoutId.text.text = message
+
+        binding.rowMerchantItemLayoutId.cardview.setOnClickListener {
+            if (isPermission) {
+                // Launch app's info screen
+                // User need to manually set permission there
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri: Uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                intent.data = uri
+                startForResult.launch(intent)
+            } else {
+                null
+            }
+        }
+    }
+
+    private fun hidePermissionTile() {
+        binding.rowMerchantItemLayoutId.cardview.visibility = View.INVISIBLE
+        binding.rowMerchantItemLayoutId.header.text = ""
+        binding.rowMerchantItemLayoutId.text.text = ""
+    }
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            requirePermission()
+        }
     }
 }

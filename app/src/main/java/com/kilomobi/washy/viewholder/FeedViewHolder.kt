@@ -1,7 +1,6 @@
 package com.kilomobi.washy.viewholder
 
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Feed

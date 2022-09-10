@@ -19,12 +19,13 @@ import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.OnboardingAdapter
+import com.kilomobi.washy.databinding.LayoutOnboardingBinding
 import com.kilomobi.washy.fragment.StartFragment.Companion.COMPLETED_ONBOARDING_PREF_NAME
-import kotlinx.android.synthetic.main.layout_onboarding.*
 
 class OnboardingFragment : Fragment(), AdapterListener {
 
     private lateinit var mainActivityDelegate: MainActivityDelegate
+    private lateinit var binding: LayoutOnboardingBinding
     private val listAdapter by lazy {
         OnboardingAdapter(
             this
@@ -53,7 +54,7 @@ class OnboardingFragment : Fragment(), AdapterListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding = LayoutOnboardingBinding.bind(view)
         val onboardingPager = view.findViewById<ViewPager2>(R.id.onboardingViewPager)
 
         val onboardingItems = listOf(
@@ -90,11 +91,11 @@ class OnboardingFragment : Fragment(), AdapterListener {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 setCurrentIndicator(position)
-                onboardingButton.text = if (position + 1 < listAdapter.itemCount) getString(R.string.onboarding_button_continue) else getString(R.string.onboarding_button_finish)
+                binding.onboardingButton.text = if (position + 1 < listAdapter.itemCount) getString(R.string.onboarding_button_continue) else getString(R.string.onboarding_button_finish)
             }
         })
 
-        onboardingButton.setOnClickListener {
+        binding.onboardingButton.setOnClickListener {
             if (onboardingPager.currentItem + 1 < listAdapter.itemCount) {
                 onboardingPager.currentItem += 1
             } else {

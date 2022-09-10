@@ -1,35 +1,34 @@
 package com.kilomobi.washy.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.*
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
+import com.kilomobi.washy.databinding.LayoutFeedBinding
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.model.FeedAdapter
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.viewmodel.FeedListViewModel
-import kotlinx.android.synthetic.main.layout_recycler_list.*
 
 class FeedFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.layout.layout_feed), AdapterListener {
 
     private lateinit var viewModel: FeedListViewModel
     private val listAdapter by lazy { FeedAdapter(this) }
+    private lateinit var binding: LayoutFeedBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = LayoutFeedBinding.bind(view)
         initialize()
     }
 
     private fun initialize() {
-        recycler.apply {
+        binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
         }

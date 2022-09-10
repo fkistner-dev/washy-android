@@ -9,6 +9,8 @@ import com.kilomobi.washy.common.CompletionLiveData
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Product
 import com.kilomobi.washy.model.Rating
+import com.kilomobi.washy.model.User
+import com.kilomobi.washy.viewmodel.UserViewModel
 
 class MerchantRepository : BaseRepository() {
 
@@ -79,7 +81,13 @@ class MerchantRepository : BaseRepository() {
         db.collection(COLLECTION)
             .add(merchant)
             .addOnSuccessListener {
-                Log.d("MerchantRepo", "DocumentSnapshot written with ID: ${it.id}")
+                val userViewModel = UserViewModel()
+                val user = User()
+                val documentId = it.id
+                user.userName = merchant.name
+                user.store = documentId
+                userViewModel.addUser(user, documentId)
+                Log.d("MerchantRepo", "DocumentSnapshot written with ID: $documentId")
             }
             .addOnFailureListener {
                 Log.w("MerchantRepo", "Error adding document", it)
@@ -103,8 +111,7 @@ class MerchantRepository : BaseRepository() {
 
             // Compute new average rating
             val oldRatingTotal: Float = merchant.avgRating * merchant.numRating
-            val newAvgRating: Float =
-                (oldRatingTotal + rating.stars) / newNumRatings
+            val newAvgRating: Float = (oldRatingTotal + rating.stars) / newNumRatings
 
             // Set new merchant info
             merchant.numRating = newNumRatings

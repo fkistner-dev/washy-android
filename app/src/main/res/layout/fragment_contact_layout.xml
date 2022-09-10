@@ -54,12 +54,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/map"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:text="@string/call_to_action_map"
-            style="?attr/materialButtonOutlinedStyle"/>
+            android:layout_centerVertical="true"
+            android:text="@string/call_to_action_map" />
 
         <TextView
             android:id="@+id/mapText"

@@ -63,6 +63,7 @@
     <string name="action_photolab">PhotoLab</string>
     <string name="action_product">Produits</string>
     <string name="action_become_washer">Devenir Washer</string>
+    <string name="action_store_washer">Mon Wash</string>
     <string name="action_connect">Se connecter</string>
     <string name="action_disconnect">Se déconnecter</string>
     <string name="action_tos">A propos</string>
@@ -100,6 +101,7 @@
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_image_content_description">Image</string>
+    <string name="common_welcome_user">Bienvenue %s</string>
     <string name="common_disconnect_success">Vous êtes maintenant déconnecté</string>
     <string name="common_user">Utilisateur</string>
     <string name="common_feature_require_authentication">Cette fonctionnalité nécessite d\'être connecté</string>
@@ -178,5 +180,18 @@
 
     <!-- ViewPager -->
     <string name="cardview_like">%1d &#128153;</string>
+    <string name="cardview_call_to_action">J\'AIME</string>
+
+    <!-- SharedPref -->
+    <string name="shared_pref_name">washy-prefs</string>
+    <string name="shared_pref_like">feed-references-like</string>
+
+    <!-- Permission -->
+    <string name="perm_request_geolocation_title">TITLE</string>
+    <string name="perm_request_geolocation_message">MESSAGE</string>
+    <string name="perm_request_geolocation_again">AGAIN</string>
+    <string name="perm_request_geolocation_nop">NOP</string>
+    <string name="perm_no_geolocation_title">TITLE GEO</string>
+    <string name="perm_no_geolocation_message">MESSAGE GEO</string>
 
 </resources>

@@ -11,7 +11,7 @@ data class Merchant(
     var name: String = "",
     var description: String? = "",
     var geohash: String? = "",
-    var position: GeoPoint? = GeoPoint(0.0,0.0),
+    @Transient var position: GeoPoint? = GeoPoint(0.0,0.0), // GeoPoint not serializable when starting Intent
     var fullAddress: String? = "",
     var website: String? = "",
     var phone: String? = "",

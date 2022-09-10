@@ -5,9 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.Continuation
@@ -20,7 +18,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.kilomobi.washy.R
-import kotlinx.android.synthetic.main.add_photo_layout.*
+import com.kilomobi.washy.databinding.AddPhotoLayoutBinding
 import java.io.IOException
 import java.util.*
 
@@ -29,6 +27,7 @@ class AddPhotoFragment : FragmentEmptyView(R.layout.add_photo_layout) {
     private var filePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
+    private lateinit var binding: AddPhotoLayoutBinding
 
     companion object {
         private const val PICK_IMAGE_REQUEST = 71
@@ -40,6 +39,7 @@ class AddPhotoFragment : FragmentEmptyView(R.layout.add_photo_layout) {
         if (!viewIsCreated) {
             firebaseStore = FirebaseStorage.getInstance()
             storageReference = FirebaseStorage.getInstance().reference
+            binding = AddPhotoLayoutBinding.bind(view)
 
             view.findViewById<MaterialButton>(R.id.btn_choose_image).setOnClickListener { launchGallery() }
             view.findViewById<MaterialButton>(R.id.btn_upload_image).setOnClickListener { uploadImage() }
@@ -93,8 +93,8 @@ class AddPhotoFragment : FragmentEmptyView(R.layout.add_photo_layout) {
 
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, filePath)
-                upload_image.setImageBitmap(bitmap)
-                upload_image.imageTintList = null
+                binding.uploadImage.setImageBitmap(bitmap)
+                binding.uploadImage.imageTintList = null
             } catch (e: IOException) {
                 e.printStackTrace()
             }

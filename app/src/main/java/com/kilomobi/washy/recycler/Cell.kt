@@ -19,5 +19,4 @@ abstract class Cell<T> {
             .from(context)
             .inflate(resource, this, false)
     }
-
 }

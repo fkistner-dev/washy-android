@@ -13,15 +13,15 @@ import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.MerchantAdapter
+import com.kilomobi.washy.databinding.LayoutRecyclerListBinding
 import com.kilomobi.washy.recycler.RecyclerItem
-import kotlinx.android.synthetic.main.layout_merchant_tabbed.*
-import kotlinx.android.synthetic.main.layout_recycler_list.*
 
 class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
     AdapterListener {
 
     private lateinit var shimmerLayout: ShimmerFrameLayout
     private lateinit var viewModel: MerchantListViewModel
+    private lateinit var binding: LayoutRecyclerListBinding
     private val listAdapter by lazy {
         MerchantAdapter(
             this
@@ -32,6 +32,7 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
         super.onViewCreated(view, savedInstanceState)
 
         if (!viewIsCreated) {
+            binding = LayoutRecyclerListBinding.bind(view)
             shimmerLayout = view.findViewById(R.id.shimmer_layout)
             initialize()
             viewIsCreated = true
@@ -39,7 +40,7 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
     }
 
     private fun initialize() {
-        recycler.apply {
+        binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
         }

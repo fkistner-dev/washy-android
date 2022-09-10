@@ -19,7 +19,7 @@ class GeoFirestore(val collectionReference: CollectionReference) {
         var geoPointField = "position"
 
         @JvmField
-        val LOGGER = Logger.getLogger("GeoFirestore")!!
+        val LOGGER = Logger.getLogger("GeoFirestore")
 
         /**
          * Build a GeoPoint from a DocumentSnapshot

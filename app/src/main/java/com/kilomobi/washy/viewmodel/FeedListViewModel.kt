@@ -15,6 +15,10 @@ class FeedListViewModel(private val repository: FeedListRepository = FeedListRep
         return merchantFeeds
     }
 
+    fun incrementFeedLike(id: String) {
+        repository.incrementLike(id)
+    }
+
     private var feeds: MutableLiveData<ArrayList<Feed>>
         get() { return repository.feedList }
         set(value) { repository.feedList = value }

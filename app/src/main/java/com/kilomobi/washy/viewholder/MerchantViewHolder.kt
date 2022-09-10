@@ -12,6 +12,7 @@ import com.google.android.material.chip.ChipGroup
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
+import com.kilomobi.washy.util.textOrHide
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHolder(merchantView) {
@@ -19,22 +20,21 @@ class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHold
     val header: Int = R.id.header
     val title: Int = R.id.subheader
     val text: Int = R.id.text
+    val subtext: Int = R.id.subtext
     val rating: Int = R.id.ratingBar
+    val cardview: Int = R.id.cardview
     private val horizontalScroll: Int = R.id.serviceHorizontalScroll
-    private val cardview: Int = R.id.cardview
 
     fun bind(merchant: Merchant, selectedItem: Int) {
         val context = merchantView.context
-        if (merchant.imported) {
+        if (!merchant.imported)
+            merchantView.findViewById<TextView>(header).textOrHide(if (merchant.siren?.isNotEmpty() == true) context.getString(R.string.merchant_pro) else context.getString(R.string.merchant_part))
+        else
             merchantView.findViewById<TextView>(header).visibility = View.GONE
-        }
-        merchantView.findViewById<TextView>(header).text = merchant.name
-        merchantView.findViewById<TextView>(title).text = if (merchant.siren?.isNotEmpty() == true) context.getString(R.string.merchant_pro) else context.getString(R.string.merchant_part)
-        if (merchant.description.isNullOrBlank()) {
-            merchantView.findViewById<TextView>(text).visibility = View.GONE
-        } else {
-            merchantView.findViewById<TextView>(text).text = merchant.description
-        }
+
+        merchantView.findViewById<TextView>(title).text = merchant.name
+        merchantView.findViewById<TextView>(text).textOrHide(merchant.description)
+        merchantView.findViewById<TextView>(subtext).textOrHide(merchant.fullAddress)
         merchantView.findViewById<MaterialRatingBar>(rating).rating = merchant.avgRating
 
         merchantView.findViewById<MaterialCardView>(cardview).apply {

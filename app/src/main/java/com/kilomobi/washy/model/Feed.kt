@@ -3,6 +3,7 @@ package com.kilomobi.washy.model
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Exclude
 import com.kilomobi.washy.R
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.adapter.AdapterClick
@@ -15,6 +16,7 @@ import com.kilomobi.washy.viewholder.FeedStandardViewHolder
 import com.kilomobi.washy.viewholder.FeedViewHolder
 
 data class Feed(
+    @Exclude var reference: String = "",
     var merchantId: String = "",
     var merchantName: String = "",
     var header: String = "",

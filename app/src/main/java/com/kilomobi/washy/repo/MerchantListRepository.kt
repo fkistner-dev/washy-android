@@ -2,7 +2,6 @@ package com.kilomobi.washy.repo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.kilomobi.washy.model.Merchant
@@ -13,7 +12,7 @@ class MerchantListRepository : BaseRepository() {
 
     companion object {
         const val COLLECTION = "merchants"
-        const val RADIUS_IN_METER = 80000.0 // 8km
+        const val RADIUS_IN_METER = 8000.0 // 8km
     }
 
     private val db = FirebaseFirestore.getInstance()

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
@@ -36,14 +35,18 @@ class HomeFragment : FragmentEmptyView(R.layout.layout_home) {
         super.onViewCreated(view, savedInstanceState)
 
         if (!viewIsCreated) {
-            val fragmentTransaction: FragmentTransaction? =
-                activity?.supportFragmentManager?.beginTransaction()
+            if (activity?.supportFragmentManager?.findFragmentByTag("feed") == null) {
+                val fragmentTransaction: FragmentTransaction? =
+                    activity?.supportFragmentManager?.beginTransaction()
+                fragmentTransaction?.add(R.id.listFeed, FeedViewPagerFragment(), "feed")
+                //fragmentTransaction?.add(R.id.listMap, MapFragment(),"map")
+                fragmentTransaction?.add(R.id.listMerchant, MerchantListFragment(), "merchant")
 
-            fragmentTransaction?.add(R.id.listFeed, FeedViewPagerFragment(), "feed")
-            //fragmentTransaction?.add(R.id.listMap, MapFragment(),"map")
-            fragmentTransaction?.add(R.id.listMerchant, MerchantListFragment(), "merchant")
+                fragmentTransaction?.commit()
+            } else {
+                Log.e(TAG, "I KNEW IT")
+            }
 
-            fragmentTransaction?.commit()
             viewIsCreated = true
         }
     }

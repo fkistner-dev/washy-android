@@ -18,6 +18,7 @@ import com.kilomobi.washy.R
 import com.kilomobi.washy.model.*
 import com.kilomobi.washy.repo.MerchantListRepository
 import com.kilomobi.washy.util.GeoPointDeserializer
+import com.kilomobi.washy.util.convertToAddress
 import com.kilomobi.washy.viewmodel.FeedListViewModel
 import com.kilomobi.washy.viewmodel.FeedViewModel
 import com.kilomobi.washy.viewmodel.MerchantListViewModel
@@ -132,13 +133,18 @@ class RepositoryTesterFragment : Fragment() {
 //            viewModel.addMerchant(merchantListResponse.merchants[0])
             // Null Geopoint
             val geoNull = GeoPoint(0.0,0.0)
+            Log.d("AddMerc", "START")
+            var merchantCount = 0
             for (merchant in merchantListResponse.merchants) {
                 if (merchant.position != null && merchant.position != geoNull) {
                     val geoHash = GeoHash(GeoLocation(merchant.position!!.latitude, merchant.position!!.longitude))
+                    merchant.fullAddress = merchant.position!!.convertToAddress(requireContext())
                     merchant.geohash = geoHash.geoHashString
                     viewModel.addMerchant(merchant)
+                    merchantCount++
                 }
             }
+            Log.d("AddMerc", "END -> $merchantCount")
         }
 
         view.findViewById<Button>(R.id.tester08).setOnClickListener {

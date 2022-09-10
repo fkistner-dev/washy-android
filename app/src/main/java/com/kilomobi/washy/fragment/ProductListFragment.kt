@@ -1,31 +1,26 @@
 package com.kilomobi.washy.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.ProductAdapter
+import com.kilomobi.washy.databinding.LayoutRecyclerListBinding
 import com.kilomobi.washy.model.Merchant
-import com.kilomobi.washy.model.Product
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.viewmodel.MerchantViewModel
-import kotlinx.android.synthetic.main.layout_recycler_list.*
 
 class ProductListFragment(val merchant: Merchant) : FragmentEmptyView(R.layout.layout_recycler_list), AdapterListener {
 
     private lateinit var viewModel: MerchantViewModel
     private var viewContainer: ViewGroup? = null
+    private lateinit var binding: LayoutRecyclerListBinding
     private val listAdapter by lazy {
         ProductAdapter(
             this
@@ -48,7 +43,7 @@ class ProductListFragment(val merchant: Merchant) : FragmentEmptyView(R.layout.l
     }
 
     private fun initialize() {
-        recycler.apply {
+        binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
         }

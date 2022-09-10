@@ -23,17 +23,20 @@ class ContactFragment(val merchant: Merchant) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_contact_layout, container, false)
-
-        if (merchant.phone?.isNotBlank() == true) {
-            view.findViewById<TextView>(R.id.phoneText).text = getString(R.string.phone_text_placeholder, merchant.phone)
-        } else {
+        if (merchant.phone.isNullOrEmpty()) {
             view.findViewById<RelativeLayout>(R.id.phoneRl).visibility = View.GONE
+        } else {
+            view.findViewById<TextView>(R.id.phoneText).text = getString(R.string.phone_text_placeholder, merchant.phone)
         }
 
         if (merchant.workAtCustomer) {
             view.findViewById<RelativeLayout>(R.id.addressRl).visibility = View.GONE
         } else {
-            view.findViewById<TextView>(R.id.mapText).text = getString(R.string.address_text_placeholder, merchant.position?.convertToAddress(view.context))
+            view.findViewById<TextView>(R.id.mapText).text =
+                if (merchant.fullAddress.isNullOrEmpty())
+                    getString(R.string.address_text_placeholder, merchant.position?.convertToAddress(view.context))
+                else
+                    getString(R.string.address_text_placeholder, merchant.fullAddress)
             view.findViewById<Button>(R.id.map).setOnClickListener {
                 val merchantPosition = LatLng(merchant.position!!.latitude, merchant.position!!.longitude)
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+merchantPosition.latitude+","+merchantPosition.longitude+"?q="+merchantPosition.latitude+","+merchantPosition.longitude+"("+merchant.name+")"))

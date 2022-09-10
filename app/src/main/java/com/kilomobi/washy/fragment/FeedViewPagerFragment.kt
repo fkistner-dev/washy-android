@@ -46,7 +46,7 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
             feeds
         )
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FeedListViewModel::class.java)
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[FeedListViewModel::class.java]
         viewModel.isLoading.observe(requireActivity()) {
             if (it) {
                 shimmerLayout.visibility = View.VISIBLE

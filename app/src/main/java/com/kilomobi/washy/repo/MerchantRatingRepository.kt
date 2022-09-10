@@ -19,15 +19,15 @@ class MerchantRatingRepository @Inject constructor(@param:Named(COLLECTION_NAME)
 
     private val db = FirebaseFirestore.getInstance()
 
-    private fun query(id: String?): Query {
+    private fun query(id: String): Query {
         return db.collection(COLLECTION_NAME)
-            .document(id!!)
+            .document(id)
             .collection("ratings")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .limit(50)
     }
 
-    fun ratings(id: String?): QueryLiveData<Rating>? {
+    fun ratings(id: String): QueryLiveData<Rating> {
         return QueryLiveData(
             query(id),
             Rating::class.java
@@ -70,7 +70,7 @@ class MerchantRatingRepository @Inject constructor(@param:Named(COLLECTION_NAME)
 
             // Set new merchant info
             merchant.numRating = newNumRatings
-            merchant.avgRating = newAvgRating.toFloat()
+            merchant.avgRating = newAvgRating
 
             // Commit to Firestore
             it[merchantRef] = merchant

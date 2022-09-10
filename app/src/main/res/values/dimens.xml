@@ -14,6 +14,7 @@
     <dimen name="text_margin_very_high">42dp</dimen>
     <dimen name="text_right_spacing">12dp</dimen>
     <dimen name="icon_right_spacing">6dp</dimen>
+    <dimen name="home_feed_spacing">6dp</dimen>
     <dimen name="fragment_margin">10dp</dimen>
     <dimen name="onboarding_top_margin">42dp</dimen>
     <dimen name="image_margin">20dp</dimen>

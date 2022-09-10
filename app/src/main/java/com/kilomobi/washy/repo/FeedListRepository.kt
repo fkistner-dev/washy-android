@@ -1,6 +1,7 @@
 package com.kilomobi.washy.repo
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.ServerValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kilomobi.washy.model.Feed
 
@@ -28,11 +29,17 @@ class FeedListRepository : BaseRepository() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+                    val feed = document.toObject(Feed::class.java)
+                    feed.reference = document.id
                     tmpListFeed.add(document.toObject(Feed::class.java))
                 }
                 feedList.value = tmpListFeed
                 onDataReceived()
             }
+    }
+
+    fun incrementLike(path: String) {
+        db.collection(COLLECTION).document(path).update("like", ServerValue.increment(1))
     }
 
     fun retrieveMerchantFeeds(id: String) {

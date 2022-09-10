@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
@@ -17,9 +16,9 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
+import com.kilomobi.washy.databinding.LayoutMerchantDetailBinding
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
-import kotlinx.android.synthetic.main.layout_merchant_tabbed.*
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail) {
@@ -27,6 +26,7 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
     private lateinit var mainActivityDelegate: MainActivityDelegate
     private lateinit var merchant: Merchant
     private var isFavorite: Boolean = false
+    private lateinit var binding: LayoutMerchantDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +49,7 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
         super.onViewCreated(view, savedInstanceState)
 
         if (!viewIsCreated) {
+            binding = LayoutMerchantDetailBinding.bind(view)
             initialize()
             setAdapter()
             viewIsCreated = true
@@ -111,16 +112,16 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
         //adapter.addFragment(ProductListFragment(merchant), getString(R.string.offer_title))
         adapter.addFragment(ContactFragment(merchant), getString(R.string.contact_title))
 
-        viewPager.adapter = adapter
-        viewPager.isSaveEnabled = false
+        binding.layoutMerchantTabbedId.viewPager.adapter = adapter
+        binding.layoutMerchantTabbedId.viewPager.isSaveEnabled = false
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, _ ->
-            viewPager.currentItem = tab.position
+        TabLayoutMediator(binding.layoutMerchantTabbedId.tabLayout, binding.layoutMerchantTabbedId.viewPager) { tab, _ ->
+            binding.layoutMerchantTabbedId.viewPager.currentItem = tab.position
         }.attach()
 
-        tabLayout.getTabAt(0)?.setIcon(R.drawable.ic_comment_quote_outline)
+        binding.layoutMerchantTabbedId.tabLayout.getTabAt(0)?.setIcon(R.drawable.ic_comment_quote_outline)
         //tabLayout.getTabAt(1)?.setIcon(R.drawable.ic_cart_outline)
-        tabLayout.getTabAt(1)?.setIcon(R.drawable.ic_account_box_outline)
+        binding.layoutMerchantTabbedId.tabLayout.getTabAt(1)?.setIcon(R.drawable.ic_account_box_outline)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

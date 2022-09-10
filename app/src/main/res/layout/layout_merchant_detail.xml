@@ -104,6 +104,7 @@
 
     <include
         layout="@layout/layout_merchant_tabbed"
+        android:id="@+id/layout_merchant_tabbed_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/content"

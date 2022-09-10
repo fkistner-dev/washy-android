@@ -84,6 +84,16 @@
             app:destination="@id/becomeWasherFragment" />
 
         <action
+            android:id="@+id/action_homeFragment_to_storeWasherFragment"
+            app:destination="@id/merchantDetailFragment">
+
+            <argument
+                android:name="merchant"
+                app:argType="com.kilomobi.washy.model.Merchant"
+                android:defaultValue="@null"/>
+        </action>
+
+        <action
             android:id="@+id/action_homeFragment_to_identificationFragment"
             app:destination="@id/identificationFragment" />
 
