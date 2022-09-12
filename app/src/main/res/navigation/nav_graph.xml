@@ -81,7 +81,11 @@
 
         <action
             android:id="@+id/action_homeFragment_to_becomeWasherFragment"
-            app:destination="@id/becomeWasherFragment" />
+            app:destination="@id/becomeWasherFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_homeFragment_to_storeWasherFragment"
@@ -111,7 +115,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
 
         <argument
             android:name="merchant"
@@ -129,11 +133,6 @@
         android:name="com.kilomobi.washy.fragment.BecomeWasherFragment"
         android:label=""
         tools:layout="@layout/fragment_become_washer">
-
-        <action
-            android:id="@+id/action_becomeWasherFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"/>
     </fragment>
 
     <fragment

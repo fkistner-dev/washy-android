@@ -62,6 +62,7 @@ class BecomeWasherFragment : Fragment() {
 
     companion object {
         const val GEOHASH_NULL = "7zzzzzzzzz"
+        const val STACK_NEW_MERCHANT = "newMerchant"
     }
 
     override fun onCreateView(
@@ -213,8 +214,7 @@ class BecomeWasherFragment : Fragment() {
             inputAddress.error = getString(R.string.input_error_address)
         }
 
-        if (inputZipCode.editText?.text?.isNotBlank() == true && inputZipCode.editText?.text!!.contains(
-                Regex.fromLiteral("^[0-9]*$"))) {
+        if (inputZipCode.editText?.text?.isNotBlank() == true && TextUtils.isDigitsOnly(inputZipCode.editText?.text) && inputZipCode.editText?.text?.count() == 5) {
             inputZipCode.error = null
             merchant.fullAddress += " " +inputZipCode.editText?.text.toString()
         } else {
@@ -291,7 +291,11 @@ class BecomeWasherFragment : Fragment() {
             }
 
             Snackbar.make(requireView(), getString(R.string.input_merchant_create_success), Snackbar.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_becomeWasherFragment_to_homeFragment)
+
+            // Hack to avoid making a call to Firebase
+            val navController = findNavController()
+            navController.previousBackStackEntry?.savedStateHandle?.set(STACK_NEW_MERCHANT, merchant)
+            navController.popBackStack()
         }
     }
 

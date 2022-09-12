@@ -14,6 +14,7 @@ import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.MerchantAdapter
 import com.kilomobi.washy.databinding.LayoutRecyclerListBinding
+import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.recycler.RecyclerItem
 
 class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
@@ -31,11 +32,29 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val newMerchant = findNavController().currentBackStackEntry?.savedStateHandle?.get<Merchant?>(BecomeWasherFragment.STACK_NEW_MERCHANT)
+
         if (!viewIsCreated) {
             binding = LayoutRecyclerListBinding.bind(view)
             shimmerLayout = view.findViewById(R.id.shimmer_layout)
             initialize()
             viewIsCreated = true
+        } else if (newMerchant != null) {
+            // Hack to save a get on Firebase, populate rating with stack
+            val currentList = ArrayList<Merchant>()
+
+            // Fill list
+            for (merchant in listAdapter.currentList) {
+                currentList.add(merchant as Merchant)
+            }
+
+            // Add new one at top
+            currentList.add(0, newMerchant)
+
+            listAdapter.submitList(currentList.toList())
+            listAdapter.notifyItemInserted(0)
+
+            findNavController().currentBackStackEntry?.savedStateHandle?.remove<Merchant>(BecomeWasherFragment.STACK_NEW_MERCHANT)
         }
     }
 
