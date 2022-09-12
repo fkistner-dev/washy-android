@@ -35,6 +35,10 @@ class MerchantViewModel(private val repository: MerchantRepository = MerchantRep
         repository.modifyRating(merchantId, rating)
     }
 
+    fun deleteRating(merchantId: String, rating: Rating) {
+        repository.deleteRating(merchantId, rating)
+    }
+
     private var merchant: MutableLiveData<Merchant>
         get() { return repository.merchant }
         set(value) { repository.merchant = value }

@@ -3,7 +3,7 @@ package com.kilomobi.washy.fragment
 import android.content.Context
 import android.graphics.drawable.Icon
 import android.os.Bundle
-import android.util.Log
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
@@ -29,6 +30,12 @@ import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.viewmodel.MerchantViewModel
 
 class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.layout.layout_recycler_list), AdapterListener {
+
+    companion object {
+        const val STACK_CURRENT_RATING: String = "rating"
+        const val STACK_PREVIOUS_RATING: String = "previousRating"
+        const val STACK_IS_DELETE_RATING: String = "shouldDelete"
+    }
 
     private lateinit var viewModel: MerchantViewModel
     private var userRating: Rating? = null
@@ -65,9 +72,15 @@ class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.l
                         if (isConnected(true)) {
                             val bundle = bundleOf("merchant" to merchant)
                             userRating?.let { bundle.putSerializable("rating", it) }
-                            findNavController().navigate(
-                                R.id.action_merchantDetailFragment_to_addRatingFragment,
-                                bundle)
+                            if (userRating != null && TextUtils.isEmpty(userRating?.reference)) {
+                                // We have no reference yet to this rating
+                                fab.isEnabled = false
+                                Snackbar.make(requireView(), getString(R.string.snack_syncing_message), Snackbar.LENGTH_LONG).show()
+                            } else {
+                                findNavController().navigate(
+                                    R.id.action_merchantDetailFragment_to_addRatingFragment,
+                                    bundle)
+                            }
                         }
                     }
                     fab.setImageIcon(Icon.createWithResource(context, android.R.drawable.ic_input_add))
@@ -85,36 +98,45 @@ class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.l
 
             viewIsCreated = true
         } else {
-            val previousRating = findNavController().currentBackStackEntry?.savedStateHandle?.get<Rating?>("previousRating")
-            findNavController().currentBackStackEntry?.savedStateHandle?.get<Rating>("rating")?.let {
-                // Hack to save a get on Firebase, populate rating with stack
-                val currentList = ArrayList<Rating>()
+            val currentRating = findNavController().currentBackStackEntry?.savedStateHandle?.get<Rating>(STACK_CURRENT_RATING)
+            val previousRating = findNavController().currentBackStackEntry?.savedStateHandle?.get<Rating?>(STACK_PREVIOUS_RATING)
 
-                // Fill list
-                for (rating in listAdapter.currentList) {
-                    currentList.add(rating as Rating)
-                }
+            // Hack to save a get on Firebase, populate rating with stack
+            val currentList = ArrayList<Rating>()
 
-                if (previousRating == null && currentList.isNotEmpty()) {
-                    // Add new rating
-                    currentList.removeAt(0)
-                } else {
-                    // Modify existing
-                    currentList.remove(previousRating)
-                }
-
-                // Add new or modified one at top
-                currentList.add(0, it)
-
-                listAdapter.submitList(currentList.toList())
-                listAdapter.notifyItemInserted(0)
-                userRating = it
-                hideEmptyView()
+            // Fill list
+            for (rating in listAdapter.currentList) {
+                currentList.add(rating as Rating)
             }
 
+            if (previousRating == null && currentList.isNotEmpty()) {
+                // Add new rating
+                //currentList.removeAt(0)
+            } else if (previousRating != null) {
+                // Modify|Delete existing
+                currentList.remove(previousRating)
+            }
+
+            // Add new or modified one at top
+            currentRating?.let {
+                currentList.add(0, it)
+            }
+
+            // Show accordingly fab icon
+            fab.setImageIcon(Icon.createWithResource(context, if (currentRating != null) android.R.drawable.ic_menu_edit else android.R.drawable.ic_input_add))
+
+            listAdapter.submitList(currentList.toList())
+            listAdapter.notifyDataSetChanged()
+
+            userRating = currentRating
+
+            if (listAdapter.currentList.isNotEmpty())
+                hideEmptyView()
+
             // Remove object from previousStack
-            findNavController().currentBackStackEntry?.savedStateHandle?.remove<Rating>("rating")
-            findNavController().currentBackStackEntry?.savedStateHandle?.remove<Rating>("previousRating")
+            findNavController().currentBackStackEntry?.savedStateHandle?.remove<Rating>(STACK_CURRENT_RATING)
+            findNavController().currentBackStackEntry?.savedStateHandle?.remove<Rating>(STACK_PREVIOUS_RATING)
+            findNavController().currentBackStackEntry?.savedStateHandle?.remove<Boolean>(STACK_IS_DELETE_RATING)
         }
     }
 

@@ -1,16 +1,25 @@
 package com.kilomobi.washy.fragment
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
 import com.kilomobi.washy.R
+import com.kilomobi.washy.fragment.RatingListFragment.Companion.STACK_CURRENT_RATING
+import com.kilomobi.washy.fragment.RatingListFragment.Companion.STACK_IS_DELETE_RATING
+import com.kilomobi.washy.fragment.RatingListFragment.Companion.STACK_PREVIOUS_RATING
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Rating
 import com.kilomobi.washy.viewmodel.MerchantViewModel
@@ -44,6 +53,26 @@ class AddRatingFragment : FragmentEmptyView(R.layout.add_rating_layout) {
             }
 
             if (userRating != null) {
+                val menuHost: MenuHost = requireActivity()
+                menuHost.addMenuProvider(object : MenuProvider {
+                    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                        // Add menu items here
+                        menuInflater.inflate(R.menu.menu_delete_rating, menu)
+                        menu.findItem(R.id.action_delete_rating).isVisible = true
+                    }
+
+                    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                        // Handle the menu selection
+                        return when (menuItem.itemId) {
+                            R.id.action_delete_rating -> {
+                                // Show confirm dialog
+                                deleteDialog()
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }, viewLifecycleOwner, Lifecycle.State.RESUMED)
                 tvRatingHeader.text = getString(R.string.add_rating_header, getString(R.string.modify_rating_action), merchant.name)
                 inputRatingBar.rating = userRating!!.stars
                 inputRatingText.editText?.setText(userRating!!.text)
@@ -52,6 +81,22 @@ class AddRatingFragment : FragmentEmptyView(R.layout.add_rating_layout) {
                 tvRatingHeader.text = getString(R.string.add_rating_header, getString(R.string.add_rating_action), merchant.name)
             }
         }
+    }
+
+    private fun deleteDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(resources.getString(R.string.delete_rating_title))
+        builder.setMessage(resources.getString(R.string.delete_rating_text))
+        builder.setPositiveButton(resources.getString(R.string.common_yes)) { _, _ ->
+            userRating?.let {
+                MerchantViewModel().deleteRating(merchant.reference!!, it)
+            }
+            finishRating(null)
+
+            Snackbar.make(requireView(), getString(R.string.input_rating_manage_success, getString(R.string.delete_rating_action_publish)), Snackbar.LENGTH_LONG).show()
+        }
+        builder.setNegativeButton(resources.getString(R.string.common_no), null)
+        builder.show()
     }
 
     private fun checkFields() {
@@ -82,23 +127,28 @@ class AddRatingFragment : FragmentEmptyView(R.layout.add_rating_layout) {
             rating.language = "fr"
             if (userRating == null) {
                 viewModel.addRating(merchant.reference!!, rating)
+                finishRating(rating)
             } else {
                 userRating?.let {
                     it.text = rating.text
                     it.stars = rating.stars
                     it.editedAt = Timestamp.now()
                     viewModel.modifyRating(merchant.reference!!, it)
+                    finishRating(it)
                 }
             }
 
             val snackText = if (userRating == null) getString(R.string.add_rating_action_publish) else getString(R.string.modify_rating_action_publish)
-            Snackbar.make(requireView(), getString(R.string.input_rating_create_success, snackText), Snackbar.LENGTH_LONG).show()
-
-            // Hack to avoid making a call to Firebase
-            val navController = findNavController()
-            navController.previousBackStackEntry?.savedStateHandle?.set("rating", rating)
-            navController.previousBackStackEntry?.savedStateHandle?.set("previousRating", userRating)
-            navController.popBackStack()
+            Snackbar.make(requireView(), getString(R.string.input_rating_manage_success, snackText), Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    private fun finishRating(rating: Rating?) {
+        // Hack to avoid making a call to Firebase
+        val navController = findNavController()
+        navController.previousBackStackEntry?.savedStateHandle?.set(STACK_CURRENT_RATING, rating)
+        navController.previousBackStackEntry?.savedStateHandle?.set(STACK_PREVIOUS_RATING, userRating)
+        navController.previousBackStackEntry?.savedStateHandle?.set(STACK_IS_DELETE_RATING, rating == null)
+        navController.popBackStack()
     }
 }

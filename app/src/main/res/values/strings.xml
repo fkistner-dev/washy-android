@@ -59,6 +59,7 @@
     <string name="action_add_rating">Ajouter un avis</string>
     <string name="action_add_photo">Ajouter une photo</string>
     <string name="action_delete_favorite">Retirer des favoris</string>
+    <string name="action_delete_rating">Supprimer l\'avis</string>
     <string name="action_feed">Avis</string>
     <string name="action_photolab">PhotoLab</string>
     <string name="action_product">Produits</string>
@@ -74,14 +75,18 @@
     <string name="become_washer_title">Félicitation ! Tu es à 5 minutes de devenir un Washer</string>
     <string name="become_washer_text">Il suffit de répondre à quelques questions &#128513;</string>
 
-    <!-- Add Rating -->
+    <!-- Add|Modify|Delete Rating -->
     <string name="add_rating_header">%1$s une évaluation pour %2$s</string>
     <string name="add_rating_action">Ajouter</string>
     <string name="modify_rating_action">Modifier</string>
     <string name="action_rating_stars">Notation :</string>
-    <string name="input_rating_create_success">Votre évaluation vient d\'être %1$s</string>
+    <string name="snack_syncing_message">Les évaluations sont en cours de synchronisation, réessayer plus tard.</string>
+    <string name="input_rating_manage_success">Votre évaluation vient d\'être %1$s</string>
     <string name="add_rating_action_publish">publié</string>
     <string name="modify_rating_action_publish">modifié</string>
+    <string name="delete_rating_action_publish">supprimé</string>
+    <string name="delete_rating_title">Suppression</string>
+    <string name="delete_rating_text">Voulez-vous supprimer l\'évaluation ?</string>
 
     <!-- TextInput -->
     <string name="add_rating_text">Détail de l\'évaluation</string>

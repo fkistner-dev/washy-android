@@ -133,4 +133,11 @@ class MerchantRepository : BaseRepository() {
         rating.editedAt = Timestamp.now()
         ratingRef.set(rating)
     }
+
+    fun deleteRating(merchantId: String, rating: Rating) {
+        val ratingRef = db.collection(COLLECTION)
+            .document(merchantId)
+            .collection(SUB_COLLECTION_RATINGS).document(rating.reference)
+        ratingRef.delete()
+    }
 }
