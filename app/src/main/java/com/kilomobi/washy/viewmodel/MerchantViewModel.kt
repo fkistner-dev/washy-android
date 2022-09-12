@@ -23,8 +23,9 @@ class MerchantViewModel(private val repository: MerchantRepository = MerchantRep
         return products
     }
 
-    fun addMerchant(merchant: Merchant) {
+    fun addMerchant(merchant: Merchant): MutableLiveData<String> {
         repository.addMerchant(merchant)
+        return ref
     }
 
     fun addRating(merchantId: String, rating: Rating) {
@@ -50,4 +51,8 @@ class MerchantViewModel(private val repository: MerchantRepository = MerchantRep
     private var products: MutableLiveData<ArrayList<Product>>
         get() { return repository.products }
         set(value) { repository.products = value }
+
+    private var ref: MutableLiveData<String>
+        get() { return repository.ref }
+        set(value) { repository.ref = value }
 }

@@ -24,7 +24,9 @@ import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
+import com.kilomobi.washy.model.User
 import com.kilomobi.washy.viewmodel.MerchantViewModel
+import com.kilomobi.washy.viewmodel.UserViewModel
 import org.imperiumlabs.geofirestore.GeoLocation
 import org.imperiumlabs.geofirestore.core.GeoHash
 import java.util.*
@@ -280,7 +282,14 @@ class BecomeWasherFragment : Fragment() {
                 }
             }
 
-            merchantViewModel.addMerchant(merchant)
+            merchantViewModel.addMerchant(merchant).observe(requireActivity()) { merchantRef ->
+                val userViewModel = UserViewModel()
+                val user = User()
+                user.userName = merchant.name
+                user.store = merchantRef
+                userViewModel.addUser(user, merchantRef)
+            }
+
             Snackbar.make(requireView(), getString(R.string.input_merchant_create_success), Snackbar.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_becomeWasherFragment_to_homeFragment)
         }

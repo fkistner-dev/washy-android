@@ -10,12 +10,12 @@ class UserViewModel(private val repository: UserRepository = UserRepository()) :
         repository.addUser(user, documentId)
     }
 
-    fun getUser(documentId: String): MutableLiveData<User> {
+    fun getUser(documentId: String): MutableLiveData<User?> {
         repository.getUser(documentId)
         return user
     }
 
-    private var user: MutableLiveData<User>
+    private var user: MutableLiveData<User?>
         get() { return repository.user }
         set(value) { repository.user = value }
 }

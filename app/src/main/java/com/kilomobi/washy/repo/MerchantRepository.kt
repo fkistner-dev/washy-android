@@ -9,8 +9,6 @@ import com.kilomobi.washy.common.CompletionLiveData
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Product
 import com.kilomobi.washy.model.Rating
-import com.kilomobi.washy.model.User
-import com.kilomobi.washy.viewmodel.UserViewModel
 
 class MerchantRepository : BaseRepository() {
 
@@ -25,6 +23,7 @@ class MerchantRepository : BaseRepository() {
     var merchant: MutableLiveData<Merchant> = MutableLiveData()
     var ratings: MutableLiveData<ArrayList<Rating>> = MutableLiveData()
     var products: MutableLiveData<ArrayList<Product>> = MutableLiveData()
+    var ref: MutableLiveData<String> = MutableLiveData()
 
     fun retrieveMerchant(merchantId: String) {
         var tmpMerchant: Merchant
@@ -77,21 +76,19 @@ class MerchantRepository : BaseRepository() {
             }
     }
 
-    fun addMerchant(merchant: Merchant) {
+    fun addMerchant(merchant: Merchant): MutableLiveData<String> {
         db.collection(COLLECTION)
             .add(merchant)
             .addOnSuccessListener {
-                val userViewModel = UserViewModel()
-                val user = User()
-                val documentId = it.id
-                user.userName = merchant.name
-                user.store = documentId
-                userViewModel.addUser(user, documentId)
-                Log.d("MerchantRepo", "DocumentSnapshot written with ID: $documentId")
+                ref.value = it.id
+                onDataReceived()
+                Log.d("MerchantRepo", "DocumentSnapshot written with ID: $it.id")
             }
             .addOnFailureListener {
                 Log.w("MerchantRepo", "Error adding document", it)
             }
+
+        return ref
     }
 
     fun addRating(merchantId: String, rating: Rating): CompletionLiveData {

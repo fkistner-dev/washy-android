@@ -1,7 +1,6 @@
 package com.kilomobi.washy.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,31 +61,6 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>)
         } else {
             holder.like.text = context.resources.getString(R.string.cardview_like, feed.like)
         }
-
-        holder.setOnLongClickListener {
-            Log.d("Hello", "World")
-            true
-            /*val viewModel = FeedListViewModel()
-            viewModel.incrementFeedLike(feed.reference)
-
-            value += " " + feed.reference
-            with (sharedPref.edit()) {
-                putString(context.resources.getString(R.string.shared_pref_like), feed.reference)
-                apply()
-            }*/
-        }
-
-        /*
-        // SharedPref
-        val sharedPref = context.getSharedPreferences(context.resources.getString(R.string.shared_pref_name), Context.MODE_PRIVATE)
-        // Get value
-        var value = sharedPref.getString(context.resources.getString(R.string.shared_pref_like), "")
-
-
-
-        if (value!!.toListId().contains(feed.reference)) {
-            holder.action.isEnabled = false
-        } */
 
         if (feed.photos.isNotEmpty()) {
             val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + "feeds/" + feed.photos[0])

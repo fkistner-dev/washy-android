@@ -114,8 +114,8 @@ class MainActivity : AppCompatActivity(),
         headerView.findViewById<ImageView>(R.id.washy).visibility = if (isConnected) View.GONE else View.VISIBLE
     }
 
-    private fun handleWasherMenu(menu: android.view.Menu, user: User) {
-        if (user.store.isEmpty()) {
+    private fun handleWasherMenu(menu: android.view.Menu, user: User?) {
+        if (user == null || user.store.isEmpty()) {
             menu.findItem(R.id.action_become_washer).isVisible = true
         } else {
             menu.findItem(R.id.action_store_washer).isVisible = true
