@@ -14,9 +14,14 @@ import com.kilomobi.washy.viewholder.FeedPhotoViewHolder
 import com.kilomobi.washy.viewholder.FeedPromotionalViewHolder
 import com.kilomobi.washy.viewholder.FeedStandardViewHolder
 import com.kilomobi.washy.viewholder.FeedViewHolder
+import java.io.Serializable
 
 data class Feed(
     @Exclude var reference: String = "",
+    var author: String = "",
+    var authorPicture: String = "",
+    var cardviewHeader: String = "",
+    var cardviewText: String = "",
     var merchantId: String = "",
     var merchantName: String = "",
     var header: String = "",
@@ -29,9 +34,9 @@ data class Feed(
     var verified: Boolean = false,
     var discount: String = "",
     var photos: List<String> = listOf(),
-    var createdAt: Timestamp = Timestamp.now(),
-    var expireAt: Timestamp = Timestamp.now()
-) : RecyclerItem(), AdapterClick
+    @Transient var createdAt: Timestamp = Timestamp.now(),
+    @Transient var expireAt: Timestamp = Timestamp.now()
+) : RecyclerItem(), AdapterClick, Serializable
 
 object FeedCell : Cell<RecyclerItem>() {
 
@@ -56,7 +61,7 @@ object FeedCell : Cell<RecyclerItem>() {
         return when (itemState) {
             IS_PROMOTIONAL -> R.layout.row_feed_item
             IS_PHOTO -> R.layout.row_feed_photo_item
-            else -> R.layout.row_feed_item
+            else -> R.layout.row_feed_pager_item
         }
     }
 
@@ -76,7 +81,6 @@ object FeedCell : Cell<RecyclerItem>() {
         selectedPosition: Int,
         listener: AdapterListener?
     ) {
-
         if (holder is FeedViewHolder && item is Feed) {
             holder.bind(item)
             holder.itemView.setOnClickListener {

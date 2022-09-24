@@ -97,7 +97,7 @@ dependencies {
 
     implementation 'com.wajahatkarim:EasyFlipView:3.0.3'
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
-    implementation 'com.github.bumptech.glide:glide:4.13.1'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
     kapt 'com.github.bumptech.glide:compiler:4.13.1'
 
     // Navigation Component
@@ -132,4 +132,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.2'
     // ChromeTab
     implementation "androidx.browser:browser:1.4.0"
+
+    // CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

@@ -9,6 +9,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="elevation">0dp</item>
         <item name="android:elevation">0dp</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -103,13 +104,32 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
+    <style name="WashyText.Default.Bold">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
     <style name="WashyText.Default.Contrast">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="WashyText.Default.Bold.Contrast">
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="WashyText.Small">
         <item name="android:textSize">@dimen/text_small</item>
         <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="WashyText.Small.Contrast">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="WashyText.Action">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:background">@drawable/ripple</item>
+        <item name="android:textColor">@color/colorGrey800</item>
     </style>
 
     <style name="WashyText.Promotional">

@@ -76,6 +76,10 @@
         tools:layout="@layout/layout_home">
 
         <action
+            android:id="@+id/action_homeFragment_to_feedDetailFragment"
+            app:destination="@id/feedDetailFragment" />
+
+        <action
             android:id="@+id/action_homeFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
 
@@ -183,6 +187,12 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/feedDetailFragment"
+        android:name="com.kilomobi.washy.fragment.FeedDetailFragment"
+        android:label=""
+        tools:layout="@layout/layout_merchant_detail" />
 
     <fragment
         android:id="@+id/addRatingFragment"

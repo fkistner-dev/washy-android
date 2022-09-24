@@ -3,12 +3,18 @@ package com.kilomobi.washy.fragment
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DimenRes
+import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -21,7 +27,7 @@ import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.viewmodel.FeedListViewModel
 
 class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
-    AdapterListener {
+    FeedPagerAdapter.FeedPagerListener {
 
     private lateinit var shimmerLayout: ShimmerFrameLayout
     private lateinit var viewPager: ViewPager2
@@ -38,12 +44,17 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewPager = view.findViewById(R.id.viewPager)
-
         shimmerLayout = view.findViewById(R.id.shimmer_layout)
+
+        view.viewTreeObserver.addOnPreDrawListener {
+            startPostponedEnterTransition()
+            true
+        }
 
         val feedPagerAdapter = FeedPagerAdapter(
             requireContext(),
-            feeds
+            feeds,
+            this
         )
 
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[FeedListViewModel::class.java]
@@ -88,12 +99,10 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
 
         viewPager.addItemDecoration(itemDecoration)
 
-        TabLayoutMediator(view.findViewById(R.id.tabLayout), viewPager) { tab, position ->}.attach()
-    }
+        TabLayoutMediator(view.findViewById(R.id.tabLayout), viewPager) { tab, position -> }.attach()
 
-
-    override fun listen(click: AdapterClick?) {
-        TODO("Not yet implemented")
+        setExitToFullScreenTransition()
+        setReturnFromFullScreenTransition()
     }
 
     /**
@@ -116,5 +125,31 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
             if (position != 0) outRect.left = horizontalMarginInPx
             if (position != itemCount -1) outRect.right = horizontalMarginInPx
         }
+    }
+
+    override fun listen(holder: FeedPagerAdapter.FeedViewHolder, feed: Feed) {
+        val bundle = bundleOf("feed" to feed)
+        ViewCompat.setTransitionName(holder.image, feed.photos[0])
+        ViewCompat.setTransitionName(holder.circleImage, feed.hashCode().toString())
+        ViewCompat.setTransitionName(holder.header, feed.cardviewHeader)
+        ViewCompat.setTransitionName(holder.text, feed.cardviewText)
+        val extras = FragmentNavigatorExtras(
+            holder.image to feed.photos[0],
+            holder.circleImage to feed.authorPicture,
+            holder.header to feed.cardviewHeader,
+            holder.text to feed.cardviewText,
+        )
+
+        Log.d(TAG, "Feed photoURI from MainFragment = " + feed.photos[0])
+        Log.d(TAG, "Feed hashcode from MainFragment = " + feed.hashCode().toString())
+        findNavController().navigate(R.id.action_homeFragment_to_feedDetailFragment, bundle, null, extras)
+    }
+
+    private fun setExitToFullScreenTransition() {
+        exitTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.doggo_list_exit_transition)
+    }
+
+    private fun setReturnFromFullScreenTransition() {
+        reenterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.doggo_list_return_transition)
     }
 }

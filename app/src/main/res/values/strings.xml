@@ -34,6 +34,7 @@
     <string name="merchant_pro">PRO</string>
     <string name="merchant_part">PARTICULIER</string>
 
+    <string name="call_to_action_feed">PLUS D\'INFOS</string>
     <string name="call_to_action_phone">APPELER</string>
     <string name="call_to_action_map">Y ALLER</string>
 
@@ -199,5 +200,16 @@
     <string name="perm_request_geolocation_nop">NOP</string>
     <string name="perm_no_geolocation_title">TITLE GEO</string>
     <string name="perm_no_geolocation_message">MESSAGE GEO</string>
+
+    <!-- Sharing -->
+    <string name="intent_sharing_title">Partager</string>
+    <string name="intent_sharing_text">Cette application pourrait t\'intéresser : \n%s &#128513;</string>
+    <string name="intent_sharing_intent_title">Partager ce contenu avec :</string>
+
+    <!-- Lorem -->
+    <string name="html_sample"><h2>Title</h2><br /><p>Description here</p></string>
+    <string name="lorem_schnapsum">Lorem Elsass Ipsum mitt picon bière</string>
+    <string name="lorem_schnapsum_big"><![CDATA[Lorem Elsass Ipsum mitt picon bière munster du ftomi! Ponchour bisame. Bibbeleskaas jetz rossbolla sech choucroute un schwanz geburtstàg, <b>Chinette dû</b>, ìch bier deppfele schiesser. <i>Flammekueche</i> de knèkes Seppele gal! a hopla geburtstàg, alles fraü Chulia Roberts oder knäckes dûû blottkopf. Noch bredele schissabibala, yeuh e schmutz. E <u>gewurtztraminer doch Carola schneck</u>, schmutz a riesling de chambon eme rucksack Roger dû hopla geiss, jetz Chorchette de Scharrarbergheim. <b><i>Kouglopf ech ìch wurscht</i> gueut mitt schneck jetz a schiss mannele</b>, knèkes saucisse de Niederhausbergen of fill mauls schéni fleischwurcht <u><b>schnaps</b> de eme gal nüdle blottkopf</u>, de Chulien Roger hop pfourtz! bett mer ech schpeck un salami schmutz. Gal!]]></string>
+
 
 </resources>

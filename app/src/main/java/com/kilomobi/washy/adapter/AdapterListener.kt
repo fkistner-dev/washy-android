@@ -1,10 +1,12 @@
 package com.kilomobi.washy.adapter
 
+import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.kilomobi.washy.recycler.RecyclerItem
 
 interface AdapterListener {
     fun listen(click: AdapterClick?)
+    //fun listen(view: View?, value: Any)
 }
 
 interface AdapterClick
