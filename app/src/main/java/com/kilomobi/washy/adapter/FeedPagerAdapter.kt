@@ -29,10 +29,10 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>,
 
     class FeedViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
         var cardView: CardView = itemView.findViewById(R.id.cardview)
-        var circleImage: CircleImageView = itemView.findViewById(R.id.circle_image)
-        var header: TextView = itemView.findViewById(R.id.header)
-        var text: TextView = itemView.findViewById(R.id.text)
-        var image: ImageView = itemView.findViewById(R.id.image)
+        var circleImage: CircleImageView = cardView.findViewById(R.id.circle_image)
+        var header: TextView = cardView.findViewById(R.id.header)
+        var text: TextView = cardView.findViewById(R.id.text)
+        var image: ImageView = cardView.findViewById(R.id.image)
         var rl: RelativeLayout = itemView.findViewById(R.id.item_rl)
     }
 

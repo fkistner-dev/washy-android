@@ -3,7 +3,6 @@ package com.kilomobi.washy.fragment
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +19,6 @@ import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kilomobi.washy.R
-import com.kilomobi.washy.adapter.AdapterClick
-import com.kilomobi.washy.adapter.AdapterListener
 import com.kilomobi.washy.adapter.FeedPagerAdapter
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.viewmodel.FeedListViewModel
@@ -129,19 +126,17 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
 
     override fun listen(holder: FeedPagerAdapter.FeedViewHolder, feed: Feed) {
         val bundle = bundleOf("feed" to feed)
-        ViewCompat.setTransitionName(holder.image, feed.photos[0])
-        ViewCompat.setTransitionName(holder.circleImage, feed.hashCode().toString())
-        ViewCompat.setTransitionName(holder.header, feed.cardviewHeader)
-        ViewCompat.setTransitionName(holder.text, feed.cardviewText)
+        ViewCompat.setTransitionName(holder.image, "small_" + feed.photos[0])
+        ViewCompat.setTransitionName(holder.circleImage, "small_" + feed.hashCode().toString())
+        ViewCompat.setTransitionName(holder.header, "small_" + feed.cardviewHeader)
+        ViewCompat.setTransitionName(holder.text, "small_" + feed.cardviewText)
         val extras = FragmentNavigatorExtras(
-            holder.image to feed.photos[0],
-            holder.circleImage to feed.authorPicture,
-            holder.header to feed.cardviewHeader,
-            holder.text to feed.cardviewText,
+            holder.image to "big_" + feed.photos[0],
+            holder.circleImage to "big_" + feed.authorPicture,
+            holder.header to "big_" + feed.cardviewHeader,
+            holder.text to "big_" + feed.cardviewText,
         )
 
-        Log.d(TAG, "Feed photoURI from MainFragment = " + feed.photos[0])
-        Log.d(TAG, "Feed hashcode from MainFragment = " + feed.hashCode().toString())
         findNavController().navigate(R.id.action_homeFragment_to_feedDetailFragment, bundle, null, extras)
     }
 

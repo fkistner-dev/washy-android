@@ -4,18 +4,11 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Spanned
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.text.HtmlCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.doOnPreDraw
-import androidx.navigation.fragment.findNavController
-import androidx.transition.ChangeBounds
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -29,7 +22,6 @@ import com.kilomobi.washy.R
 import com.kilomobi.washy.databinding.LayoutFeedDetailBinding
 import com.kilomobi.washy.model.Feed
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.layout_feed_detail.view.*
 
 class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
 
@@ -47,24 +39,9 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val moveTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-        val explodeTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.explode)
-        val fadeTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.fade)
-        val topTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.slide_top)
-        val bottomTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.slide_bottom)
-        val rightTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.slide_right)
-        val leftTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.slide_left)
 
-        sharedElementEnterTransition = ChangeBounds().apply {
-            enterTransition = explodeTransition
-            duration = 750
-        }
-        sharedElementReturnTransition= ChangeBounds().apply {
-            enterTransition = explodeTransition
-            duration = 750
-        }
-
-        // Add these two lines below
-        setSharedElementTransitionOnEnter()
+        sharedElementEnterTransition = moveTransition
+        sharedElementReturnTransition = moveTransition
         postponeEnterTransition()
 
         super.onViewCreated(view, savedInstanceState)
@@ -114,48 +91,33 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
                 )
             }
 
-            Log.d(TAG, "Feed photoURI from DetailFragment = " + feed.photos[0])
-            Log.d(TAG, "Feed hashcode from DetailFragment = " + feed.hashCode().toString())
-
             // Shared image transition
             v.findViewById<ImageView>(R.id.image).apply {
                 feed.photos[0].let {
                     val urlToLoad = FirebaseStorage.getInstance()
                         .getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + "feeds/" + it)
-//                    ViewCompat.setTransitionName(this, it)
-                    transitionName = it
+                    transitionName = "big_$it"
                     startEnterTransitionAfterLoadingImage(urlToLoad, this)
                 }
             }
 
             v.findViewById<CircleImageView>(R.id.circle_image).apply {
-                transitionName = feed.authorPicture
-                //this.setImageResource(feed.authorPicture);
+                transitionName = "big_" + feed.authorPicture
             }
             v.findViewById<TextView>(R.id.top_header).apply {
-                ViewCompat.setTransitionName(this, feed.cardviewHeader)
-                transitionName = feed.cardviewHeader
+                transitionName = "big_" + feed.cardviewHeader
                 this.text = feed.cardviewHeader
             }
             v.findViewById<TextView>(R.id.top_text).apply {
-                ViewCompat.setTransitionName(this, feed.cardviewText)
-                transitionName = feed.cardviewText
+                transitionName = "big_" + feed.cardviewText
                 this.text = feed.cardviewText
             }
-
-//            v.findViewById<RelativeLayout>(R.id.item_rl).apply {
-////                ViewCompat.setTransitionName(this, feed.hashCode().toString())
-//                transitionName = feed.hashCode().toString()
-//                v.findViewById<TextView>(R.id.top_header).text = feed.cardviewHeader
-//                v.findViewById<TextView>(R.id.top_text).text = feed.cardviewText
-//
-//            }
         }
     }
 
     private fun setSharedElementTransitionOnEnter() {
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
-            .inflateTransition(R.transition.shared_element_transition)
+            .inflateTransition(android.R.transition.move)
     }
 
     private fun startEnterTransitionAfterLoadingImage(
