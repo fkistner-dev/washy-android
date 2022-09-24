@@ -33,6 +33,7 @@ class MerchantRepository : BaseRepository() {
             .get()
             .addOnSuccessListener { result ->
                 tmpMerchant = result.toObject(Merchant::class.java)!!
+                tmpMerchant.reference = result.id
                 merchant.value = tmpMerchant
                 onDataReceived()
             }

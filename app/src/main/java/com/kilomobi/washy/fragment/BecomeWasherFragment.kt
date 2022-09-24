@@ -279,18 +279,19 @@ class BecomeWasherFragment : Fragment() {
             FirebaseAuth.getInstance().uid.let {
                 if (it != null) {
                     merchant.adminId = it
+                    merchantViewModel.addMerchant(merchant).observe(requireActivity()) { merchantRef ->
+                        val userViewModel = UserViewModel()
+                        val user = User()
+                        user.userName = merchant.name
+                        user.store = merchantRef
+                        userViewModel.addUser(user, it)
+
+                        Snackbar.make(requireView(), getString(R.string.input_merchant_create_success), Snackbar.LENGTH_LONG).show()
+                    }
+                } else {
+                    Snackbar.make(requireView(), getString(R.string.input_merchant_create_error), Snackbar.LENGTH_LONG).show()
                 }
             }
-
-            merchantViewModel.addMerchant(merchant).observe(requireActivity()) { merchantRef ->
-                val userViewModel = UserViewModel()
-                val user = User()
-                user.userName = merchant.name
-                user.store = merchantRef
-                userViewModel.addUser(user, merchantRef)
-            }
-
-            Snackbar.make(requireView(), getString(R.string.input_merchant_create_success), Snackbar.LENGTH_LONG).show()
 
             // Hack to avoid making a call to Firebase
             val navController = findNavController()

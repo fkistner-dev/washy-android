@@ -20,6 +20,7 @@ class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHold
     val header: Int = R.id.header
     val title: Int = R.id.subheader
     val text: Int = R.id.text
+    val type: Int = R.id.type
     val subtext: Int = R.id.subtext
     val rating: Int = R.id.ratingBar
     val cardview: Int = R.id.cardview
@@ -27,10 +28,11 @@ class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHold
 
     fun bind(merchant: Merchant, selectedItem: Int) {
         val context = merchantView.context
-        if (!merchant.imported)
-            merchantView.findViewById<TextView>(header).textOrHide(if (merchant.siren?.isNotEmpty() == true) context.getString(R.string.merchant_pro) else context.getString(R.string.merchant_part))
-        else
+        if (merchant.imported) {
             merchantView.findViewById<TextView>(header).visibility = View.GONE
+        } else {
+            merchantView.findViewById<TextView>(header).text = if (merchant.siren?.isNotEmpty() == true) context.getString(R.string.merchant_pro) else context.getString(R.string.merchant_part)
+        }
 
         merchantView.findViewById<TextView>(title).text = merchant.name
         merchantView.findViewById<TextView>(text).textOrHide(merchant.description)

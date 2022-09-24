@@ -19,7 +19,7 @@ class UserRepository : BaseRepository() {
     fun getUser(documentId: String) {
         var tmpUser: User? = null
 
-        db.collection(MerchantRepository.COLLECTION).document(documentId)
+        db.collection(COLLECTION).document(documentId)
             .get()
             .addOnSuccessListener { result ->
                 if (!result.data.isNullOrEmpty()) {

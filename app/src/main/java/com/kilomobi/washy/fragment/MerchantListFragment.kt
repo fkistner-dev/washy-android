@@ -1,8 +1,14 @@
 package com.kilomobi.washy.fragment
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import androidx.navigation.fragment.findNavController
@@ -50,11 +56,27 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
 
             // Add new one at top
             currentList.add(0, newMerchant)
-
             listAdapter.submitList(currentList.toList())
             listAdapter.notifyItemInserted(0)
 
+            // Clean stack
             findNavController().currentBackStackEntry?.savedStateHandle?.remove<Merchant>(BecomeWasherFragment.STACK_NEW_MERCHANT)
+
+            // Handle menu
+            val menuHost: MenuHost = requireActivity()
+            menuHost.addMenuProvider(object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    // Add menu items here
+                    menuInflater.inflate(R.menu.menu_nav_drawer, menu)
+                    menu.findItem(R.id.action_become_washer).isVisible = false
+                    menu.findItem(R.id.action_store_washer).isVisible = true
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    // Item selection managed on MainActivity
+                    return false
+                }
+            }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         }
     }
 

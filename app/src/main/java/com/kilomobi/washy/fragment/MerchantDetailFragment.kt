@@ -15,10 +15,12 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kilomobi.washy.R
+import com.kilomobi.washy.activity.MainActivity
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.databinding.LayoutMerchantDetailBinding
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
+import com.kilomobi.washy.viewmodel.MerchantViewModel
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail) {
@@ -51,7 +53,6 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
         if (!viewIsCreated) {
             binding = LayoutMerchantDetailBinding.bind(view)
             initialize()
-            setAdapter()
             viewIsCreated = true
         }
     }
@@ -59,8 +60,23 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
     private fun initialize() {
         if (arguments != null && requireArguments()["merchant"] != null && requireArguments()["merchant"] is Merchant) {
             merchant = requireArguments()["merchant"] as Merchant
-        }
+            fillView()
+            setAdapter()
+        } else {
+            val storeId = findNavController().previousBackStackEntry?.arguments?.getString(MainActivity.STACK_USER_STORE_ID)
 
+            storeId?.let {
+                val merchantViewModel = MerchantViewModel()
+                merchantViewModel.getMerchant(it)?.observe(requireActivity()) { userStore ->
+                    merchant = userStore
+                    fillView()
+                    setAdapter()
+                }
+            }
+        }
+    }
+
+    private fun fillView() {
         currentView?.let { v ->
             if (merchant.imported) {
                 v.findViewById<TextView>(R.id.type).visibility = View.GONE

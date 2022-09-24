@@ -42,6 +42,10 @@ import com.kilomobi.washy.viewmodel.UserViewModel
 class MainActivity : AppCompatActivity(),
     MainActivityDelegate, UserListener, NavigationView.OnNavigationItemSelectedListener {
 
+    companion object {
+        const val STACK_USER_STORE_ID = "userStoreId"
+    }
+
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -95,6 +99,7 @@ class MainActivity : AppCompatActivity(),
             FirebaseAuth.getInstance().uid?.let { userId ->
                 viewModel.getUser(userId).observe(this) { user ->
                     handleWasherMenu(menu, user)
+                    navController.currentBackStackEntry?.arguments?.putString(STACK_USER_STORE_ID, user?.store)
                 }
             }
         } else {
