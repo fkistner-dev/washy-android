@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 31
+        minSdk 23
+        targetSdkVersion 33
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -16,6 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
     namespace 'org.imperiumlabs.geofirestore'
 }
 
@@ -23,15 +29,15 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //Firebase
-    implementation "com.google.firebase:firebase-analytics-ktx:20.1.0"
-    implementation "com.google.firebase:firebase-firestore:24.0.1"
+    implementation "com.google.firebase:firebase-analytics-ktx:21.2.2"
+    implementation "com.google.firebase:firebase-firestore:24.5.0"
 
     //Test Implementations
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.4.0'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
