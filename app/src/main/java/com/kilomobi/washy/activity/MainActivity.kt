@@ -164,6 +164,12 @@ class MainActivity : AppCompatActivity(),
                 }
                 true
             }
+            R.id.action_tutorial_list -> {
+                if (supportFragmentManager.currentNavigationFragment !is TutorialListFragment) {
+                    navController.navigate(R.id.action_homeFragment_to_tutorialListFragment)
+                }
+                true
+            }
             R.id.action_become_washer -> {
                 if (supportFragmentManager.currentNavigationFragment !is BecomeWasherFragment) {
                     navController.navigate(R.id.action_homeFragment_to_becomeWasherFragment)

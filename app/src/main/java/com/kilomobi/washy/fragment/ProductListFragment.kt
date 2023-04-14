@@ -48,7 +48,7 @@ class ProductListFragment(val merchant: Merchant) : FragmentEmptyView(R.layout.l
             adapter = listAdapter
         }
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MerchantViewModel::class.java)
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MerchantViewModel::class.java]
         viewModel.getProducts(merchant.reference!!).observe(viewLifecycleOwner) {
             if (it != null && it.isNotEmpty()) {
                 listAdapter.submitList(it as List<RecyclerItem>?)

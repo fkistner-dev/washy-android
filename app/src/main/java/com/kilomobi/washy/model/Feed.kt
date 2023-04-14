@@ -51,7 +51,7 @@ object FeedCell : Cell<RecyclerItem>() {
 
         itemState = when {
             item.isPromotional -> IS_PROMOTIONAL
-            item.photos.isNotEmpty() -> IS_PHOTO
+            //item.photos.isNotEmpty() -> IS_PROMOTIONAL
             else -> IS_STANDARD
         }
         return true

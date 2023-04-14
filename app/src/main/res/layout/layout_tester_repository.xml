@@ -9,75 +9,75 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_NULL"/>
+        android:text="Retrieve All Feeds"/>
 
     <Button
         android:id="@+id/tester02"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_NULL"/>
+        android:text="Retrieve feed for merchant ID"/>
 
     <Button
         android:id="@+id/tester03"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_NULL"/>
+        android:text="Retrieve All Merchants"/>
 
     <Button
         android:id="@+id/tester04"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_NULL"/>
+        android:text="Retrieve merchant for ID"/>
 
     <Button
         android:id="@+id/tester05"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_NULL" />
+        android:text="Retrieve rating for merchant ID" />
 
     <Button
         android:id="@+id/tester06"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_NULL" />
+        android:text="Retrieve products for merchant ID" />
 
     <Button
         android:id="@+id/tester07"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_Json" />
+        android:text="Add merchant from JSON" />
 
     <Button
         android:id="@+id/tester08"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_NULL" />
+        android:text="Disabled" />
 
     <Button
         android:id="@+id/tester09"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_NEAREST_MERC" />
+        android:text="Nearest merchant from position" />
 
     <Button
         android:id="@+id/tester10"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_DEL_LOC" />
+        android:text="Delete One merchant" />
 
     <Button
         android:id="@+id/tester11"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="T_DEL_LOC" />
+        android:text="Remove location" />
 </LinearLayout>

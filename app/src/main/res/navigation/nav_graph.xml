@@ -84,6 +84,10 @@
             app:destination="@id/mapFragment" />
 
         <action
+            android:id="@+id/action_homeFragment_to_tutorialListFragment"
+            app:destination="@id/tutorialListFragment" />
+
+        <action
             android:id="@+id/action_homeFragment_to_becomeWasherFragment"
             app:destination="@id/becomeWasherFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -168,10 +172,16 @@
 <!--    </fragment>-->
 
     <fragment
+        android:id="@+id/tutorialListFragment"
+        android:name="com.kilomobi.washy.fragment.TutorialListFragment"
+        android:label="">
+    </fragment>
+
+    <fragment
         android:id="@+id/feedListFragment"
         android:name="com.kilomobi.washy.fragment.FeedFragment"
         android:label=""
-        tools:layout="@layout/fragment_feed">
+        tools:layout="@layout/layout_recycler_list">
     </fragment>
 
     <fragment
