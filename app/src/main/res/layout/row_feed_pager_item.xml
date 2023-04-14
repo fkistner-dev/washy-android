@@ -21,26 +21,27 @@
             android:scaleType="matrix" />
 
         <RelativeLayout
+            android:id="@+id/item_rl"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/item_rl">
+            android:background="@drawable/background_feed">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circle_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:src="@drawable/ic_car_hatchback"
                 android:visibility="visible"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="0.5dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/circle_image"
+                android:layout_toEndOf="@id/circle_image"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:orientation="vertical">
@@ -58,7 +59,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-3dp"
-                    android:layout_below="@id/title"
                     android:text="Ford Mustang GT 5.0L"
                     android:textColor="@color/white"
                     style="@style/WashyText.Small.Contrast" />
