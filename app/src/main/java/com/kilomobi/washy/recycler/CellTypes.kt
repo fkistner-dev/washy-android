@@ -8,7 +8,7 @@ class CellTypes<T>(vararg types: Cell<T>) {
         types.forEach { addType(it) }
     }
 
-    fun addType(type: Cell<T>) {
+    private fun addType(type: Cell<T>) {
         cellTypes.add(type)
     }
 

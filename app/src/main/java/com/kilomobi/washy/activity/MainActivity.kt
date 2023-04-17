@@ -164,9 +164,9 @@ class MainActivity : AppCompatActivity(),
                 }
                 true
             }
-            R.id.action_tutorial_list -> {
-                if (supportFragmentManager.currentNavigationFragment !is TutorialListFragment) {
-                    navController.navigate(R.id.action_homeFragment_to_tutorialListFragment)
+            R.id.action_guide_list -> {
+                if (supportFragmentManager.currentNavigationFragment !is GuideListFragment) {
+                    navController.navigate(R.id.action_homeFragment_to_guideListFragment)
                 }
                 true
             }

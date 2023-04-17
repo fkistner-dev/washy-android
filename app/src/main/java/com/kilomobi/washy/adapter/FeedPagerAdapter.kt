@@ -16,12 +16,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.kilomobi.washy.BuildConfig
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Feed
-import com.kilomobi.washy.model.FeedCell
-import com.kilomobi.washy.recycler.BaseListAdapter
 import com.kilomobi.washy.util.GlideApp
 import de.hdodenhof.circleimageview.CircleImageView
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>, private val cellClickListener: FeedPagerListener) :

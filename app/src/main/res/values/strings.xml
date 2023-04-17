@@ -54,7 +54,7 @@
     <!-- Menu -->
     <string name="action_home">Accueil</string>
     <string name="action_map">Carte</string>
-    <string name="action_tutorial_list">Tutos</string>
+    <string name="action_guide_list">Guides</string>
     <string name="action_search">Rechercher</string>
     <string name="action_favorite">Favoris</string>
     <string name="action_add_favorite">Ajouter aux favoris</string>

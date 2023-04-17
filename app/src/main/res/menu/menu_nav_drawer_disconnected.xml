@@ -15,9 +15,9 @@
         android:tint="@color/colorGrey900"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_tutorial_list"
+        android:id="@+id/action_guide_list"
         android:icon="@drawable/ic_comment_quote_outline"
-        android:title="@string/action_tutorial_list"
+        android:title="@string/action_guide_list"
         android:tint="@color/colorGrey900"
         app:showAsAction="never" />
     <item
