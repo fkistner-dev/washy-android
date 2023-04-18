@@ -168,5 +168,5 @@ class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.l
         }
     }
 
-    override fun listen(click: AdapterClick?) { }
+    override fun listen(click: AdapterClick?, holder: RecyclerView.ViewHolder?) { }
 }

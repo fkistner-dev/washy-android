@@ -44,6 +44,11 @@ class HomeFragment : FragmentEmptyView(R.layout.layout_home) {
 
                 fragmentTransaction?.commit()
             } else {
+                val fragmentTransaction: FragmentTransaction? =
+                    activity?.supportFragmentManager?.beginTransaction()
+                fragmentTransaction?.add(R.id.listFeed, FeedViewPagerFragment(), "feed")
+
+                fragmentTransaction?.commit()
                 Log.e(TAG, "I KNEW IT")
             }
 

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kilomobi.washy.viewmodel.MerchantListViewModel
 import com.kilomobi.washy.R
@@ -107,7 +108,7 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
         }
     }
 
-    override fun listen(click: AdapterClick?) {
+    override fun listen(click: AdapterClick?, holder: RecyclerView.ViewHolder?) {
         val bundle = bundleOf("merchant" to click)
         findNavController().navigate(R.id.action_merchantListFragment_to_merchantDetailFragment, bundle)
     }

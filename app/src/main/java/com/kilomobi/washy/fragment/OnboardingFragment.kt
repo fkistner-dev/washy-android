@@ -12,6 +12,7 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.kilomobi.washy.model.OnboardingItem
 import com.kilomobi.washy.R
@@ -115,8 +116,7 @@ class OnboardingFragment : Fragment(), AdapterListener {
         }
     }
 
-    override fun listen(click: AdapterClick?) {
-    }
+    override fun listen(click: AdapterClick?, holder: RecyclerView.ViewHolder?) {}
 
     private fun setupIndicators() {
         val indicators = arrayOfNulls<ImageView>(listAdapter.itemCount)

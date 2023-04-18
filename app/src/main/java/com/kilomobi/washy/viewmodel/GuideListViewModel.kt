@@ -7,19 +7,19 @@ import com.kilomobi.washy.repo.GuideListRepository
 class GuideListViewModel(private val repository: GuideListRepository = GuideListRepository()) : BaseViewModel(repository) {
 
     fun getAllGuides(): MutableLiveData<ArrayList<Guide>> {
-        return guides
+        return guideList
     }
 
-//    fun getGuide(id: String): MutableLiveData<Guide> {
-//        repository.retrieveMerchantFeeds(id)
-//        return guides.
-//    }
-
-    fun incrementGuideLike(id: String) {
-        repository.incrementLike(id)
+    fun getGuide(id: String): MutableLiveData<Guide> {
+        repository.retrieveGuide(id)
+        return guide
     }
 
-    private var guides: MutableLiveData<ArrayList<Guide>>
+    private var guideList: MutableLiveData<ArrayList<Guide>>
         get() { return repository.guideList }
         set(value) { repository.guideList = value }
+
+    private var guide: MutableLiveData<Guide>
+        get() { return repository.guide }
+        set(value) { repository.guide = value }
 }

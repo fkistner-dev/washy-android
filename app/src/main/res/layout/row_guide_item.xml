@@ -2,6 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
+    android:clickable="true"
+    android:focusable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -45,9 +47,24 @@
                 android:gravity="center_horizontal"
                 android:textSize="@dimen/text_default"
                 android:textColor="@color/white"
-                android:maxLines="1"
+                android:maxLines="2"
+                android:ellipsize="end"
                 tools:text="Nettoyage action mécanique et solutions au vinaigre" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sponsor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/chip_sponsor"
+            android:layout_marginEnd="@dimen/text_padding"
+            app:chipBackgroundColor="@color/transparent"
+            app:chipIconTint="@color/black"
+            app:chipStrokeColor="@color/colorGrey200"
+            app:chipStrokeWidth="1dp"
+            app:chipCornerRadius="16dp" />
+
     </androidx.cardview.widget.CardView>
 </FrameLayout>

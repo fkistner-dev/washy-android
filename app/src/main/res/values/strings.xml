@@ -151,6 +151,7 @@
     <string name="chip_ceramic">Céramique</string>
     <string name="chip_hand_wash">Fait main</string>
     <string name="chip_motorbike">Moto</string>
+    <string name="chip_sponsor">Sponsorisée</string>
 
     <!-- Input -->
     <string name="input_error_name">Veuillez insérer un nom pour l\'affichage</string>

@@ -144,6 +144,28 @@
     </fragment>
 
     <fragment
+        android:id="@+id/guideDetailFragment"
+        android:name="com.kilomobi.washy.fragment.GuideDetailFragment"
+        android:label=""
+        tools:layout="@layout/layout_guide_detail_item" />
+
+    <fragment
+        android:id="@+id/guideListFragment"
+        android:name="com.kilomobi.washy.fragment.GuideListFragment"
+        android:label=""
+        tools:layout="@layout/fragment_list_guide">
+
+        <action
+            android:id="@+id/action_guideListFragment_to_guideDetailFragment"
+            app:destination="@id/guideDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/mapFragment"
         android:name="com.kilomobi.washy.fragment.MapFragment"
         android:label=""
@@ -155,7 +177,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
 
         <argument
             android:name="merchant"
@@ -170,12 +192,6 @@
 <!--        android:label="FavoriteFragment"-->
 <!--        tools:layout="@layout/fragment_favorite">-->
 <!--    </fragment>-->
-
-    <fragment
-        android:id="@+id/guideListFragment"
-        android:name="com.kilomobi.washy.fragment.GuideListFragment"
-        android:label="">
-    </fragment>
 
     <fragment
         android:id="@+id/feedListFragment"

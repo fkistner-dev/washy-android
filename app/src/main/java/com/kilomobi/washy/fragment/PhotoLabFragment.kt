@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
@@ -75,7 +76,5 @@ class PhotoLabFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.lay
         }
     }
 
-    override fun listen(click: AdapterClick?) {
-        TODO("Not yet implemented")
-    }
+    override fun listen(click: AdapterClick?, holder: RecyclerView.ViewHolder?) { }
 }

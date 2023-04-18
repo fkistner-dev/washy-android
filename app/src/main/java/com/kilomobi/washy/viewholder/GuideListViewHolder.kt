@@ -9,26 +9,24 @@ import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Guide
 import com.kilomobi.washy.util.textOrHide
 
-class GuideViewHolder(private val guideView: View) : RecyclerView.ViewHolder(guideView) {
+class GuideListViewHolder(private val guideView: View) : RecyclerView.ViewHolder(guideView) {
 
     val header: Int = R.id.header
-//    val subheader: Int = R.id.subheader
     val text: Int = R.id.text
     val image: Int = R.id.image
-//    val subtext: Int = R.id.subtext
     val cardview: Int = R.id.cardview
 
     fun bind(guide: Guide, selectedItem: Int) {
-        guideView.findViewById<TextView>(header).text = guide.header
+        guideView.findViewById<TextView>(header).text = guide.title
 //        guideView.findViewById<TextView>(subheader).text = guide.subHeader
-        guideView.findViewById<TextView>(text).textOrHide(guide.text)
+        guideView.findViewById<TextView>(text).textOrHide(guide.description)
         val imageView = guideView.findViewById<ImageView>(image)
 
-        if (guide.photos[0].isEmpty()) {
+        if (guide.photo.isEmpty()) {
             imageView.visibility = View.GONE
         } else {
             Glide.with(guideView.context)
-                .load(guide.photos[0])
+                .load(guide.photo)
                 .into(imageView)
         }
     }

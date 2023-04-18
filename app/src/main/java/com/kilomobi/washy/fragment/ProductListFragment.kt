@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
@@ -58,7 +59,5 @@ class ProductListFragment(val merchant: Merchant) : FragmentEmptyView(R.layout.l
         }
     }
 
-    override fun listen(click: AdapterClick?) {
-        TODO("Not yet implemented")
-    }
+    override fun listen(click: AdapterClick?, holder: RecyclerView.ViewHolder?) { }
 }

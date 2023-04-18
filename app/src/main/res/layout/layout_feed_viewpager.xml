@@ -8,11 +8,12 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:clickable="true"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/home_feed_spacing"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:focusable="true" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

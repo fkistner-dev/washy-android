@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kilomobi.washy.*
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
@@ -54,7 +55,5 @@ class FeedFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.layout.
         }
     }
 
-    override fun listen(click: AdapterClick?) {
-        TODO("Not yet implemented")
-    }
+    override fun listen(click: AdapterClick?, holder: RecyclerView.ViewHolder?) { }
 }
