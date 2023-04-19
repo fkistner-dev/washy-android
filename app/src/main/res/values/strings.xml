@@ -33,6 +33,7 @@
 
     <string name="merchant_pro">PRO</string>
     <string name="merchant_part">PARTICULIER</string>
+    <string name="distance_part">0,2 km</string>
 
     <string name="call_to_action_feed">PLUS D\'INFOS</string>
     <string name="call_to_action_phone">APPELER</string>
