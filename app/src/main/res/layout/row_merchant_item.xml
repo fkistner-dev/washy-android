@@ -44,7 +44,7 @@
             <TextView
                 android:id="@+id/header"
                 style="@style/WashyText.CardView.Header"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@id/distance"
@@ -53,12 +53,12 @@
             <TextView
                 android:id="@+id/subheader"
                 style="@style/WashyText.CardView.SubHeader"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/header"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@id/ratingBar"
-                tools:text="@string/mockup_data_title_jl_lavage" />
+                android:layout_toStartOf="@id/professional"
+                tools:text="@string/mockup_data_title_jl_lavage"
+                tools:visibility="visible"/>
 
             <TextView
                 android:id="@+id/text"
@@ -79,12 +79,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_toStartOf="@id/chevron"
                 android:layout_below="@id/text"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:ellipsize="end"
-                tools:text="@string/mockup_data_subtitle_jl_lavage"/>
+                tools:text="@string/mockup_data_address"/>
 
             <ImageView
                 android:id="@+id/chevron"
@@ -94,6 +93,22 @@
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/common_image_content_description"
                 android:src="@drawable/ic_chevron_right" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/professional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_toStartOf="@id/chevron"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/text_padding"
+                android:visibility="gone"
+                android:text="@string/merchant_pro"
+                app:chipBackgroundColor="@color/transparent"
+                app:chipIconTint="@color/black"
+                app:chipStrokeColor="@color/colorGrey200"
+                app:chipStrokeWidth="1dp"
+                app:chipCornerRadius="16dp" />
 
             <HorizontalScrollView
                 android:id="@+id/serviceHorizontalScroll"

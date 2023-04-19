@@ -4,10 +4,11 @@
     <string name="mockup_data_title_jl_lavage">JL Lavage</string>
     <string name="mockup_data_title_presti_lav_auto">Presti Lavage Auto</string>
     <string name="mockup_data_title_total_wash">Total Wash</string>
-    <string name="mockup_data_subtitle_jl_lavage">"100\% fais main</string>
+    <string name="mockup_data_subtitle_jl_lavage">100\% fais main</string>
     <string name="mockup_data_subtitle_presti_lav_auto">Entre l\'industriel et l\'artisanal</string>
     <string name="mockup_data_subtitle_total_wash">Usage de rouleaux compresseurs !</string>
     <string name="mockup_data_lorem_ipsum">Lorem Elsass ipsum ac s\'guelt Spätzle et wurscht Racing</string>
+    <string name="mockup_data_address">10 rue du Jardin 67120 Ergersheim</string>
 
     <string name="mockup_data_fictive_pro">PRO</string>
     <string name="mockup_data_fictive_part">PARTICULIER</string>
