@@ -71,8 +71,6 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), Ada
 
         // Reconstruct the list of InnerGuide
         val innerGuide = convertToInnerGuide(guide)
-
-        // Submit the list
         listAdapter.submitList(innerGuide)
     }
 

@@ -77,15 +77,27 @@
 
         <action
             android:id="@+id/action_homeFragment_to_feedDetailFragment"
-            app:destination="@id/feedDetailFragment" />
+            app:destination="@id/feedDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_homeFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_homeFragment_to_guideListFragment"
-            app:destination="@id/guideListFragment" />
+            app:destination="@id/guideListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_homeFragment_to_becomeWasherFragment"
@@ -97,7 +109,11 @@
 
         <action
             android:id="@+id/action_homeFragment_to_storeWasherFragment"
-            app:destination="@id/merchantDetailFragment">
+            app:destination="@id/merchantDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" >
 
             <argument
                 android:name="merchant"
@@ -111,7 +127,11 @@
 
         <action
             android:id="@+id/action_homeFragment_to_tosFragment"
-            app:destination="@id/termOfServiceFragment" />
+            app:destination="@id/termOfServiceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_homeFragment_to_testerFragment"
