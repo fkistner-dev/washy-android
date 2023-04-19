@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.cardview.widget.CardView
 import androidx.core.text.HtmlCompat
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
@@ -112,12 +113,18 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
                 transitionName = "big_" + feed.cardviewText
                 this.text = feed.cardviewText
             }
-        }
-    }
 
-    private fun setSharedElementTransitionOnEnter() {
-        sharedElementEnterTransition = TransitionInflater.from(requireContext())
-            .inflateTransition(android.R.transition.move)
+            // nice little animation for the footer call to action
+            v.findViewById<CardView>(R.id.cardview_footer).apply {
+                this.y += 200
+                this.animate()
+                    .setDuration(300)
+                    .translationYBy(-200F)
+                this.setOnClickListener {
+                    // Do something
+                }
+            }
+        }
     }
 
     private fun startEnterTransitionAfterLoadingImage(
