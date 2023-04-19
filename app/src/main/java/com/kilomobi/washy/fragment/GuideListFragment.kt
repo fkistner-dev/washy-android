@@ -21,7 +21,7 @@ import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.viewholder.GuideListViewHolder
 import com.kilomobi.washy.viewmodel.GuideListViewModel
 
-class GuideListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
+class GuideListFragment : FragmentEmptyView(R.layout.layout_recycler_guide_list),
     AdapterListener {
 
     private lateinit var shimmerLayout: ShimmerFrameLayout

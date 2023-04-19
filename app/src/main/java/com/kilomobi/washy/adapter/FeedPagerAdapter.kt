@@ -29,7 +29,7 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>,
         var header: TextView = cardView.findViewById(R.id.header)
         var text: TextView = cardView.findViewById(R.id.text)
         var image: ImageView = cardView.findViewById(R.id.image)
-        var rl: RelativeLayout = itemView.findViewById(R.id.item_rl)
+        var rl: RelativeLayout = cardView.findViewById(R.id.item_rl)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
