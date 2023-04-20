@@ -36,6 +36,7 @@ import com.kilomobi.washy.R
 import com.kilomobi.washy.databinding.ActivityMainBinding
 import com.kilomobi.washy.fragment.*
 import com.kilomobi.washy.model.User
+import com.kilomobi.washy.util.ChromeUtils
 import com.kilomobi.washy.util.currentNavigationFragment
 import com.kilomobi.washy.viewmodel.UserViewModel
 
@@ -50,13 +51,14 @@ class MainActivity : AppCompatActivity(),
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var view: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
+        view = binding.root
         setContentView(view)
         setSupportActionBar(binding.toolbar)
         firebaseAnalytics = Firebase.analytics
@@ -194,25 +196,7 @@ class MainActivity : AppCompatActivity(),
             }
             R.id.action_tos -> {
                 if (supportFragmentManager.currentNavigationFragment !is TermOfServiceFragment) {
-                    val builder = CustomTabsIntent.Builder()
-                    val params = CustomTabColorSchemeParams.Builder()
-                    params.setToolbarColor(ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
-                    builder.setDefaultColorSchemeParams(params.build())
-                    builder.setShowTitle(true)
-
-                    builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
-                    builder.setExitAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
-                    val customBuilder = builder.build()
-                    val packageName = "com.android.chrome"
-
-                    if (this.isPackageInstalled(packageName)) {
-                        // if chrome is available use chrome custom tabs
-                        customBuilder.intent.setPackage(packageName)
-                        customBuilder.launchUrl(this, Uri.parse(getString(R.string.privacy_url)))
-                    } else {
-                        // if not available use WebView to launch the url
-                        navController.navigate(R.id.action_homeFragment_to_tosFragment)
-                    }
+                    ChromeUtils.openChromeTab(this, view, getString(R.string.privacy_url))
                 }
                 true
             }
@@ -223,16 +207,6 @@ class MainActivity : AppCompatActivity(),
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun Context.isPackageInstalled(packageName: String): Boolean {
-        // check if chrome is installed or not
-        return try {
-            packageManager.getPackageInfo(packageName, 0)
-            true
-        } catch (e: PackageManager.NameNotFoundException) {
-            false
         }
     }
 
