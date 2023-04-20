@@ -6,7 +6,6 @@
 
     <!-- Fragment's title -->
     <string name="fragment_title_become_washer">Rejoins nous</string>
-    <string name="no_data_emoji">&#128064;</string>
     <string name="no_data_text">Pas de données actuellement</string>
     <string name="no_feed_text">Pas d\'avis actuellement</string>
 
@@ -26,6 +25,8 @@
     <string name="row_merchant_text_start_price">à partir de</string>
     <string name="designed_by_text">Designed by KiloMobi</string>
     <string name="emoji_water_droplet_text">&#128166;</string>
+    <string name="emoji_right_finger_pointing">&#128073;</string>
+    <string name="emoji_no_data">&#128064;</string>
 
     <string name="offer_title">OFFRES</string>
     <string name="feed_title">AVIS</string>

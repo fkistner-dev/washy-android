@@ -52,7 +52,6 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>,
 
         // Update later when we handle profile picture for feed item
         holder.circleImage.visibility = View.GONE
-
         if (feed.photos.isNotEmpty()) {
             val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + "feeds/" + feed.photos[0])
 

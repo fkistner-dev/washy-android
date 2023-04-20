@@ -10,6 +10,7 @@
     <string name="mockup_data_lorem_ipsum">Lorem Elsass ipsum ac s\'guelt Spätzle et wurscht Racing</string>
     <string name="mockup_data_address">10 rue du Jardin 67120 Ergersheim</string>
 
+    <string name="mockup_data_fictive_merchant">Eléphant Bleu</string>
     <string name="mockup_data_fictive_pro">PRO</string>
     <string name="mockup_data_fictive_part">PARTICULIER</string>
     <string name="mockup_data_fictive_price">119.99 €</string>

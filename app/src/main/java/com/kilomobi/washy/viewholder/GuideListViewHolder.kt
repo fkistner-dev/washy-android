@@ -11,6 +11,7 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.chip.Chip
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Guide
@@ -42,6 +43,7 @@ class GuideListViewHolder(private val guideView: View) : RecyclerView.ViewHolder
         } else {
             Glide.with(guideView.context)
                 .load(guide.photo)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(imageView)
         }
     }

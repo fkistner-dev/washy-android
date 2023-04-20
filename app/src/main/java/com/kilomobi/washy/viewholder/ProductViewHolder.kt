@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Product
 
@@ -27,6 +28,7 @@ class ProductViewHolder(private val productView: View) : RecyclerView.ViewHolder
         } else {
             Glide.with(productView.context)
                 .load(product.imageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(imageView)
         }
     }

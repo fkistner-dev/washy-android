@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -117,6 +118,7 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
                 v.findViewById<ImageView>(R.id.photo).visibility = View.VISIBLE
                 Glide.with(requireContext())
                     .load(merchant.imgUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(v.findViewById(R.id.photo))
             }
         }

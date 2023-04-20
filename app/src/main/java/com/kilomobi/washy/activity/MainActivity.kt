@@ -1,9 +1,6 @@
 package com.kilomobi.washy.activity
 
-import android.content.Context
 import android.content.pm.ActivityInfo
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -12,9 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabColorSchemeParams
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,6 +17,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -195,7 +190,7 @@ class MainActivity : AppCompatActivity(),
                 true
             }
             R.id.action_tos -> {
-                if (supportFragmentManager.currentNavigationFragment !is TermOfServiceFragment) {
+                if (supportFragmentManager.currentNavigationFragment !is WebFragment) {
                     ChromeUtils.openChromeTab(this, view, getString(R.string.privacy_url))
                 }
                 true
@@ -238,6 +233,7 @@ class MainActivity : AppCompatActivity(),
             if (user.photoUrl != null) {
                 Glide.with(applicationContext)
                     .load(user.photoUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(headerView.findViewById(R.id.profilePic))
             }
 

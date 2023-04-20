@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/no_data_emoji" />
+        android:text="@string/emoji_no_data" />
 
     <TextView
         style="@style/WashyText.Header"

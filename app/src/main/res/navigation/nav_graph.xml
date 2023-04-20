@@ -62,9 +62,9 @@
 
     <fragment
         android:id="@+id/termOfServiceFragment"
-        android:name="com.kilomobi.washy.fragment.TermOfServiceFragment"
+        android:name="com.kilomobi.washy.fragment.WebFragment"
         android:label=""
-        tools:layout="@layout/activity_visit_tos_layout">
+        tools:layout="@layout/fragment_web_layout">
         <action
             android:id="@+id/action_term_of_service_fragment_to_second_fragment"
             app:destination="@id/termOfServiceFragment" />

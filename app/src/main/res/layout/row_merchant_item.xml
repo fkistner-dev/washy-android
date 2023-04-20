@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@id/distance"
-                tools:text="@string/merchant_pro" />
+                tools:text="@string/mockup_data_fictive_merchant" />
 
             <TextView
                 android:id="@+id/subheader"

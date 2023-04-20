@@ -17,8 +17,6 @@ import java.lang.Exception
 class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), AdapterListener {
 
     companion object {
-        const val HEADERS_KEY = "headers"
-        const val PREREQUISITES_KEY = "prerequisites"
         const val TEXTS_KEY = "texts"
         const val WARNINGS_KEY = "warnings"
         const val PHOTOS_KEY = "photos"
@@ -75,8 +73,6 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), Ada
     }
 
     private fun convertToInnerGuide(guide: Guide) : List<InnerGuide> {
-        val headers = guide.innerGuide[HEADERS_KEY] as ArrayList<String>
-        val prerequisites = guide.innerGuide[PREREQUISITES_KEY] as ArrayList<String>
         val texts = guide.innerGuide[TEXTS_KEY] as ArrayList<String>
         val warnings = guide.innerGuide[WARNINGS_KEY] as ArrayList<String>
         val photos = guide.innerGuide[PHOTOS_KEY] as ArrayList<String>
@@ -86,8 +82,6 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), Ada
         for (i in 0 until totalStep) {
             val innerGuide = InnerGuide()
             try {
-                innerGuide.header = headers[i]
-                innerGuide.prerequisite = prerequisites[i]
                 innerGuide.text = texts[i]
                 innerGuide.warning = warnings[i]
                 innerGuide.photo = photos[i]

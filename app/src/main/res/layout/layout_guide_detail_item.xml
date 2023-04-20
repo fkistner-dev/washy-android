@@ -27,40 +27,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/image"
-            android:layout_margin="@dimen/text_small"
+            android:layout_marginStart="@dimen/text_small"
+            android:layout_marginTop="@dimen/text_small"
+            android:layout_marginEnd="@dimen/text_small"
+            android:layout_marginBottom="@dimen/text_small"
             android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_header"
-                tools:text="header"
-                tools:visibility="visible" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/prerequisite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_default"
-                tools:text="prerequisite"
-                tools:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_default"
-                tools:text="text"
-                tools:visibility="gone" />
+                android:textSize="@dimen/text_header"
+                tools:text="text" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/warning"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_small"
-                tools:text="warning" />
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/colorGrey100">
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_small"
+                    android:textSize="@dimen/text_small"
+                    tools:text="warning" />
+
+            </com.google.android.material.card.MaterialCardView>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

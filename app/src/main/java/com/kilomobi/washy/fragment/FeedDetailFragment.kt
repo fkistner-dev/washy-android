@@ -13,6 +13,7 @@ import androidx.core.text.HtmlCompat
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -22,6 +23,7 @@ import com.kilomobi.washy.BuildConfig
 import com.kilomobi.washy.R
 import com.kilomobi.washy.databinding.LayoutFeedDetailBinding
 import com.kilomobi.washy.model.Feed
+import com.kilomobi.washy.util.ChromeUtils
 import de.hdodenhof.circleimageview.CircleImageView
 
 class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
@@ -67,7 +69,7 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
             // Retrieve text and format with HTML tags
             v.findViewById<TextView>(R.id.title).text = feed.header
             val spanned: Spanned = HtmlCompat.fromHtml(
-                getString(R.string.lorem_schnapsum_big),
+                feed.text,
                 HtmlCompat.FROM_HTML_MODE_LEGACY
             )
             v.findViewById<TextView>(R.id.text).text = spanned
@@ -116,12 +118,16 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
 
             // nice little animation for the footer call to action
             v.findViewById<CardView>(R.id.cardview_footer).apply {
-                this.y += 200
-                this.animate()
-                    .setDuration(300)
-                    .translationYBy(-200F)
-                this.setOnClickListener {
-                    // Do something
+                if (feed.linkToAction.isNotEmpty()) {
+                    this.y += 200
+                    this.animate()
+                        .setDuration(300)
+                        .translationYBy(-200F)
+                    this.setOnClickListener {
+                        ChromeUtils.openChromeTab(context, this, feed.linkToAction)
+                    }
+                } else {
+                    this.visibility = View.GONE
                 }
             }
         }
@@ -133,6 +139,7 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
     ) {
         Glide.with(this)
             .load(imageAddress)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .dontAnimate()
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
