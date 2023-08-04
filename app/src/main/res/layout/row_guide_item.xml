@@ -21,7 +21,9 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/text"
             android:contentDescription="@string/mockup_data_feed_image_description"
-            android:scaleType="matrix" />
+            android:scaleType="matrix"
+            app:tint="#6F000000"
+            android:tintMode="src_atop" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
