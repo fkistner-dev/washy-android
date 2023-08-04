@@ -29,7 +29,7 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>,
         var header: TextView = cardView.findViewById(R.id.header)
         var text: TextView = cardView.findViewById(R.id.text)
         var image: ImageView = cardView.findViewById(R.id.image)
-        var rl: RelativeLayout = cardView.findViewById(R.id.item_rl)
+        var darken: View = cardView.findViewById(R.id.view_dark)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
@@ -53,7 +53,7 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>,
         // Update later when we handle profile picture for feed item
         holder.circleImage.visibility = View.GONE
         if (feed.photos.isNotEmpty()) {
-            val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + "feeds/" + feed.photos[0])
+            val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + feed.photos[0])
 
             GlideApp.with(context)
                 .load(urlToLoad)

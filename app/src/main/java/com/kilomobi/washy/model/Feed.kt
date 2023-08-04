@@ -30,8 +30,8 @@ data class Feed(
     var subText: String = "",
     var price: Long = 0,
     var like: Int = 0,
-    var isPromotional: Boolean = false,
-    var isVerified: Boolean = false,
+    var promotional: Boolean = false,
+    var verified: Boolean = false,
     var linkToAction: String = "",
     var discount: String = "",
     var photos: List<String> = listOf(),
@@ -51,7 +51,7 @@ object FeedCell : Cell<RecyclerItem>() {
         if (item !is Feed) return false
 
         itemState = when {
-            item.isPromotional -> IS_PROMOTIONAL
+            item.promotional -> IS_PROMOTIONAL
             //item.photos.isNotEmpty() -> IS_PROMOTIONAL
             else -> IS_STANDARD
         }

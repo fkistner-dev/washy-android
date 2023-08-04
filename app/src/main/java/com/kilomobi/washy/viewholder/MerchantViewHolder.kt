@@ -29,9 +29,7 @@ class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHold
 
     fun bind(merchant: Merchant, selectedItem: Int) {
         val context = merchantView.context
-        if (merchant.imported) {
-            merchantView.findViewById<TextView>(header).visibility = View.GONE
-        } else if (merchant.siren?.isNotEmpty() == true) {
+        if (merchant.siren?.isNotEmpty() == true) {
             merchantView.findViewById<Chip>(professionnal).visibility = View.VISIBLE
         }
 

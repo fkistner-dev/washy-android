@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
@@ -20,50 +20,49 @@
             android:contentDescription="@string/mockup_data_feed_image_description"
             android:scaleType="matrix" />
 
-        <RelativeLayout
-            android:id="@+id/item_rl"
+        <View
+            android:id="@+id/view_dark"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/background_feed">
+            android:background="@drawable/background_feed" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circle_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
-                android:src="@drawable/ic_car_hatchback"
-                android:visibility="visible"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="0.5dp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_car_hatchback"
+            android:visibility="visible"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="0.5dp" />
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toEndOf="@id/circle_image"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/header"
+                style="@style/WashyText.Default.Bold.Contrast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/circle_image"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical">
+                android:layout_marginBottom="-3dp"
+                android:text="Nawako" />
 
-                <TextView
-                    android:id="@+id/header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="-3dp"
-                    android:text="Nawako"
-                    style="@style/WashyText.Default.Bold.Contrast" />
+            <TextView
+                android:id="@+id/text"
+                style="@style/WashyText.Small.Contrast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-3dp"
+                android:text="Ford Mustang GT 5.0L"
+                android:textColor="@color/white" />
 
-                <TextView
-                    android:id="@+id/text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
-                    android:text="Ford Mustang GT 5.0L"
-                    android:textColor="@color/white"
-                    style="@style/WashyText.Small.Contrast" />
-
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>

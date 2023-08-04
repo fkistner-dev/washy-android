@@ -126,17 +126,20 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
 
     override fun listen(holder: FeedPagerAdapter.FeedViewHolder, feed: Feed) {
         val bundle = bundleOf("feed" to feed)
-        ViewCompat.setTransitionName(holder.image, "small_" + feed.photos[0])
-        ViewCompat.setTransitionName(holder.circleImage, "small_" + feed.hashCode().toString())
-        ViewCompat.setTransitionName(holder.header, "small_" + feed.cardviewHeader)
-        ViewCompat.setTransitionName(holder.text, "small_" + feed.cardviewText)
-        val extras = FragmentNavigatorExtras(
-            holder.image to "big_" + feed.photos[0],
-            holder.circleImage to "big_" + feed.authorPicture,
-            holder.header to "big_" + feed.cardviewHeader,
-            holder.text to "big_" + feed.cardviewText,
-        )
 
+        val darkViewPair =  holder.darken to "big_darken"
+        val photoPair =  holder.image to "big_" + feed.photos[0].ifEmpty { "nullPhoto" }
+        val circlePair = holder.circleImage to "big_" + feed.hashCode().toString().ifEmpty { "nullCircle" }
+        val headerPair = holder.header to "big_" + feed.cardviewHeader.ifEmpty { "nullHeader" }
+        val textPair = holder.text to "big_" + feed.cardviewText.ifEmpty { "nullText" }
+
+        ViewCompat.setTransitionName(holder.darken, "small_darken")
+        ViewCompat.setTransitionName(holder.image, "small_" + feed.photos[0].ifEmpty { "nullPhoto" })
+        ViewCompat.setTransitionName(holder.circleImage, "small_" + feed.hashCode().toString().ifEmpty { "nullCircle" })
+        ViewCompat.setTransitionName(holder.header, "small_" + feed.cardviewHeader.ifEmpty { "nullHeader" })
+        ViewCompat.setTransitionName(holder.text, "small_" + feed.cardviewText.ifEmpty { "nullText" })
+
+        val extras = FragmentNavigatorExtras(darkViewPair, photoPair, circlePair, headerPair, textPair)
         findNavController().navigate(R.id.action_homeFragment_to_feedDetailFragment, bundle, null, extras)
     }
 

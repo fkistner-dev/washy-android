@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.chip.Chip
+import com.google.firebase.storage.FirebaseStorage
+import com.kilomobi.washy.BuildConfig
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Guide
 import com.kilomobi.washy.util.textOrHide
@@ -41,8 +43,10 @@ class GuideListViewHolder(private val guideView: View) : RecyclerView.ViewHolder
         if (guide.photo.isEmpty()) {
             imageView.visibility = View.GONE
         } else {
+            val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + guide.photo)
+
             Glide.with(guideView.context)
-                .load(guide.photo)
+                .load(urlToLoad)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(imageView)
         }

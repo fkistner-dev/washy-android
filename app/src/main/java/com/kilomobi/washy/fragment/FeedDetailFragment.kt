@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.text.Spanned
 import android.view.*
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.cardview.widget.CardView
 import androidx.core.text.HtmlCompat
 import androidx.transition.TransitionInflater
@@ -98,21 +100,24 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
             v.findViewById<ImageView>(R.id.image).apply {
                 feed.photos[0].let {
                     val urlToLoad = FirebaseStorage.getInstance()
-                        .getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + "feeds/" + it)
+                        .getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + it)
                     transitionName = "big_$it"
                     startEnterTransitionAfterLoadingImage(urlToLoad, this)
                 }
             }
 
+            v.findViewById<View>(R.id.view_dark).apply {
+                transitionName = "big_darken"
+            }
             v.findViewById<CircleImageView>(R.id.circle_image).apply {
-                transitionName = "big_" + feed.authorPicture
+                transitionName = "big_" + feed.authorPicture.ifEmpty { "nullCircle" }
             }
             v.findViewById<TextView>(R.id.top_header).apply {
-                transitionName = "big_" + feed.cardviewHeader
+                transitionName = "big_" + feed.cardviewHeader.ifEmpty { "nullHeader" }
                 this.text = feed.cardviewHeader
             }
             v.findViewById<TextView>(R.id.top_text).apply {
-                transitionName = "big_" + feed.cardviewText
+                transitionName = "big_" + feed.cardviewText.ifEmpty { "nullText" }
                 this.text = feed.cardviewText
             }
 
@@ -140,7 +145,7 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
         Glide.with(this)
             .load(imageAddress)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .dontAnimate()
+//            .dontAnimate()
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
