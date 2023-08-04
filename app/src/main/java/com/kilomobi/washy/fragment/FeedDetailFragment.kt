@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.text.Spanned
 import android.view.*
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.cardview.widget.CardView
 import androidx.core.text.HtmlCompat
 import androidx.transition.TransitionInflater
@@ -96,7 +94,12 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
                 )
             }
 
+
             // Shared image transition
+            v.findViewById<View>(R.id.view_dark)?.apply {
+                transitionName = "big_darken_" + feed.hashCode().toString().ifEmpty { "nullDarken" }
+            }
+
             v.findViewById<ImageView>(R.id.image).apply {
                 feed.photos[0].let {
                     val urlToLoad = FirebaseStorage.getInstance()
@@ -106,9 +109,6 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
                 }
             }
 
-            v.findViewById<View>(R.id.view_dark).apply {
-                transitionName = "big_darken"
-            }
             v.findViewById<CircleImageView>(R.id.circle_image).apply {
                 transitionName = "big_" + feed.authorPicture.ifEmpty { "nullCircle" }
             }

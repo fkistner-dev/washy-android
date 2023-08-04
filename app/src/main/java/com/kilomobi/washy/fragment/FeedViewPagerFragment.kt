@@ -127,13 +127,13 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
     override fun listen(holder: FeedPagerAdapter.FeedViewHolder, feed: Feed) {
         val bundle = bundleOf("feed" to feed)
 
-        val darkViewPair =  holder.darken to "big_darken"
+        val darkViewPair =  holder.darken to "big_darken_" + feed.hashCode().toString().ifEmpty { "nullDarken" }
         val photoPair =  holder.image to "big_" + feed.photos[0].ifEmpty { "nullPhoto" }
         val circlePair = holder.circleImage to "big_" + feed.hashCode().toString().ifEmpty { "nullCircle" }
         val headerPair = holder.header to "big_" + feed.cardviewHeader.ifEmpty { "nullHeader" }
         val textPair = holder.text to "big_" + feed.cardviewText.ifEmpty { "nullText" }
 
-        ViewCompat.setTransitionName(holder.darken, "small_darken")
+        ViewCompat.setTransitionName(holder.darken, "small_darken_" + feed.hashCode().toString().ifEmpty { "nullDarken" })
         ViewCompat.setTransitionName(holder.image, "small_" + feed.photos[0].ifEmpty { "nullPhoto" })
         ViewCompat.setTransitionName(holder.circleImage, "small_" + feed.hashCode().toString().ifEmpty { "nullCircle" })
         ViewCompat.setTransitionName(holder.header, "small_" + feed.cardviewHeader.ifEmpty { "nullHeader" })
