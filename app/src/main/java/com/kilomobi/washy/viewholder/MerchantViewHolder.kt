@@ -34,7 +34,7 @@ class MerchantViewHolder(private val merchantView: View) : RecyclerView.ViewHold
         }
 
         merchantView.findViewById<TextView>(header).text = merchant.name
-        merchantView.findViewById<TextView>(title).text = merchant.geohash // don't hide it, or chip will have no anchors
+        merchantView.findViewById<TextView>(title).textOrHide(merchant.website) // don't hide it, or chip will have no anchors
         merchantView.findViewById<TextView>(text).textOrHide(merchant.description)
         merchantView.findViewById<TextView>(subtext).textOrHide(merchant.fullAddress)
         merchantView.findViewById<MaterialRatingBar>(rating).rating = merchant.avgRating
