@@ -45,11 +45,11 @@
 
     <!-- OnBoarding -->
     <string name="onboarding_title_1">Trouver le lavage idéal</string>
-    <string name="onboarding_description_1">Lavage à la main ou bien lance haute pression ? Un lavage propre sans eaux, et plus encore.</string>
-    <string name="onboarding_title_2">Partager vos éclats</string>
-    <string name="onboarding_description_2">Les plus belles réalisations sont mises en avant chaque jour !</string>
-    <string name="onboarding_title_3">Rejoignez la communauté</string>
-    <string name="onboarding_description_3">Proposez ou cherchez un service ? C\'est vous qui voyez !</string>
+    <string name="onboarding_description_1">Lavage en station, lavage sans eau ou lavage à la main chez un professionnel ? On a les adresses.</string>
+    <string name="onboarding_title_2">Faites le vous-même</string>
+    <string name="onboarding_description_2">Que ce soit un lavage rapide ou un lavage complet, on vous guide sur chacune des étapes.</string>
+    <string name="onboarding_title_3">Rejoigner nous !</string>
+    <string name="onboarding_description_3">Proposez ou cherchez un service ? C\'est vous qui voyez.</string>
     <string name="onboarding_button_continue">Suivant</string>
     <string name="onboarding_button_finish">C\'est parti !</string>
 
