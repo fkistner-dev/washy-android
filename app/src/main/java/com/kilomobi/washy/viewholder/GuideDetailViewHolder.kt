@@ -22,7 +22,7 @@ class GuideDetailViewHolder(private val guideView: View) : RecyclerView.ViewHold
 
     val header: Int = R.id.header
     val text: Int = R.id.text
-    val warning: Int = R.id.warning
+    private val warning: Int = R.id.warning
     val image: Int = R.id.image
     private val rootGroup: Int = R.id.root
 

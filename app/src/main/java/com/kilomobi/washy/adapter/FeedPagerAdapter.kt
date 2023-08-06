@@ -10,12 +10,12 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.storage.FirebaseStorage
 import com.kilomobi.washy.BuildConfig
 import com.kilomobi.washy.R
 import com.kilomobi.washy.model.Feed
-import com.kilomobi.washy.util.GlideApp
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
@@ -54,7 +54,7 @@ class FeedPagerAdapter(val context: Context, private val items: ArrayList<Feed>,
         if (feed.photos.isNotEmpty()) {
             val urlToLoad = FirebaseStorage.getInstance().getReferenceFromUrl(BuildConfig.FIRESTORE_BUCKET + feed.photos[0])
 
-            GlideApp.with(context)
+            Glide.with(context)
                 .load(urlToLoad)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(holder.image)
