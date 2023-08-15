@@ -187,12 +187,6 @@ class MainActivity : AppCompatActivity(),
                 }
                 true
             }
-            R.id.action_debug -> {
-                if (supportFragmentManager.currentNavigationFragment !is RepositoryTesterFragment) {
-                    navController.navigate(R.id.action_homeFragment_to_testerFragment)
-                }
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/startFragment">
-    <fragment
-        android:id="@+id/testerFragment"
-        android:name="com.kilomobi.washy.fragment.RepositoryTesterFragment"
-        android:label="TEST"
-        tools:layout="@layout/layout_tester_repository">
-    </fragment>
 
     <fragment
         android:id="@+id/startFragment"
@@ -140,10 +134,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_testerFragment"
-            app:destination="@id/testerFragment" />
 
         <action
             android:id="@+id/action_merchantListFragment_to_merchantDetailFragment"

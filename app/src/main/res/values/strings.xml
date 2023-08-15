@@ -72,7 +72,6 @@
     <string name="action_connect">Se connecter</string>
     <string name="action_disconnect">Se déconnecter</string>
     <string name="action_tos">A propos</string>
-    <string name="action_debug">Debug</string>
     <string name="action_geolocalisation">Centrer</string>
 
     <!-- Become Washer -->

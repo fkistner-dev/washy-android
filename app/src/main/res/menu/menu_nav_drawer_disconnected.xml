@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:showIn="navigation_view">
-    <!--    <item-->
-    <!--        android:id="@+id/action_search"-->
-    <!--        android:icon="@drawable/ic_magnify"-->
-    <!--        android:title="@string/action_search"-->
-    <!--        app:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_connect"
+        android:title="@string/action_connect"
+        android:icon="@drawable/ic_login"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_map"
         android:icon="@drawable/ic_map"
@@ -21,18 +21,8 @@
         android:tint="@color/colorGrey900"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_connect"
-        android:title="@string/action_connect"
-        android:icon="@drawable/ic_login"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_tos"
         android:title="@string/action_tos"
         android:icon="@drawable/ic_file_document_outline"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_debug"
-        android:title="@string/action_debug"
-        android:icon="@drawable/ic_motorcycle"
         app:showAsAction="never" />
 </menu>
