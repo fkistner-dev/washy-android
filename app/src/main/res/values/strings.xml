@@ -204,7 +204,7 @@
     <string name="perm_request_geolocation_again">OK</string>
     <string name="perm_request_geolocation_nop">NON</string>
     <string name="perm_no_geolocation_title">Géolocalisation</string>
-    <string name="perm_no_geolocation_message">Washy n\'a pas pu obtenir votre position, veuillez vérifier les permissions de l'application.</string>
+    <string name="perm_no_geolocation_message">Washy n\'a pas pu obtenir votre position, veuillez vérifier les permissions de l\'application.</string>
 
     <!-- Sharing -->
     <string name="intent_sharing_title">Partager</string>
