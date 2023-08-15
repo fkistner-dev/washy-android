@@ -86,9 +86,9 @@
     <string name="action_rating_stars">Notation :</string>
     <string name="snack_syncing_message">Les évaluations sont en cours de synchronisation, réessayer plus tard.</string>
     <string name="input_rating_manage_success">Votre évaluation vient d\'être %1$s</string>
-    <string name="add_rating_action_publish">publié</string>
-    <string name="modify_rating_action_publish">modifié</string>
-    <string name="delete_rating_action_publish">supprimé</string>
+    <string name="add_rating_action_publish">publiée</string>
+    <string name="modify_rating_action_publish">modifiée</string>
+    <string name="delete_rating_action_publish">supprimée</string>
     <string name="delete_rating_title">Suppression</string>
     <string name="delete_rating_text">Voulez-vous supprimer l\'évaluation ?</string>
 
@@ -118,10 +118,10 @@
     <!-- Add Photo -->
     <string name="select_picture">Choisissez une photo</string>
     <string name="no_picture_taken">Aucune photo sélectionner</string>
-    <string name="picture_upload_success">Envoie avec succès !</string>
-    <string name="picture_upload_error">Erreur lors de l\'envoie, veuillez vérifier votre connexion internet</string>
-    <string name="add_photo_text">Les photos s\'afficheront sous 48H dans le flux d\'accueil et également dans PhotoLab</string>
-    <string name="add_photo_car_text">Envie de rajouter des infos sur le véhicule ?</string>
+    <string name="picture_upload_success">Envoi avec succès !</string>
+    <string name="picture_upload_error">Erreur lors de l\'envoi, veuillez vérifier votre connexion internet</string>
+    <string name="add_photo_text">Les photos s\'afficheront sous 48h dans le flux d\'accueil et également dans PhotoLab</string>
+    <string name="add_photo_car_text">Envi de rajouter des infos sur le véhicule ?</string>
     <string name="add_photo_product_text">Quel(s) produit(s) utilisé(s) ?</string>
 
     <!-- Chip DB -->
@@ -199,12 +199,12 @@
     <string name="shared_pref_like">feed-references-like</string>
 
     <!-- Permission -->
-    <string name="perm_request_geolocation_title">TITLE</string>
-    <string name="perm_request_geolocation_message">MESSAGE</string>
-    <string name="perm_request_geolocation_again">AGAIN</string>
-    <string name="perm_request_geolocation_nop">NOP</string>
-    <string name="perm_no_geolocation_title">TITLE GEO</string>
-    <string name="perm_no_geolocation_message">MESSAGE GEO</string>
+    <string name="perm_request_geolocation_title">Géolocalisation</string>
+    <string name="perm_request_geolocation_message">Washy nécessite votre position pour vous proposez les lieux de lavage proche.</string>
+    <string name="perm_request_geolocation_again">OK</string>
+    <string name="perm_request_geolocation_nop">NON</string>
+    <string name="perm_no_geolocation_title">Géolocalisation</string>
+    <string name="perm_no_geolocation_message">Washy n\'a pas pu obtenir votre position, veuillez vérifier les permissions de l'application.</string>
 
     <!-- Sharing -->
     <string name="intent_sharing_title">Partager</string>

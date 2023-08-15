@@ -7,17 +7,7 @@
 
     <TextView
         style="@style/WashyText.Header"
-        android:id="@+id/emoji"
-        android:layout_marginBottom="@dimen/text_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/emoji_no_data" />
-
-    <TextView
-        style="@style/WashyText.Header"
         android:id="@+id/empty_view_text"
-        android:layout_below="@id/emoji"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
