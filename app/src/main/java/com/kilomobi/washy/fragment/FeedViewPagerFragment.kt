@@ -125,6 +125,17 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
     }
 
     override fun listen(holder: FeedPagerAdapter.FeedViewHolder, feed: Feed) {
+        if (feed.guideLink.isNotEmpty())
+            navigateToGuideDetail(feed)
+        else
+            navigateToFeedDetail(holder, feed)
+    }
+
+    private fun navigateToGuideDetail(feed: Feed) {
+        val bundle = bundleOf("feed" to feed)
+        findNavController().navigate(R.id.action_homeFragment_to_guideDetailFragment, bundle, null)
+    }
+    private fun navigateToFeedDetail(holder: FeedPagerAdapter.FeedViewHolder, feed: Feed) {
         val bundle = bundleOf("feed" to feed)
 
         val darkViewPair =  holder.darken to "big_darken_" + feed.hashCode().toString().ifEmpty { "nullDarken" }

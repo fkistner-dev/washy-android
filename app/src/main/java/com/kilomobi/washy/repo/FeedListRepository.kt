@@ -3,13 +3,15 @@ package com.kilomobi.washy.repo
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.ServerValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.kilomobi.washy.model.Feed
 
 class FeedListRepository : BaseRepository() {
 
     companion object {
         const val COLLECTION = "feeds"
-        const val FEED_LIMIT = 20
+        const val FEED_HOME_LIMIT = 3
+        const val FEED_MERCHANT_LIMIT = 20
     }
 
     private val db = FirebaseFirestore.getInstance()
@@ -24,8 +26,8 @@ class FeedListRepository : BaseRepository() {
         val tmpListFeed: ArrayList<Feed> = ArrayList()
 
         db.collection(COLLECTION)
-            .limit(FEED_LIMIT.toLong())
-            .orderBy("createdAt")
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .limit(FEED_HOME_LIMIT.toLong())
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -47,8 +49,8 @@ class FeedListRepository : BaseRepository() {
 
         db.collection(COLLECTION)
             .whereEqualTo("merchantId", id)
-            .limit(FEED_LIMIT.toLong())
-            .orderBy("createdAt")
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .limit(FEED_MERCHANT_LIMIT.toLong())
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {

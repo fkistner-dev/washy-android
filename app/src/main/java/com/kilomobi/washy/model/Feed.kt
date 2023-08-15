@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.ServerTimestamp
 import com.kilomobi.washy.R
 import com.kilomobi.washy.recycler.RecyclerItem
 import com.kilomobi.washy.adapter.AdapterClick
@@ -30,11 +31,13 @@ data class Feed(
     var subText: String = "",
     var price: Long = 0,
     var like: Int = 0,
+    var guideLink: String = "",
     var promotional: Boolean = false,
     var verified: Boolean = false,
     var linkToAction: String = "",
     var discount: String = "",
     var photos: List<String> = listOf(),
+    @ServerTimestamp
     @Transient var createdAt: Timestamp = Timestamp.now(),
     @Transient var expireAt: Timestamp = Timestamp.now()
 ) : RecyclerItem(), AdapterClick, Serializable

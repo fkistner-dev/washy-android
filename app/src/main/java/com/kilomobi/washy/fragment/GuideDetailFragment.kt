@@ -2,19 +2,25 @@ package com.kilomobi.washy.fragment
 
 import android.os.Bundle
 import android.view.*
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.snackbar.Snackbar
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
-import com.kilomobi.washy.databinding.LayoutGuideDetailBinding
+import com.kilomobi.washy.databinding.LayoutRecyclerListBinding
+import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.model.Guide
 import com.kilomobi.washy.model.GuideDetailAdapter
 import com.kilomobi.washy.model.InnerGuide
+import com.kilomobi.washy.viewmodel.GuideListViewModel
 import java.lang.Exception
 
-class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), AdapterListener {
+class GuideDetailFragment : FragmentEmptyView(R.layout.layout_recycler_guide_list), AdapterListener {
 
     companion object {
         const val TEXTS_KEY = "texts"
@@ -23,9 +29,10 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), Ada
         const val TOTAL_STEP_KEY = "totalStep"
     }
 
+    private lateinit var shimmerLayout: ShimmerFrameLayout
     private lateinit var mainActivityDelegate: MainActivityDelegate
     private lateinit var guide: Guide
-    private lateinit var binding: LayoutGuideDetailBinding
+    private lateinit var binding: LayoutRecyclerListBinding
     private val listAdapter by lazy { GuideDetailAdapter(this) }
 
     override fun onCreateView(
@@ -48,7 +55,8 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), Ada
         super.onViewCreated(view, savedInstanceState)
 
         if (!viewIsCreated) {
-            binding = LayoutGuideDetailBinding.bind(view)
+            binding = LayoutRecyclerListBinding.bind(view)
+            shimmerLayout = view.findViewById(R.id.shimmer_layout)
             initialize()
             viewIsCreated = true
         }
@@ -58,6 +66,9 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), Ada
         if (arguments != null && requireArguments()["guide"] != null && requireArguments()["guide"] is Guide) {
             guide = requireArguments()["guide"] as Guide
             fillView()
+        } else if (arguments != null && requireArguments()["feed"] != null && requireArguments()["feed"] is Feed) {
+            val feed = requireArguments()["feed"] as Feed
+            retrieveGuide(feed.guideLink)
         }
     }
 
@@ -70,6 +81,33 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_guide_detail), Ada
         // Reconstruct the list of InnerGuide
         val innerGuide = convertToInnerGuide(guide)
         listAdapter.submitList(innerGuide)
+    }
+
+    private fun retrieveGuide (guideLink: String) {
+        val viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[GuideListViewModel::class.java]
+
+        viewModel.isLoading.observe(requireActivity()) {
+            if (it) {
+                shimmerLayout.visibility = View.VISIBLE
+                shimmerLayout.startShimmer()
+            } else {
+                shimmerLayout.stopShimmer()
+                shimmerLayout.visibility = View.GONE
+            }
+        }
+
+        viewModel.getGuide(guideLink).observe(viewLifecycleOwner) {
+            if (it != null && it.title.isNotEmpty()) {
+                guide = it
+                fillView()
+            } else {
+                Snackbar.make(requireView(), getString(R.string.error_guide_not_found), Snackbar.LENGTH_LONG).show()
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun convertToInnerGuide(guide: Guide) : List<InnerGuide> {

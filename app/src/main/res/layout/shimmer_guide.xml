@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:visibility="gone"
     shimmer:shimmer_duration="800"
     shimmer:layout_constraintStart_toStartOf="parent"
     shimmer:layout_constraintTop_toTopOf="parent"
