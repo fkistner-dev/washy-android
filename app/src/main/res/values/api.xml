@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyAjQQnYjOhHfSqXhd0l0wifDZ26eHRFFc0
-    </string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAjQQnYjOhHfSqXhd0l0wifDZ26eHRFFc0</string>
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">278859653516771</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb278859653516771</string>

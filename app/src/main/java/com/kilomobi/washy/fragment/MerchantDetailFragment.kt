@@ -141,11 +141,6 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
         binding.layoutMerchantTabbedId.tabLayout.getTabAt(1)?.setIcon(R.drawable.ic_account_box_outline)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_merchant_detail, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> findNavController().popBackStack()
