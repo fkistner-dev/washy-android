@@ -28,7 +28,6 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
 
     private lateinit var mainActivityDelegate: MainActivityDelegate
     private lateinit var merchant: Merchant
-    private var isFavorite: Boolean = false
     private lateinit var binding: LayoutMerchantDetailBinding
 
     override fun onCreateView(
@@ -144,20 +143,11 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_merchant_detail, menu)
-
-        //isFavorite = merchant.favoriteId.contains(FirebaseAuth.getInstance().currentUser?.uid)
-        menu.getItem(0).setIcon(if (isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_outline)
-
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_add_favorite -> {
-                isFavorite = !isFavorite
-                item.setIcon(if (isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_outline)
-                return true
-            }
             android.R.id.home -> findNavController().popBackStack()
             else -> super.onOptionsItemSelected(item)
         }

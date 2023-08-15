@@ -103,14 +103,6 @@ class MainActivity : AppCompatActivity(),
             binding.navView.inflateMenu(R.menu.menu_nav_drawer_disconnected)
         }
 
-        // AddMenu Item if debug
-        if (BuildConfig.FLAVOR == "Dev") {
-            val submenu = menu.addSubMenu("Admin")
-            submenu.add("Debug")
-            submenu.getItem(0).setIcon(R.drawable.ic_motorcycle)
-            binding.navView.invalidate()
-        }
-
         assignUserToHeader(FirebaseAuth.getInstance().currentUser)
         val headerView: View = binding.navView.getHeaderView(0)
         headerView.findViewById<ImageView>(R.id.washy).visibility = if (isConnected) View.GONE else View.VISIBLE
