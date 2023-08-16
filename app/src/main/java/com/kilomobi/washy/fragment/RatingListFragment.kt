@@ -154,17 +154,20 @@ class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.l
         })
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MerchantViewModel::class.java]
-        viewModel.getRatings(merchant?.reference!!).observe(viewLifecycleOwner
-        ) { ratingList ->
-            if (ratingList != null && ratingList.isNotEmpty()) {
-                listAdapter.submitList(ratingList as List<RecyclerItem>?)
-                if (isConnected()) {
-                    userRating = ratingList.find { it.userId == FirebaseAuth.getInstance().uid }
-                    userRating?.let { fab.setImageIcon(Icon.createWithResource(context, android.R.drawable.ic_menu_edit)) }
+        if (merchant?.reference?.isNotEmpty() == true) {
+            viewModel.getRatings(merchant.reference!!).observe(viewLifecycleOwner) { ratingList ->
+                if (ratingList != null && ratingList.isNotEmpty()) {
+                    listAdapter.submitList(ratingList as List<RecyclerItem>?)
+                    if (isConnected()) {
+                        userRating = ratingList.find { it.userId == FirebaseAuth.getInstance().uid }
+                        userRating?.let { fab.setImageIcon(Icon.createWithResource(context, android.R.drawable.ic_menu_edit)) }
+                    }
+                } else {
+                    displayEmptyView()
                 }
-            } else {
-                displayEmptyView()
             }
+        } else {
+            displayEmptyView()
         }
     }
 
