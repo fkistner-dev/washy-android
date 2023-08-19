@@ -39,7 +39,9 @@ data class Feed(
     var photos: List<String> = listOf(),
     @ServerTimestamp
     @Transient var createdAt: Timestamp = Timestamp.now(),
-    @Transient var expireAt: Timestamp = Timestamp.now()
+    @Transient var expireAt: Timestamp = Timestamp.now(),
+    var footerButton: String = "",
+    var footerText: String = "",
 ) : RecyclerItem(), AdapterClick, Serializable
 
 object FeedCell : Cell<RecyclerItem>() {

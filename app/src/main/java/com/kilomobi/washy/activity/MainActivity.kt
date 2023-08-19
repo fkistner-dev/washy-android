@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity(),
         setSupportActionBar(binding.toolbar)
         firebaseAnalytics = Firebase.analytics
 
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_controller_fragment) as NavHostFragment
         navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(

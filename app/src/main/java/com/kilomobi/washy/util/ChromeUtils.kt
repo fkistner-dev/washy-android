@@ -28,7 +28,8 @@ class ChromeUtils {
             if (context.isPackageInstalled(packageName)) {
                 // if chrome is available use chrome custom tabs
                 customBuilder.intent.setPackage(packageName)
-                customBuilder.launchUrl(context, Uri.parse(context.getString(R.string.privacy_url)))
+                val urlUri = Uri.parse(url.ifEmpty { context.getString(R.string.privacy_url) })
+                customBuilder.launchUrl(context, urlUri)
             } else {
                 // if not available use WebView to launch the url
                 findNavController(view).navigate(R.id.action_homeFragment_to_tosFragment, bundleOf(Pair("url", url)))

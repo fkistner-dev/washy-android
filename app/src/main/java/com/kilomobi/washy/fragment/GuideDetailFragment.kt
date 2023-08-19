@@ -68,7 +68,7 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_recycler_guide_lis
             fillView()
         } else if (arguments != null && requireArguments()["feed"] != null && requireArguments()["feed"] is Feed) {
             val feed = requireArguments()["feed"] as Feed
-            retrieveGuide(feed.guideLink)
+            retrieveGuide(feed.guideLink.ifEmpty { feed.linkToAction })
         }
     }
 

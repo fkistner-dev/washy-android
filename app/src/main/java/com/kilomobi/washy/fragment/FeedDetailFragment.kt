@@ -7,8 +7,10 @@ import android.text.Spanned
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
@@ -42,14 +44,13 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val moveTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-
-        sharedElementEnterTransition = moveTransition
-        sharedElementReturnTransition = moveTransition
-        postponeEnterTransition()
-
         super.onViewCreated(view, savedInstanceState)
 
         if (!viewIsCreated) {
+            sharedElementEnterTransition = moveTransition
+            sharedElementReturnTransition = moveTransition
+            postponeEnterTransition()
+
             binding = LayoutFeedDetailBinding.bind(view)
             initialize()
             viewIsCreated = true
@@ -94,7 +95,6 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
                 )
             }
 
-
             // Shared image transition
             v.findViewById<View>(R.id.view_dark)?.apply {
                 transitionName = "big_darken_" + feed.hashCode().toString().ifEmpty { "nullDarken" }
@@ -124,12 +124,20 @@ class FeedDetailFragment : FragmentEmptyView(R.layout.layout_feed_detail) {
             // nice little animation for the footer call to action
             v.findViewById<CardView>(R.id.cardview_footer).apply {
                 if (feed.linkToAction.isNotEmpty()) {
+                    v.findViewById<TextView>(R.id.footer_text).text = feed.footerText
+                    v.findViewById<TextView>(R.id.footer_button).text = feed.footerButton.ifEmpty { getString(R.string.call_to_action_feed) }
+
                     this.y += 200
                     this.animate()
                         .setDuration(300)
                         .translationYBy(-200F)
-                    this.setOnClickListener {
-                        ChromeUtils.openChromeTab(context, this, feed.linkToAction)
+                    v.findViewById<AppCompatButton>(R.id.footer_button).setOnClickListener {
+                        if (feed.linkToAction.startsWith("http"))
+                            ChromeUtils.openChromeTab(context, this, feed.linkToAction)
+                        else {
+                            val bundle = bundleOf("feed" to feed)
+                            navigate(currentView, R.id.action_feedDetailFragment_to_guideDetailFragment, bundle)
+                        }
                     }
                 } else {
                     this.visibility = View.GONE

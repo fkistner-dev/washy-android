@@ -236,7 +236,15 @@
         android:id="@+id/feedDetailFragment"
         android:name="com.kilomobi.washy.fragment.FeedDetailFragment"
         android:label=""
-        tools:layout="@layout/layout_merchant_detail" />
+        tools:layout="@layout/layout_feed_detail">
+
+        <action android:id="@+id/action_feedDetailFragment_to_guideDetailFragment"
+            app:destination="@id/guideDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/addRatingFragment"
