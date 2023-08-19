@@ -77,9 +77,9 @@ class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.l
                                 fab.isEnabled = false
                                 Snackbar.make(requireView(), getString(R.string.snack_syncing_message), Snackbar.LENGTH_LONG).show()
                             } else {
-                                findNavController().navigate(
-                                    R.id.action_merchantDetailFragment_to_addRatingFragment,
-                                    bundle)
+                                currentView?.let { view ->
+                                    navigate(view, R.id.action_merchantDetailFragment_to_addRatingFragment, bundle)
+                                }
                             }
                         }
                     }

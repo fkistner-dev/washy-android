@@ -22,7 +22,6 @@ import androidx.core.location.LocationManagerCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -314,7 +313,7 @@ class MapFragment : FragmentEmptyView(R.layout.fragment_map_cardview), OnMapRead
         cardview.setOnClickListener {
             if (merchant != null) {
                 val bundle = bundleOf("merchant" to merchant)
-                findNavController().navigate(R.id.action_mapFragment_to_merchantDetailFragment, bundle)
+                currentView?.let { view -> navigate(view, R.id.action_mapFragment_to_merchantDetailFragment, bundle) }
             } else {
                 marker.remove()
                 Snackbar.make(requireView(), getString(R.string.error_merchant_marker), Snackbar.LENGTH_SHORT).show()

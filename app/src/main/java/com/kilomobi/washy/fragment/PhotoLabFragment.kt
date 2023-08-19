@@ -68,7 +68,7 @@ class PhotoLabFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.lay
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_add_photo -> {
-                findNavController().navigate(R.id.action_photolabFragment_to_addPhotoFragment)
+                navigate(currentView, R.id.action_photolabFragment_to_addPhotoFragment, null)
                 return true
             }
             android.R.id.home -> findNavController().popBackStack()

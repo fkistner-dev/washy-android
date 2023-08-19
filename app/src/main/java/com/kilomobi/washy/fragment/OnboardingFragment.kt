@@ -9,9 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.kilomobi.washy.model.OnboardingItem
@@ -23,7 +21,7 @@ import com.kilomobi.washy.adapter.OnboardingAdapter
 import com.kilomobi.washy.databinding.LayoutOnboardingBinding
 import com.kilomobi.washy.fragment.StartFragment.Companion.COMPLETED_ONBOARDING_PREF_NAME
 
-class OnboardingFragment : Fragment(), AdapterListener {
+class OnboardingFragment : BaseFragment(), AdapterListener {
 
     private lateinit var mainActivityDelegate: MainActivityDelegate
     private lateinit var binding: LayoutOnboardingBinding
@@ -111,7 +109,7 @@ class OnboardingFragment : Fragment(), AdapterListener {
                 val navOptions = NavOptions.Builder()
                     .setPopUpTo(R.id.onboardingFragment, true)
                     .build()
-                findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment, null, navOptions)
+                navigate(view, R.id.action_onboardingFragment_to_homeFragment, null, navOptions)
             }
         }
     }

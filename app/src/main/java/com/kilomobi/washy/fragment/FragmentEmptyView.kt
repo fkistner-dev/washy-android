@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 
-abstract class FragmentEmptyView(private val resourceInt: Int) : Fragment() {
+abstract class FragmentEmptyView(private val resourceInt: Int) : BaseFragment() {
 
     // Return class name, useful for debug purpose
     companion object {

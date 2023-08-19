@@ -7,7 +7,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -76,15 +75,15 @@ class GuideListFragment : FragmentEmptyView(R.layout.layout_recycler_guide_list)
     override fun listen(click: AdapterClick?, holder: RecyclerView.ViewHolder?) {
         val bundle = bundleOf("guide" to click)
 
-        holder?.let {
-            if (it is GuideListViewHolder && click is Guide) {
-                val imageView = it.itemView.findViewById<ImageView>(R.id.image)
+        holder?.let { item ->
+            if (item is GuideListViewHolder && click is Guide) {
+                val imageView = item.itemView.findViewById<ImageView>(R.id.image)
                 ViewCompat.setTransitionName(imageView, "small_" + click.photo)
                 val extras = FragmentNavigatorExtras(
                     imageView to "big_" + click.photo,
                 )
 
-                findNavController().navigate(R.id.action_guideListFragment_to_guideDetailFragment, bundle, null, extras)
+                navigate(currentView, R.id.action_guideListFragment_to_guideDetailFragment, bundle)
             }
         }
     }

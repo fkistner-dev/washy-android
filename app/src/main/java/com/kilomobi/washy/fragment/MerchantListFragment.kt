@@ -110,6 +110,6 @@ class MerchantListFragment : FragmentEmptyView(R.layout.layout_recycler_list),
 
     override fun listen(click: AdapterClick?, holder: RecyclerView.ViewHolder?) {
         val bundle = bundleOf("merchant" to click)
-        findNavController().navigate(R.id.action_merchantListFragment_to_merchantDetailFragment, bundle)
+        navigate(currentView, R.id.action_merchantListFragment_to_merchantDetailFragment, bundle)
     }
 }

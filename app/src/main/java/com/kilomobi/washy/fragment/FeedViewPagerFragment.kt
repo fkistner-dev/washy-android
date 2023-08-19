@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import androidx.viewpager2.widget.ViewPager2
@@ -133,7 +132,7 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
 
     private fun navigateToGuideDetail(feed: Feed) {
         val bundle = bundleOf("feed" to feed)
-        findNavController().navigate(R.id.action_homeFragment_to_guideDetailFragment, bundle, null)
+        navigate(currentView, R.id.action_homeFragment_to_guideDetailFragment, bundle)
     }
     private fun navigateToFeedDetail(holder: FeedPagerAdapter.FeedViewHolder, feed: Feed) {
         val bundle = bundleOf("feed" to feed)
@@ -151,14 +150,14 @@ class FeedViewPagerFragment : FragmentEmptyView(R.layout.layout_feed_viewpager),
         ViewCompat.setTransitionName(holder.text, "small_" + feed.cardviewText.ifEmpty { "nullText" })
 
         val extras = FragmentNavigatorExtras(darkViewPair, photoPair, circlePair, headerPair, textPair)
-        findNavController().navigate(R.id.action_homeFragment_to_feedDetailFragment, bundle, null, extras)
+        navigate(currentView, R.id.action_homeFragment_to_feedDetailFragment, bundle, navExtra = extras)
     }
 
     private fun setExitToFullScreenTransition() {
-        exitTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.doggo_list_exit_transition)
+        exitTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.feed_list_exit_transition)
     }
 
     private fun setReturnFromFullScreenTransition() {
-        reenterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.doggo_list_return_transition)
+        reenterTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.feed_list_return_transition)
     }
 }

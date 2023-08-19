@@ -1,17 +1,26 @@
 package com.kilomobi.washy.fragment
 
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.Navigator
 import androidx.navigation.fragment.findNavController
 
-class BaseFragment : Fragment() {
-    fun navigate(destination: NavDirections, extraInfo: FragmentNavigator.Extras) =
-        with(findNavController()) {
-            // 1
-            currentDestination?.getAction(destination.actionId)
-                ?.let {
-                    navigate(destination, extraInfo) //2 }
-                }
+open class BaseFragment : Fragment() {
+    open fun navigate(view: View?, @IdRes destination: Int, args: Bundle?, navOptions: NavOptions? = null, navExtra: Navigator.Extras? = null) {
+        try {
+            // Best way to ensure proper navigation is to rely on view, otherwise get generic navController
+            if (view != null) {
+                findNavController(view).navigate(destination, args, navOptions, navExtra)
+            } else {
+                findNavController().navigate(destination, args, navOptions, navExtra)
+            }
+        } catch (e: IllegalArgumentException) {
+            Log.e("Base", "Multiple navigation attempts handled.")
         }
+    }
 }
