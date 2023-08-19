@@ -208,7 +208,9 @@ class MainActivity : AppCompatActivity(),
         Snackbar.make(binding.navView, getString(R.string.common_welcome_user, user.displayName), Snackbar.LENGTH_LONG).show()
     }
 
-    override fun onAuthenticationCancel() { }
+    override fun onAuthenticationCancel() {
+        Snackbar.make(binding.navView, getString(R.string.common_auth_failed), Snackbar.LENGTH_LONG).show()
+    }
 
     private fun assignUserToHeader(user: FirebaseUser?) {
         val headerView: View = binding.navView.getHeaderView(0)
