@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/text_small"
+    android:layout_marginTop="@dimen/text_margin"
     app:cardCornerRadius="8dp"
     app:strokeColor="@color/black"
     app:strokeWidth="1dp">
@@ -43,8 +43,10 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="-8dp"
+                app:cardBackgroundColor="@color/colorGrey100"
                 app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@color/colorGrey100">
+                app:cardElevation="2dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/warning"

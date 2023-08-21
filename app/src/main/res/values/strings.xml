@@ -177,7 +177,7 @@
     <string name="input_error_no_service">Veuillez sélectionner un service que vous proposez</string>
     <string name="input_error_no_radio">Veuillez sélectionner une des options : [oui] ou [non]</string>
     <string name="input_error_no_geohash">L\'adresse saisi est invalide</string>
-    <string name="input_merchant_create_success">Félicitation, vous êtes maintenant un Washer</string>
+    <string name="input_merchant_create_success">Félicitation, vous êtes maintenant un Washer !</string>
     <string name="input_merchant_create_error">Un problème est survenu, vérifier votre connexion</string>
     <string name="input_merchant_update_success">Mis à jour avec succès</string>
     <string name="input_merchant_delete_success">Suppression avec succès</string>

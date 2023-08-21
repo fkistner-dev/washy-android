@@ -13,7 +13,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
-import com.kilomobi.washy.databinding.LayoutRecyclerListBinding
+import com.kilomobi.washy.databinding.LayoutRecyclerGuideListBinding
 import com.kilomobi.washy.model.Guide
 import com.kilomobi.washy.model.GuideListAdapter
 import com.kilomobi.washy.recycler.RecyclerItem
@@ -24,7 +24,7 @@ class GuideListFragment : FragmentEmptyView(R.layout.layout_recycler_guide_list)
     AdapterListener {
 
     private lateinit var shimmerLayout: ShimmerFrameLayout
-    private lateinit var binding: LayoutRecyclerListBinding
+    private lateinit var binding: LayoutRecyclerGuideListBinding
     private val listAdapter by lazy {
         GuideListAdapter(
             this
@@ -35,7 +35,7 @@ class GuideListFragment : FragmentEmptyView(R.layout.layout_recycler_guide_list)
         super.onViewCreated(view, savedInstanceState)
 
         if (!viewIsCreated) {
-            binding = LayoutRecyclerListBinding.bind(view)
+            binding = LayoutRecyclerGuideListBinding.bind(view)
             shimmerLayout = view.findViewById(R.id.shimmer_layout)
             initialize()
             viewIsCreated = true

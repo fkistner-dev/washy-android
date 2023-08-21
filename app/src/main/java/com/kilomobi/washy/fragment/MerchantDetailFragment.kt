@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivity
 import com.kilomobi.washy.activity.MainActivityDelegate
@@ -22,6 +23,7 @@ import com.kilomobi.washy.databinding.LayoutMerchantDetailBinding
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
 import com.kilomobi.washy.viewmodel.MerchantViewModel
+import com.kilomobi.washy.viewmodel.UserViewModel
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail) {
@@ -64,13 +66,27 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
             setAdapter()
         } else {
             val storeId = findNavController().previousBackStackEntry?.arguments?.getString(MainActivity.STACK_USER_STORE_ID)
-
-            storeId?.let {
+            if (!storeId.isNullOrEmpty()) {
                 val merchantViewModel = MerchantViewModel()
-                merchantViewModel.getMerchant(it)?.observe(requireActivity()) { userStore ->
+                merchantViewModel.getMerchant(storeId)?.observe(requireActivity()) { userStore ->
                     merchant = userStore
                     fillView()
                     setAdapter()
+                }
+            } else {
+                // Fallback to user
+                val viewModel = UserViewModel()
+                FirebaseAuth.getInstance().uid?.let { userId ->
+                    viewModel.getUser(userId).observe(requireActivity()) { user ->
+                        user?.store?.let {
+                            val merchantViewModel = MerchantViewModel()
+                            merchantViewModel.getMerchant(it)?.observe(requireActivity()) { userStore ->
+                                merchant = userStore
+                                fillView()
+                                setAdapter()
+                            }
+                        }
+                    }
                 }
             }
         }

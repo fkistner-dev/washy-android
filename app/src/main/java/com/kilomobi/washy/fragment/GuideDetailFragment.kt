@@ -12,15 +12,14 @@ import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
-import com.kilomobi.washy.databinding.LayoutRecyclerListBinding
+import com.kilomobi.washy.databinding.LayoutRecyclerGuideDetailBinding
 import com.kilomobi.washy.model.Feed
 import com.kilomobi.washy.model.Guide
 import com.kilomobi.washy.model.GuideDetailAdapter
 import com.kilomobi.washy.model.InnerGuide
 import com.kilomobi.washy.viewmodel.GuideListViewModel
-import java.lang.Exception
 
-class GuideDetailFragment : FragmentEmptyView(R.layout.layout_recycler_guide_list), AdapterListener {
+class GuideDetailFragment : FragmentEmptyView(R.layout.layout_recycler_guide_detail), AdapterListener {
 
     companion object {
         const val TEXTS_KEY = "texts"
@@ -32,7 +31,7 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_recycler_guide_lis
     private lateinit var shimmerLayout: ShimmerFrameLayout
     private lateinit var mainActivityDelegate: MainActivityDelegate
     private lateinit var guide: Guide
-    private lateinit var binding: LayoutRecyclerListBinding
+    private lateinit var binding: LayoutRecyclerGuideDetailBinding
     private val listAdapter by lazy { GuideDetailAdapter(this) }
 
     override fun onCreateView(
@@ -55,7 +54,7 @@ class GuideDetailFragment : FragmentEmptyView(R.layout.layout_recycler_guide_lis
         super.onViewCreated(view, savedInstanceState)
 
         if (!viewIsCreated) {
-            binding = LayoutRecyclerListBinding.bind(view)
+            binding = LayoutRecyclerGuideDetailBinding.bind(view)
             shimmerLayout = view.findViewById(R.id.shimmer_layout)
             initialize()
             viewIsCreated = true

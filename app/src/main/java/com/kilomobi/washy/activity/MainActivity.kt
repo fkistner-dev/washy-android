@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var view: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity(),
         setupNavigationMenu()
         setupNavigationItem()
         binding.navView.setNavigationItemSelectedListener(this)
-
     }
 
     private fun setupNavigationMenu() {
@@ -110,8 +109,10 @@ class MainActivity : AppCompatActivity(),
     private fun handleWasherMenu(menu: android.view.Menu, user: User?) {
         if (user == null || user.store.isEmpty()) {
             menu.findItem(R.id.action_become_washer).isVisible = true
+            menu.findItem(R.id.action_store_washer).isVisible = false
         } else {
             menu.findItem(R.id.action_store_washer).isVisible = true
+            menu.findItem(R.id.action_become_washer).isVisible = false
         }
     }
     override fun onBackPressed() {
