@@ -215,7 +215,7 @@ class MainActivity : AppCompatActivity(),
 
     private fun assignUserToHeader(user: FirebaseUser?) {
         val headerView: View = binding.navView.getHeaderView(0)
-
+        headerView.findViewById<TextView>(R.id.versionText).text = BuildConfig.VERSION_CODE.toString()
         if (user != null) {
             headerView.findViewById<FrameLayout>(R.id.profileFrame).visibility = View.VISIBLE
             if (user.photoUrl != null) {
