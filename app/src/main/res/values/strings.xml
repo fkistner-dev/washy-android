@@ -109,7 +109,7 @@
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_image_content_description">Image</string>
-    <string name="common_welcome_user">Bienvenue %s</string>
+    <string name="common_welcome_user">Démo - Bienvenue %s</string>
     <string name="common_auth_failed">Echec de l\'authentification</string>
     <string name="common_disconnect_success">Vous êtes maintenant déconnecté</string>
     <string name="common_user">Utilisateur</string>

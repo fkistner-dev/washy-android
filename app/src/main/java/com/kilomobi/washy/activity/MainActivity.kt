@@ -170,9 +170,7 @@ class MainActivity : AppCompatActivity(),
                 true
             }
             R.id.action_connect -> {
-                if (supportFragmentManager.currentNavigationFragment !is LoginFragmentHelper) {
-                    navController.navigate(R.id.action_homeFragment_to_identificationFragment)
-                }
+                onAuthenticationConnected(WashyAuth.generateUid())
                 true
             }
             R.id.action_disconnect -> {
@@ -213,7 +211,6 @@ class MainActivity : AppCompatActivity(),
 
     private fun assignUserToHeader(user: String?) {
         val headerView: View = binding.navView.getHeaderView(0)
-        headerView.findViewById<TextView>(R.id.versionText).text = BuildConfig.VERSION_CODE.toString()
         if (user != null) {
             headerView.findViewById<FrameLayout>(R.id.profileFrame).visibility = View.VISIBLE
             // Disable FirebaseAuth in order to publish the app in open beta on Google Play

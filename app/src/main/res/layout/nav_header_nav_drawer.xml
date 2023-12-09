@@ -43,15 +43,6 @@
       android:gravity="center_vertical"
       android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-  <TextView
-      android:id="@+id/versionText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@id/profileText"
-      android:layout_toEndOf="@id/profileText"
-      android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-      tools:text="Version 1"/>
-
   <ImageView
       android:id="@+id/washy"
       android:layout_width="wrap_content"

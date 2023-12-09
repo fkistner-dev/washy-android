@@ -124,10 +124,6 @@
         </action>
 
         <action
-            android:id="@+id/action_homeFragment_to_identificationFragment"
-            app:destination="@id/identificationFragment" />
-
-        <action
             android:id="@+id/action_homeFragment_to_tosFragment"
             app:destination="@id/termOfServiceFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -251,12 +247,5 @@
         android:name="com.kilomobi.washy.fragment.AddRatingFragment"
         android:label=""
         tools:layout="@layout/add_rating_layout">
-    </fragment>
-
-    <fragment
-        android:id="@+id/identificationFragment"
-        android:name="com.kilomobi.washy.fragment.IdentificationFragment"
-        android:label=""
-        tools:layout="@layout/activity_firebase_ui">
     </fragment>
 </navigation>
