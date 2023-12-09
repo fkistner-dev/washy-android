@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 import com.kilomobi.washy.adapter.AdapterClick
 import com.kilomobi.washy.adapter.AdapterListener
@@ -27,6 +26,7 @@ import com.kilomobi.washy.databinding.LayoutRecyclerListBinding
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Rating
 import com.kilomobi.washy.recycler.RecyclerItem
+import com.kilomobi.washy.util.WashyAuth
 import com.kilomobi.washy.viewmodel.MerchantViewModel
 
 class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.layout.layout_recycler_list), AdapterListener {
@@ -54,10 +54,10 @@ class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.l
 
             // Add Fab
             if (isConnected()) {
-                val user = FirebaseAuth.getInstance().currentUser
+                val userId = WashyAuth.getUid()
 
                 // Washer cannot evaluate itself
-                if (user?.uid != merchant?.adminId) {
+                if (userId != merchant?.adminId) {
                     val context: Context = ContextThemeWrapper(context, R.style.FabAddButton)
                     fab = FloatingActionButton(context)
                     fab.layoutParams = ViewGroup.LayoutParams(
@@ -159,7 +159,7 @@ class RatingListFragment(val merchant: Merchant? = null) : FragmentEmptyView(R.l
                 if (ratingList != null && ratingList.isNotEmpty()) {
                     listAdapter.submitList(ratingList as List<RecyclerItem>?)
                     if (isConnected()) {
-                        userRating = ratingList.find { it.userId == FirebaseAuth.getInstance().uid }
+                        userRating = ratingList.find { it.userId == WashyAuth.getUid() }
                         userRating?.let { fab.setImageIcon(Icon.createWithResource(context, android.R.drawable.ic_menu_edit)) }
                     }
                 } else {

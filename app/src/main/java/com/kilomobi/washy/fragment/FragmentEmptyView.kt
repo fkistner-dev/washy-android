@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
+import com.kilomobi.washy.util.WashyAuth
 
 abstract class FragmentEmptyView(private val resourceInt: Int) : BaseFragment() {
 
@@ -44,7 +43,7 @@ abstract class FragmentEmptyView(private val resourceInt: Int) : BaseFragment() 
     }
 
     fun isConnected(requireSnack: Boolean = false) : Boolean {
-        return if (!FirebaseAuth.getInstance().uid.isNullOrBlank()) {
+        return if (!WashyAuth.getUid().isNullOrBlank()) {
             true
         } else if (requireSnack) {
             Snackbar.make(requireView(), R.string.common_feature_require_authentication, Snackbar.LENGTH_LONG).show()

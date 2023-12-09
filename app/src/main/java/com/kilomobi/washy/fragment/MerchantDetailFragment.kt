@@ -15,13 +15,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivity
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.databinding.LayoutMerchantDetailBinding
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
+import com.kilomobi.washy.util.WashyAuth
 import com.kilomobi.washy.viewmodel.MerchantViewModel
 import com.kilomobi.washy.viewmodel.UserViewModel
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
@@ -76,7 +76,7 @@ class MerchantDetailFragment : FragmentEmptyView(R.layout.layout_merchant_detail
             } else {
                 // Fallback to user
                 val viewModel = UserViewModel()
-                FirebaseAuth.getInstance().uid?.let { userId ->
+                WashyAuth.getUid()?.let { userId ->
                     viewModel.getUser(userId).observe(requireActivity()) { user ->
                         user?.store?.let {
                             val merchantViewModel = MerchantViewModel()

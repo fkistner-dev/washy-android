@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.activity.UserListener
+import com.kilomobi.washy.util.WashyAuth
 
 class IdentificationFragment : LoginFragmentHelper() {
 
@@ -36,7 +36,7 @@ class IdentificationFragment : LoginFragmentHelper() {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
+                val user = WashyAuth.getUid()
                 user?.let { userListener.onAuthenticationConnected(it) }
             } else {
                 userListener.onAuthenticationCancel()

@@ -18,13 +18,13 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.GeoPoint
 import com.kilomobi.washy.R
 import com.kilomobi.washy.activity.MainActivityDelegate
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Service
 import com.kilomobi.washy.model.User
+import com.kilomobi.washy.util.WashyAuth
 import com.kilomobi.washy.viewmodel.MerchantViewModel
 import com.kilomobi.washy.viewmodel.UserViewModel
 import org.imperiumlabs.geofirestore.GeoLocation
@@ -276,7 +276,7 @@ class BecomeWasherFragment : Fragment() {
         if (isValid) {
             val merchantViewModel = MerchantViewModel()
             merchant.active = true
-            FirebaseAuth.getInstance().uid.let {
+            WashyAuth.getUid().let {
                 if (it != null) {
                     merchant.adminId = it
                     merchantViewModel.addMerchant(merchant).observe(requireActivity()) { merchantRef ->

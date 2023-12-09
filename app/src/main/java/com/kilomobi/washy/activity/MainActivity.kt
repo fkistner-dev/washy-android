@@ -17,13 +17,10 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import com.kilomobi.washy.BuildConfig
@@ -32,6 +29,7 @@ import com.kilomobi.washy.databinding.ActivityMainBinding
 import com.kilomobi.washy.fragment.*
 import com.kilomobi.washy.model.User
 import com.kilomobi.washy.util.ChromeUtils
+import com.kilomobi.washy.util.WashyAuth
 import com.kilomobi.washy.util.currentNavigationFragment
 import com.kilomobi.washy.viewmodel.UserViewModel
 
@@ -85,13 +83,13 @@ class MainActivity : AppCompatActivity(),
 
     private fun setupNavigationItem() {
         val menu = binding.navView.menu
-        val isConnected = !FirebaseAuth.getInstance().uid.isNullOrBlank()
+        val isConnected = !WashyAuth.getUid().isNullOrBlank()
         menu.clear()
 
         if (isConnected) {
             binding.navView.inflateMenu(R.menu.menu_nav_drawer)
             val viewModel = UserViewModel()
-            FirebaseAuth.getInstance().uid?.let { userId ->
+            WashyAuth.getUid()!!.let { userId ->
                 viewModel.getUser(userId).observe(this) { user ->
                     handleWasherMenu(menu, user)
                     navController.currentBackStackEntry?.arguments?.putString(STACK_USER_STORE_ID, user?.store)
@@ -101,7 +99,7 @@ class MainActivity : AppCompatActivity(),
             binding.navView.inflateMenu(R.menu.menu_nav_drawer_disconnected)
         }
 
-        assignUserToHeader(FirebaseAuth.getInstance().currentUser)
+        assignUserToHeader(WashyAuth.getUid())
         val headerView: View = binding.navView.getHeaderView(0)
         headerView.findViewById<ImageView>(R.id.washy).visibility = if (isConnected) View.GONE else View.VISIBLE
     }
@@ -196,7 +194,7 @@ class MainActivity : AppCompatActivity(),
         builder.setTitle(resources.getString(R.string.dialog_disconnect_title))
         builder.setMessage(resources.getString(R.string.dialog_disconnect_text))
         builder.setPositiveButton(resources.getString(R.string.common_yes)) { _, _ ->
-            FirebaseAuth.getInstance().signOut()
+            WashyAuth.resetUid()
             setupNavigationItem()
             Snackbar.make(binding.navView, getString(R.string.common_disconnect_success), Snackbar.LENGTH_LONG).show()
         }
@@ -204,28 +202,29 @@ class MainActivity : AppCompatActivity(),
         builder.show()
     }
 
-    override fun onAuthenticationConnected(user: FirebaseUser) {
+    override fun onAuthenticationConnected(user: String) {
         setupNavigationItem()
-        Snackbar.make(binding.navView, getString(R.string.common_welcome_user, user.displayName), Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.navView, getString(R.string.common_welcome_user, user), Snackbar.LENGTH_LONG).show()
     }
 
     override fun onAuthenticationCancel() {
         Snackbar.make(binding.navView, getString(R.string.common_auth_failed), Snackbar.LENGTH_LONG).show()
     }
 
-    private fun assignUserToHeader(user: FirebaseUser?) {
+    private fun assignUserToHeader(user: String?) {
         val headerView: View = binding.navView.getHeaderView(0)
         headerView.findViewById<TextView>(R.id.versionText).text = BuildConfig.VERSION_CODE.toString()
         if (user != null) {
             headerView.findViewById<FrameLayout>(R.id.profileFrame).visibility = View.VISIBLE
-            if (user.photoUrl != null) {
+            // Disable FirebaseAuth in order to publish the app in open beta on Google Play
+            /*if (user.photoUrl != null) {
                 Glide.with(applicationContext)
                     .load(user.photoUrl)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(headerView.findViewById(R.id.profilePic))
-            }
+            }*/
 
-            headerView.findViewById<TextView>(R.id.profileText).text = user.displayName
+            headerView.findViewById<TextView>(R.id.profileText).text = user
         } else {
             headerView.findViewById<FrameLayout>(R.id.profileFrame).visibility = View.GONE
             Glide.with(applicationContext)

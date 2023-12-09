@@ -15,13 +15,13 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
 import com.kilomobi.washy.R
 import com.kilomobi.washy.fragment.RatingListFragment.Companion.STACK_CURRENT_RATING
 import com.kilomobi.washy.fragment.RatingListFragment.Companion.STACK_IS_DELETE_RATING
 import com.kilomobi.washy.fragment.RatingListFragment.Companion.STACK_PREVIOUS_RATING
 import com.kilomobi.washy.model.Merchant
 import com.kilomobi.washy.model.Rating
+import com.kilomobi.washy.util.WashyAuth
 import com.kilomobi.washy.viewmodel.MerchantViewModel
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
@@ -116,11 +116,11 @@ class AddRatingFragment : FragmentEmptyView(R.layout.add_rating_layout) {
 
         if (isValid) {
             val viewModel = MerchantViewModel()
-            val user = FirebaseAuth.getInstance().currentUser
+            val user = WashyAuth.getUid()
 
             val rating = Rating()
-            rating.userId = user?.uid ?: ""
-            rating.userName = user?.displayName ?: getString(R.string.common_user)
+            rating.userId = user ?: ""
+            rating.userName = getString(R.string.common_user)
             rating.text = inputRatingText.editText?.text.toString()
             rating.createdAt = Timestamp.now()
             rating.stars = inputRatingBar.rating

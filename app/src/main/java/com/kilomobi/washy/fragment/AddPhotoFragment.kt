@@ -12,13 +12,13 @@ import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.kilomobi.washy.R
 import com.kilomobi.washy.databinding.AddPhotoLayoutBinding
+import com.kilomobi.washy.util.WashyAuth
 import java.io.IOException
 import java.util.*
 
@@ -106,8 +106,8 @@ class AddPhotoFragment : FragmentEmptyView(R.layout.add_photo_layout) {
 
         val data = HashMap<String, Any>()
         data["imageUrl"] = uri
-        if (FirebaseAuth.getInstance().currentUser != null) {
-            data["user"] = FirebaseAuth.getInstance().currentUser?.uid!!
+        if (WashyAuth.getUid() != null) {
+            data["user"] = WashyAuth.getUid()!!
         }
 
         db.collection("posts")
