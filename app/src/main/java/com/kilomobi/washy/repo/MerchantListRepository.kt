@@ -7,6 +7,7 @@ import com.google.firebase.firestore.GeoPoint
 import com.kilomobi.washy.model.Merchant
 import org.imperiumlabs.geofirestore.GeoFirestore
 import org.imperiumlabs.geofirestore.extension.getAtLocation
+import kotlin.random.Random
 
 class MerchantListRepository : BaseRepository() {
 
@@ -29,6 +30,7 @@ class MerchantListRepository : BaseRepository() {
                 for (document in result) {
                     val merchant = document.toObject(Merchant::class.java)
                     merchant.reference = document.id
+                    merchant.avgRating = Random.nextInt(3,5).toFloat()
                     tmpListMerchant.add(merchant)
                 }
                 merchantList.value = tmpListMerchant
