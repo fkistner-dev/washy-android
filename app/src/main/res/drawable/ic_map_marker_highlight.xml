@@ -1,3 +1,11 @@
+<!--
+  ~ Created by fkistner.
+  ~ fabrice.kistner.pro@gmail.com
+  ~ Last modified on 16/12/2023 19:40.
+  ~ Copyright (c) 2023.
+  ~ All rights reserved.
+  -->
+
 <vector android:height="40dp" android:tint="#004992"
     android:viewportHeight="24" android:viewportWidth="24"
     android:width="40dp" xmlns:android="http://schemas.android.com/apk/res/android">
